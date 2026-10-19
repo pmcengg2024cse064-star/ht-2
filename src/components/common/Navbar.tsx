@@ -43,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [activeMegaMenu, setActiveMegaMenu] = useState<'services' | 'courses' | null>(null);
   const location = useLocation();
   const megaMenuTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const coursesDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +58,20 @@ export const Navbar: React.FC<NavbarProps> = ({
     setActiveMegaMenu(null);
     setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  // Close Courses dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        coursesDropdownRef.current && 
+        !coursesDropdownRef.current.contains(event.target as Node)
+      ) {
+        setActiveMegaMenu((prev) => (prev === 'courses' ? null : prev));
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleMouseEnter = (menu: 'services' | 'courses') => {
     if (megaMenuTimeoutRef.current) clearTimeout(megaMenuTimeoutRef.current);
@@ -82,33 +97,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      {/* 1. TOP UNPINNED TRUST BAR */}
-      <div className="w-full bg-slate-100/95 border-b border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8 text-[10px] sm:text-[11px] font-mono text-slate-700 shadow-2xs">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          
-          <div className="flex items-center space-x-2 sm:space-x-3 overflow-x-auto scrollbar-none py-0.5">
-            <span className="inline-flex items-center space-x-1.5 text-amber-800 font-bold shrink-0">
-              <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
-              <span>EC-Council Accredited Training Center</span>
-            </span>
-            <span className="text-slate-300 hidden sm:inline">|</span>
-            <span className="text-slate-900 font-bold shrink-0">
-              TANCCAO Secretariat
-            </span>
-            <span className="text-slate-300 hidden md:inline">|</span>
-            <span className="text-slate-600 hidden md:inline shrink-0 font-medium">
-              2 Cyber Patents &bull; 3,398 Google Reviews (4.9★) &bull; TN Cyber Cell Advisor
-            </span>
-          </div>
-
-          <div className="hidden sm:flex items-center space-x-2 text-[10px] text-amber-800 font-semibold">
-            <Sparkles className="w-3 h-3 text-amber-700" />
-            <span>HQ &amp; Cyber Range: Ganapathy, Coimbatore</span>
-          </div>
-
-        </div>
-      </div>
-
       {/* 2. STICKY HEADER */}
       <header className="sticky top-0 z-50 w-full font-sans shadow-md">
         
@@ -118,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             
             <div className="flex items-center space-x-3 text-slate-700">
               <span className="hidden sm:inline-flex items-center space-x-1">
-                <MapPin className="w-3 h-3 text-amber-700" />
+                <MapPin className="w-3 h-3 text-[#881337]" />
                 <span className="font-sans font-semibold text-slate-800">Ganapathy, Coimbatore</span>
               </span>
               <span className="text-slate-300 hidden sm:inline">|</span>
@@ -134,9 +122,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center space-x-3 sm:space-x-4 shrink-0 font-semibold">
               <a 
                 href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`} 
-                className="transition-colors flex items-center space-x-1 text-amber-800 hover:text-amber-950 font-bold"
+                className="transition-colors flex items-center space-x-1 text-[#881337] hover:text-[#5B0E1B] font-bold"
               >
-                <Phone className="w-3 h-3 text-amber-700" />
+                <Phone className="w-3 h-3 text-[#881337]" />
                 <span>{COMPANY_FACTS.phones[0]}</span>
               </a>
 
@@ -144,9 +132,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <a 
                 href={`tel:${COMPANY_FACTS.phones[1].replace(/\s+/g, '')}`} 
-                className="transition-colors hidden md:flex items-center space-x-1 text-amber-800 hover:text-amber-950 font-semibold"
+                className="transition-colors hidden md:flex items-center space-x-1 text-[#881337] hover:text-[#5B0E1B] font-semibold"
               >
-                <Phone className="w-3 h-3 text-amber-700" />
+                <Phone className="w-3 h-3 text-[#881337]" />
                 <span>{COMPANY_FACTS.phones[1]}</span>
               </a>
 
@@ -154,9 +142,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <a 
                 href={`mailto:${COMPANY_FACTS.emails[0]}`} 
-                className="transition-colors hidden lg:flex items-center space-x-1 text-slate-700 hover:text-amber-800 font-medium"
+                className="transition-colors hidden lg:flex items-center space-x-1 text-slate-700 hover:text-[#881337] font-medium"
               >
-                <Mail className="w-3 h-3 text-amber-700" />
+                <Mail className="w-3 h-3 text-[#881337]" />
                 <span>{COMPANY_FACTS.emails[0]}</span>
               </a>
             </div>
@@ -181,7 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   to="/"
                   className="flex items-center space-x-3 group text-left cursor-pointer"
                 >
-                  <div className="relative flex items-center justify-center w-11 h-11 rounded-xl overflow-hidden shadow-md border border-slate-200 group-hover:border-[#9E721D] transition-all bg-white p-1">
+                  <div className="relative flex items-center justify-center w-11 h-11 rounded-xl overflow-hidden shadow-md border border-slate-200 group-hover:border-[#881337] transition-all bg-white p-1">
                     <img
                       src="/images/hackup_logo.png"
                       alt="Hackup Technology Official Logo"
@@ -191,15 +179,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   <div>
                     <div className="flex items-center space-x-1.5">
-                      <span className="font-serif-header font-extrabold text-lg sm:text-xl tracking-wider text-slate-900 group-hover:text-[#9E721D] transition-colors">
+                      <span className="font-serif-header font-extrabold text-lg sm:text-xl tracking-wider text-slate-900 group-hover:text-[#881337] transition-colors">
                         HACKUP
                       </span>
-                      <span className="font-serif-header font-bold text-sm sm:text-base tracking-widest text-[#9E721D]">
+                      <span className="font-serif-header font-bold text-sm sm:text-base tracking-widest text-[#881337]">
                         TECHNOLOGY
                       </span>
                     </div>
-                    <div className="font-mono text-[9px] uppercase tracking-widest text-slate-500 -mt-0.5 font-bold">
-                      CYBER DEFENSE &bull; ACADEMY &bull; R&amp;D
+                    <div className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-slate-500 -mt-0.5 font-bold">
+                      Art of Security
                     </div>
                   </div>
                 </Link>
@@ -214,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   end
                   className={({ isActive }) =>
                     `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#9E721D] font-bold bg-amber-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
                     }`
                   }
                 >
@@ -232,16 +220,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className={({ isActive }) =>
                       `px-3 py-2 rounded-lg transition-colors inline-flex items-center space-x-1 ${
                         isActive || location.pathname.startsWith('/services')
-                          ? 'text-[#9E721D] font-bold bg-amber-50'
+                          ? 'text-[#881337] font-bold bg-rose-50'
                           : 'hover:text-slate-950 hover:bg-slate-100'
                       }`
                     }
                   >
                     <span>Services</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeMegaMenu === 'services' ? 'rotate-180 text-[#9E721D]' : ''}`} />
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeMegaMenu === 'services' ? 'rotate-180 text-[#881337]' : ''}`} />
                   </NavLink>
 
-                  {/* Mega Menu Dropdown for Services (White & Gold styling preserved) */}
+                  {/* Mega Menu Dropdown for Services (White & Burgundy styling) */}
                   <AnimatePresence>
                     {activeMegaMenu === 'services' && (
                       <motion.div
@@ -249,18 +237,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[720px] rounded-2xl bg-white border-2 border-amber-300 shadow-2xl p-6 z-50"
+                        className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[720px] rounded-2xl bg-white border-2 border-rose-200 shadow-2xl p-6 z-50"
                       >
-                        <div className="flex items-center justify-between border-b border-amber-100 pb-3 mb-4">
+                        <div className="flex items-center justify-between border-b border-rose-100 pb-3 mb-4">
                           <div className="flex items-center space-x-2">
-                            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#881337] animate-pulse" />
                             <span className="font-serif-header font-bold text-slate-900 text-sm">
                               Enterprise Cybersecurity Services
                             </span>
                           </div>
                           <Link
                             to="/services"
-                            className="text-xs font-mono font-bold text-[#9E721D] hover:underline flex items-center space-x-1"
+                            className="text-xs font-mono font-bold text-[#881337] hover:underline flex items-center space-x-1"
                           >
                             <span>Explore All Services</span>
                             <ArrowRight className="w-3.5 h-3.5" />
@@ -275,13 +263,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                               <Link
                                 key={srv.id}
                                 to={`/services/${srv.id}`}
-                                className="p-3 rounded-xl hover:bg-amber-50/70 border border-transparent hover:border-amber-200 transition-all flex items-start space-x-3 group"
+                                className="p-3 rounded-xl hover:bg-rose-50/70 border border-transparent hover:border-rose-200 transition-all flex items-start space-x-3 group"
                               >
-                                <div className="w-8 h-8 rounded-lg bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                                  <IconComponent className="w-4 h-4 text-amber-800" />
+                                <div className="w-8 h-8 rounded-lg bg-rose-100 border border-rose-300 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                                  <IconComponent className="w-4 h-4 text-[#881337]" />
                                 </div>
                                 <div className="space-y-0.5">
-                                  <div className="font-semibold text-xs text-slate-900 group-hover:text-[#9E721D] transition-colors leading-snug">
+                                  <div className="font-semibold text-xs text-slate-900 group-hover:text-[#881337] transition-colors leading-snug">
                                     {srv.shortTitle}
                                   </div>
                                   <div className="font-sans text-[11px] text-slate-500 line-clamp-1">
@@ -297,27 +285,76 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </AnimatePresence>
                 </div>
 
-                {/* 3. Courses Mega Menu */}
-                <div 
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter('courses')}
-                  onMouseLeave={handleMouseLeave}
+                {/* 3. Portfolio */}
+                <NavLink
+                  to="/portfolio"
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-lg transition-colors ${
+                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                    }`
+                  }
                 >
-                  <NavLink
-                    to="/courses"
-                    className={({ isActive }) =>
-                      `px-3 py-2 rounded-lg transition-colors inline-flex items-center space-x-1 ${
-                        isActive || location.pathname.startsWith('/courses')
-                          ? 'text-[#881337] font-bold bg-rose-50'
-                          : 'hover:text-slate-950 hover:bg-slate-100'
-                      }`
-                    }
-                  >
-                    <span>Courses</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeMegaMenu === 'courses' ? 'rotate-180 text-[#881337]' : ''}`} />
-                  </NavLink>
+                  Portfolio
+                </NavLink>
 
-                  {/* Mega Menu Dropdown for Courses (Burgundy styling preserved) */}
+                {/* 4. About Us */}
+                <NavLink
+                  to="/about-us"
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-lg transition-colors ${
+                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                    }`
+                  }
+                >
+                  About Us
+                </NavLink>
+
+                {/* 5. Blog */}
+                <NavLink
+                  to="/blog"
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-lg transition-colors ${
+                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                    }`
+                  }
+                >
+                  Blog
+                </NavLink>
+
+                {/* 6. Contact */}
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-lg transition-colors ${
+                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                    }`
+                  }
+                >
+                  Contact
+                </NavLink>
+
+              </nav>
+
+              {/* ACTION BUTTONS: Courses (White & Navy Blue) & Book Consultation (Burgundy) */}
+              <div className="hidden lg:flex items-center space-x-3">
+                {/* Courses Mega Menu Button (White & Navy Blue Theme - Opened on Click only) */}
+                <div 
+                  ref={coursesDropdownRef}
+                  className="relative"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setActiveMegaMenu((prev) => prev === 'courses' ? null : 'courses')}
+                    className="btn-navy-filled px-4 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-lg cursor-pointer hover:scale-102 text-white"
+                    aria-expanded={activeMegaMenu === 'courses'}
+                    aria-haspopup="true"
+                  >
+                    <GraduationCap className="w-4 h-4 text-white" />
+                    <span>Courses</span>
+                    <ChevronDown className={`w-3.5 h-3.5 text-white transition-transform duration-200 ${activeMegaMenu === 'courses' ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Mega Menu Dropdown for Courses (White and Navy Blue Theme - Click Triggered) */}
                   <AnimatePresence>
                     {activeMegaMenu === 'courses' && (
                       <motion.div
@@ -325,38 +362,40 @@ export const Navbar: React.FC<NavbarProps> = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[680px] rounded-2xl bg-white border-2 border-rose-300 shadow-2xl p-6 z-50"
+                        className="absolute right-0 top-full mt-2 w-[680px] rounded-2xl bg-white border-2 border-blue-200 shadow-2xl p-6 z-50 shadow-blue-950/20"
                       >
-                        <div className="flex items-center justify-between border-b border-rose-100 pb-3 mb-4">
+                        <div className="flex items-center justify-between border-b border-blue-100 pb-3 mb-4">
                           <div className="flex items-center space-x-2">
-                            <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-pulse" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
                             <span className="font-serif-header font-bold text-slate-900 text-sm">
                               EC-Council Accredited Training &amp; Internships
                             </span>
                           </div>
                           <Link
                             to="/courses"
-                            className="text-xs font-mono font-bold text-rose-800 hover:underline flex items-center space-x-1"
+                            onClick={() => setActiveMegaMenu(null)}
+                            className="text-xs font-mono font-bold text-blue-900 hover:text-blue-700 hover:underline flex items-center space-x-1"
                           >
                             <span>View All Courses</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                         </div>
 
-                        {/* 5 Courses List */}
+                        {/* 5 Courses List in White & Navy Blue */}
                         <div className="grid grid-cols-1 gap-2.5">
                           {ACADEMY_COURSES.map((course) => (
                             <Link
                               key={course.id}
                               to={`/courses/${course.id}`}
-                              className="p-3 rounded-xl hover:bg-rose-50/70 border border-transparent hover:border-rose-200 transition-all flex items-center justify-between group"
+                              onClick={() => setActiveMegaMenu(null)}
+                              className="p-3 rounded-xl hover:bg-blue-50/80 border border-transparent hover:border-blue-200 transition-all flex items-center justify-between group"
                             >
                               <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 rounded-lg bg-rose-100 border border-rose-300 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                                  <GraduationCap className="w-4 h-4 text-rose-800" />
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                  <GraduationCap className="w-4 h-4 text-[#1E3A8A]" />
                                 </div>
                                 <div>
-                                  <div className="font-semibold text-xs text-slate-900 group-hover:text-rose-900 transition-colors">
+                                  <div className="font-semibold text-xs text-slate-900 group-hover:text-blue-900 transition-colors">
                                     {course.title}
                                   </div>
                                   <div className="font-sans text-[11px] text-slate-500">
@@ -364,7 +403,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                                   </div>
                                 </div>
                               </div>
-                              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+                              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-900 border border-blue-200">
                                 {course.badge}
                               </span>
                             </Link>
@@ -375,63 +414,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </AnimatePresence>
                 </div>
 
-                {/* 4. Portfolio */}
-                <NavLink
-                  to="/portfolio"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#9E721D] font-bold bg-amber-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Portfolio
-                </NavLink>
-
-                {/* 5. About Us */}
-                <NavLink
-                  to="/about-us"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#9E721D] font-bold bg-amber-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  About Us
-                </NavLink>
-
-                {/* 6. Blog */}
-                <NavLink
-                  to="/blog"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#9E721D] font-bold bg-amber-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Blog
-                </NavLink>
-
-                {/* 7. Contact */}
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#9E721D] font-bold bg-amber-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Contact
-                </NavLink>
-
-              </nav>
-
-              {/* TARGET CTA BUTTON: "Book Your Cyber Consultation" */}
-              <div className="hidden lg:flex items-center space-x-3">
+                {/* TARGET CTA BUTTON: "Book Your Cyber Consultation" */}
                 <button
                   onClick={() => onRequestConsultation('Executive Cyber Consultation')}
-                  className="btn-gold-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102"
+                  className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102 text-white"
                 >
-                  <ShieldCheck className="w-4 h-4 text-slate-950" />
+                  <ShieldCheck className="w-4 h-4 text-white" />
                   <span>Book Your Cyber Consultation</span>
                 </button>
               </div>
@@ -487,25 +475,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 </div>
 
-                {/* Courses Section in Mobile */}
-                <div className="space-y-1 py-1 border-b border-slate-100">
-                  <div className="font-bold text-[#881337] uppercase text-[11px] flex items-center justify-between">
-                    <span>Courses &amp; Training</span>
-                    <Link to="/courses" className="text-[10px] underline font-normal text-slate-500">View All</Link>
-                  </div>
-                  <div className="grid grid-cols-1 gap-1 pl-2 pt-1 font-sans text-xs">
-                    {ACADEMY_COURSES.map((c) => (
-                      <Link
-                        key={c.id}
-                        to={`/courses/${c.id}`}
-                        className="py-1 text-slate-700 hover:text-rose-800"
-                      >
-                        &bull; {c.title}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
                 <Link
                   to="/institutions-workshops"
                   className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
@@ -547,6 +516,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   Contact Coimbatore HQ
                 </Link>
+
+                {/* Courses Section in Mobile - Located right next to Contact (White & Navy Blue Theme) */}
+                <div className="space-y-1 py-1 border-b border-slate-100">
+                  <div className="font-bold text-[#1E3A8A] uppercase text-[11px] flex items-center justify-between">
+                    <span>Courses &amp; Training</span>
+                    <Link to="/courses" className="text-[10px] underline font-normal text-blue-700">View All</Link>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1 pl-2 pt-1 font-sans text-xs">
+                    {ACADEMY_COURSES.map((c) => (
+                      <Link
+                        key={c.id}
+                        to={`/courses/${c.id}`}
+                        className="py-1 text-slate-700 hover:text-blue-800"
+                      >
+                        &bull; {c.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
 
                 <div className="pt-2">
                   <button

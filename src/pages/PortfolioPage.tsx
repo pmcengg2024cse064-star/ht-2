@@ -36,8 +36,8 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
 
       {/* Header */}
       <div className="text-center space-y-4 max-w-4xl mx-auto">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-xs font-mono font-bold text-amber-900 shadow-sm">
-          <Briefcase className="w-4 h-4 text-amber-700" />
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] shadow-sm">
+          <Briefcase className="w-4 h-4 text-[#881337]" />
           <span>VERIFIABLE CASE STUDIES &bull; MEASURABLE SECURITY OUTCOMES</span>
         </div>
 
@@ -55,11 +55,11 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
         {PORTFOLIO_ITEMS.map((item, idx) => (
           <div
             key={item.id}
-            className="rounded-3xl bg-white border-2 border-amber-300 p-8 sm:p-10 shadow-lg hover:shadow-2xl transition-all space-y-6"
+            className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-8 sm:p-10 shadow-lg hover:shadow-2xl transition-all space-y-6"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-100 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-rose-100 pb-4">
               <div className="space-y-1">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-200">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#881337] bg-rose-50 px-3 py-1 rounded-full border border-rose-200">
                   {item.sector}
                 </span>
                 <h2 className="font-serif-header font-bold text-2xl text-slate-900 pt-1">
@@ -79,7 +79,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
                   <span className="font-mono text-xs uppercase font-bold text-slate-500">
                     Client &bull; Operational Challenge:
                   </span>
-                  <div className="text-xs font-mono text-amber-900 font-bold">
+                  <div className="text-xs font-mono text-[#881337] font-bold">
                     {item.clientBadge}
                   </div>
                   <p className="font-sans text-xs sm:text-sm text-slate-700 leading-relaxed">
@@ -98,7 +98,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
               </div>
 
               {/* Key Results & Technologies */}
-              <div className="space-y-4 bg-amber-50/50 p-6 rounded-2xl border border-amber-200">
+              <div className="space-y-4 bg-rose-50/40 p-6 rounded-2xl border border-rose-200">
                 <span className="font-mono text-xs uppercase font-bold text-slate-700 block">
                   Key Verification Results:
                 </span>
@@ -111,7 +111,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
                   ))}
                 </div>
 
-                <div className="pt-3 border-t border-amber-200 space-y-1.5">
+                <div className="pt-3 border-t border-rose-200 space-y-1.5">
                   <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
                     Technologies &amp; Deliverables:
                   </span>
@@ -133,10 +133,10 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
               </div>
               <button
                 onClick={() => onRequestAudit(item.title)}
-                className="btn-gold-filled px-6 py-2 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2"
+                className="btn-burgundy-filled px-6 py-2 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 text-white"
               >
                 <span>Request Scope for Your Organization</span>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+                <ArrowRight className="w-3.5 h-3.5 text-white" />
               </button>
             </div>
           </div>
@@ -156,9 +156,9 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
         </p>
         <button
           onClick={() => onRequestAudit('Enterprise VAPT Engagement')}
-          className="btn-gold-filled px-8 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center space-x-2"
+          className="btn-burgundy-filled px-8 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center space-x-2 text-white"
         >
-          <ShieldCheck className="w-4 h-4 text-slate-950" />
+          <ShieldCheck className="w-4 h-4 text-white" />
           <span>Book Confidential Consultation</span>
         </button>
       </div>

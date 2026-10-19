@@ -61,8 +61,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
 
       {/* Header & Hero */}
       <div className="text-center space-y-4 max-w-4xl mx-auto">
-        <div className="flex items-center justify-center space-x-2 text-xs font-mono text-amber-800 font-bold uppercase tracking-widest">
-          <ShieldCheck className="w-4 h-4 text-amber-600" />
+        <div className="flex items-center justify-center space-x-2 text-xs font-mono text-[#881337] font-bold uppercase tracking-widest">
+          <ShieldCheck className="w-4 h-4 text-[#881337]" />
           <span>ENTERPRISE SOLUTIONS HUB &bull; ZERO PRODUCTION DOWNTIME</span>
         </div>
 
@@ -83,33 +83,33 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search services by keyword, standard (e.g. VAPT, ISO, SOC)..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none text-xs font-mono"
+              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none text-xs font-mono"
             />
           </div>
         </div>
       </div>
 
-      {/* 8 Services Grid (White and Gold Styling) */}
+      {/* 8 Services Grid (White and Burgundy Styling) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filteredServices.map((srv) => {
           const IconComponent = serviceIcons[srv.id] || ShieldAlert;
           return (
             <div
               key={srv.id}
-              className="rounded-3xl bg-white border-2 border-amber-300 hover:border-[#D4AF37] p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
+              className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    <IconComponent className="w-5 h-5 text-amber-800" />
+                  <div className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-300 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <IconComponent className="w-5 h-5 text-[#881337]" />
                   </div>
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-50 text-[#881337] border border-rose-200">
                     {srv.badge}
                   </span>
                 </div>
 
                 <div className="space-y-1.5">
-                  <h2 className="font-serif-header font-bold text-lg text-slate-900 group-hover:text-[#9E721D] transition-colors leading-snug">
+                  <h2 className="font-serif-header font-bold text-lg text-slate-900 group-hover:text-[#881337] transition-colors leading-snug">
                     <Link to={`/services/${srv.id}`}>
                       {srv.shortTitle}
                     </Link>
@@ -119,7 +119,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
                   </p>
                 </div>
 
-                <div className="space-y-1.5 pt-2 border-t border-amber-100">
+                <div className="space-y-1.5 pt-2 border-t border-rose-100">
                   <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
                     Deliverables &bull; Turnaround
                   </span>
@@ -132,10 +132,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
               <div className="pt-6 space-y-2">
                 <Link
                   to={`/services/${srv.id}`}
-                  className="btn-gold-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101"
+                  className="btn-burgundy-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101 text-white"
                 >
                   <span>View Service Scope</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </Link>
               </div>
             </div>
@@ -144,7 +144,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
       </div>
 
       {/* Bottom Emergency Banner */}
-      <div className="rounded-3xl bg-amber-50 border-2 border-amber-300 p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+      <div className="rounded-3xl bg-rose-50/70 border-2 border-rose-200 p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
         <div className="space-y-2 text-center md:text-left">
           <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-red-700 uppercase">
             <span className="w-2 h-2 rounded-full bg-red-600 animate-ping inline-block" />
@@ -161,9 +161,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
         <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
           <a
             href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`}
-            className="btn-gold-filled px-6 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-lg"
+            className="btn-burgundy-filled px-6 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-lg text-white"
           >
-            <Phone className="w-4 h-4 text-slate-950" />
+            <Phone className="w-4 h-4 text-white" />
             <span>Call Hotline: {COMPANY_FACTS.phones[0]}</span>
           </a>
           <button

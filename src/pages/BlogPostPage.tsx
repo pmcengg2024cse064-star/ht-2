@@ -47,17 +47,17 @@ export const BlogPostPage: React.FC = () => {
 
       {/* 2. BREADCRUMB */}
       <nav aria-label="Breadcrumb" className="flex items-center space-x-2 font-mono text-xs text-slate-500">
-        <Link to="/" className="hover:text-[#9E721D] transition-colors">Home</Link>
+        <Link to="/" className="hover:text-[#881337] transition-colors">Home</Link>
         <span>/</span>
-        <Link to="/blog" className="hover:text-[#9E721D] transition-colors">Blog</Link>
+        <Link to="/blog" className="hover:text-[#881337] transition-colors">Blog</Link>
         <span>/</span>
-        <span className="text-[#9E721D] font-bold line-clamp-1">{post.title}</span>
+        <span className="text-[#881337] font-bold line-clamp-1">{post.title}</span>
       </nav>
 
       {/* 3. ARTICLE HEADER */}
       <div className="space-y-6 border-b border-slate-200 pb-8">
         <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-          <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 font-bold border border-amber-300">
+          <span className="px-3 py-1 rounded-full bg-rose-100 text-[#881337] font-bold border border-rose-200">
             {post.category}
           </span>
           <span className="flex items-center space-x-1 text-slate-500">
@@ -74,18 +74,18 @@ export const BlogPostPage: React.FC = () => {
           {post.title}
         </h1>
 
-        <p className="font-sans text-base sm:text-lg text-slate-700 leading-relaxed italic border-l-4 border-amber-400 pl-4">
+        <p className="font-sans text-base sm:text-lg text-slate-700 leading-relaxed italic border-l-4 border-[#881337] pl-4">
           {post.excerpt}
         </p>
 
         {/* Author Byline */}
         <div className="flex items-center space-x-3 pt-2">
-          <div className="w-11 h-11 rounded-full overflow-hidden bg-slate-950 border border-amber-300">
+          <div className="w-11 h-11 rounded-full overflow-hidden bg-slate-950 border border-rose-200">
             <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" />
           </div>
           <div>
             <div className="font-serif-header font-bold text-sm text-slate-900">{post.author.name}</div>
-            <div className="font-mono text-xs text-amber-800">{post.author.role}</div>
+            <div className="font-mono text-xs text-[#881337] font-semibold">{post.author.role}</div>
           </div>
         </div>
       </div>
@@ -117,15 +117,15 @@ export const BlogPostPage: React.FC = () => {
       </div>
 
       {/* 5. INTERNAL LINKING: RELATED SERVICE & RELATED COURSE */}
-      <div className="p-8 rounded-3xl bg-amber-50/70 border-2 border-amber-300 shadow-md space-y-6">
+      <div className="p-8 rounded-3xl bg-rose-50/70 border-2 border-rose-200 shadow-md space-y-6">
         <h3 className="font-serif-header font-bold text-xl text-slate-900">
           Apply These Insights in Your Organization or Career
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {relatedService && (
-            <div className="p-5 rounded-2xl bg-white border border-amber-300 space-y-2">
-              <span className="font-mono text-[10px] uppercase font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
+            <div className="p-5 rounded-2xl bg-white border border-rose-200 space-y-2">
+              <span className="font-mono text-[10px] uppercase font-bold text-[#881337] bg-rose-100 px-2 py-0.5 rounded">
                 Related Enterprise Service
               </span>
               <h4 className="font-serif-header font-bold text-base text-slate-900">
@@ -136,17 +136,17 @@ export const BlogPostPage: React.FC = () => {
               </p>
               <Link
                 to={`/services/${relatedService.id}`}
-                className="btn-gold-filled inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider mt-2"
+                className="btn-burgundy-filled inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white mt-2"
               >
                 <span>View Service Scope</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 text-white" />
               </Link>
             </div>
           )}
 
           {relatedCourse && (
-            <div className="p-5 rounded-2xl bg-white border border-rose-300 space-y-2">
-              <span className="font-mono text-[10px] uppercase font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded">
+            <div className="p-5 rounded-2xl bg-white border border-rose-200 space-y-2">
+              <span className="font-mono text-[10px] uppercase font-bold text-[#881337] bg-rose-100 px-2 py-0.5 rounded">
                 Related Certification Track
               </span>
               <h4 className="font-serif-header font-bold text-base text-slate-900">
@@ -171,7 +171,7 @@ export const BlogPostPage: React.FC = () => {
       <div className="pt-4 text-center">
         <Link
           to="/blog"
-          className="inline-flex items-center space-x-2 font-mono text-xs font-bold text-amber-800 hover:text-amber-950"
+          className="inline-flex items-center space-x-2 font-mono text-xs font-bold text-[#881337] hover:text-[#5B0E1B]"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to All Cybersecurity Articles</span>

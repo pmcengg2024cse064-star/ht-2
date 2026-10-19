@@ -44,8 +44,8 @@ export const BlogPage: React.FC = () => {
 
       {/* Header */}
       <div className="text-center space-y-4 max-w-4xl mx-auto">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-xs font-mono font-bold text-amber-900 shadow-sm">
-          <Sparkles className="w-4 h-4 text-amber-700" />
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] shadow-sm">
+          <Sparkles className="w-4 h-4 text-[#881337]" />
           <span>OFFENSIVE INTELLIGENCE &bull; REGULATORY RESEARCH &bull; TECHNICAL GUIDES</span>
         </div>
 
@@ -66,7 +66,7 @@ export const BlogPage: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search research articles..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-slate-300 focus:border-amber-500 outline-none text-xs font-mono"
+              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-slate-300 focus:border-[#881337] outline-none text-xs font-mono"
             />
           </div>
         </div>
@@ -79,8 +79,8 @@ export const BlogPage: React.FC = () => {
               onClick={() => setSelectedTag(tag)}
               className={`px-3 py-1 rounded-full border transition-all cursor-pointer font-bold ${
                 selectedTag === tag
-                  ? 'bg-amber-900 text-white border-amber-900'
-                  : 'bg-white text-slate-700 border-slate-300 hover:border-amber-300'
+                  ? 'bg-[#881337] text-white border-[#881337]'
+                  : 'bg-white text-slate-700 border-slate-300 hover:border-rose-300'
               }`}
             >
               {tag}
@@ -94,11 +94,11 @@ export const BlogPage: React.FC = () => {
         {filteredPosts.map((post) => (
           <article
             key={post.slug}
-            className="rounded-3xl bg-white border-2 border-amber-300 hover:border-[#D4AF37] p-8 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
+            className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-8 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between text-xs font-mono text-slate-500">
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold border border-amber-200">
+                <span className="px-2.5 py-0.5 rounded-full bg-rose-100 text-[#881337] font-bold border border-rose-200">
                   {post.category}
                 </span>
                 <span className="flex items-center space-x-1">
@@ -108,7 +108,7 @@ export const BlogPage: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <h2 className="font-serif-header font-bold text-xl text-slate-900 group-hover:text-[#9E721D] transition-colors leading-snug">
+                <h2 className="font-serif-header font-bold text-xl text-slate-900 group-hover:text-[#881337] transition-colors leading-snug">
                   <Link to={`/blog/${post.slug}`}>
                     {post.title}
                   </Link>
@@ -136,7 +136,7 @@ export const BlogPage: React.FC = () => {
               </div>
               <Link
                 to={`/blog/${post.slug}`}
-                className="text-xs font-mono font-bold text-amber-800 hover:underline flex items-center space-x-1"
+                className="text-xs font-mono font-bold text-[#881337] hover:text-[#5B0E1B] hover:underline flex items-center space-x-1"
               >
                 <span>Read</span>
                 <ArrowRight className="w-3.5 h-3.5" />

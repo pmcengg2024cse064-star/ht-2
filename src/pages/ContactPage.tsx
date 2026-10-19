@@ -47,15 +47,15 @@ export const ContactPage: React.FC = () => {
 
       {/* 2. BREADCRUMB */}
       <nav aria-label="Breadcrumb" className="flex items-center space-x-2 font-mono text-xs text-slate-500">
-        <Link to="/" className="hover:text-[#9E721D] transition-colors">Home</Link>
+        <Link to="/" className="hover:text-[#881337] transition-colors">Home</Link>
         <span>/</span>
-        <span className="text-[#9E721D] font-bold">Contact Us</span>
+        <span className="text-[#881337] font-bold">Contact Us</span>
       </nav>
 
       {/* 3. HEADER */}
       <div className="text-center space-y-4 max-w-4xl mx-auto">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-xs font-mono font-bold text-amber-900 shadow-sm">
-          <MapPin className="w-4 h-4 text-amber-700" />
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] shadow-sm">
+          <MapPin className="w-4 h-4 text-[#881337]" />
           <span>GANAPATHY, COIMBATORE HQ &bull; 24/7 EMERGENCY INCIDENT HOTLINE</span>
         </div>
 
@@ -73,15 +73,15 @@ export const ContactPage: React.FC = () => {
         
         {/* Left Column: Verified Contact Details */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="rounded-3xl bg-white border-2 border-amber-300 p-8 shadow-xl space-y-6">
-            <h2 className="font-serif-header font-bold text-xl text-slate-900 border-b border-amber-100 pb-3">
+          <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 shadow-xl space-y-6">
+            <h2 className="font-serif-header font-bold text-xl text-slate-900 border-b border-rose-100 pb-3">
               Coimbatore Headquarters
             </h2>
 
             {/* Address */}
             <div className="flex items-start space-x-3.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5">
-                <MapPin className="w-4 h-4 text-amber-800" />
+              <div className="w-9 h-9 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0 mt-0.5">
+                <MapPin className="w-4 h-4 text-[#881337]" />
               </div>
               <div className="space-y-1">
                 <div className="font-mono text-xs uppercase font-bold text-slate-500">Physical Address</div>
@@ -96,20 +96,20 @@ export const ContactPage: React.FC = () => {
 
             {/* Both Phone Numbers */}
             <div className="flex items-start space-x-3.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5">
-                <Phone className="w-4 h-4 text-amber-800" />
+              <div className="w-9 h-9 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0 mt-0.5">
+                <Phone className="w-4 h-4 text-[#881337]" />
               </div>
               <div className="space-y-1">
                 <div className="font-mono text-xs uppercase font-bold text-slate-500">Phone Numbers</div>
                 <div className="space-y-1 font-mono text-xs sm:text-sm">
                   <div>
-                    <a href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`} className="text-amber-800 font-bold hover:underline">
+                    <a href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`} className="text-[#881337] font-bold hover:underline">
                       {COMPANY_FACTS.phones[0]}
                     </a>
                     <span className="text-slate-500 text-[11px] block">Primary Advisory Hotline</span>
                   </div>
                   <div>
-                    <a href={`tel:${COMPANY_FACTS.phones[1].replace(/\s+/g, '')}`} className="text-amber-800 font-bold hover:underline">
+                    <a href={`tel:${COMPANY_FACTS.phones[1].replace(/\s+/g, '')}`} className="text-[#881337] font-bold hover:underline">
                       {COMPANY_FACTS.phones[1]}
                     </a>
                     <span className="text-slate-500 text-[11px] block">Academic &amp; Student Enquiries</span>
@@ -120,19 +120,19 @@ export const ContactPage: React.FC = () => {
 
             {/* Both Emails */}
             <div className="flex items-start space-x-3.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5">
-                <Mail className="w-4 h-4 text-amber-800" />
+              <div className="w-9 h-9 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0 mt-0.5">
+                <Mail className="w-4 h-4 text-[#881337]" />
               </div>
               <div className="space-y-1">
                 <div className="font-mono text-xs uppercase font-bold text-slate-500">Official Emails</div>
                 <div className="space-y-1 font-mono text-xs">
                   <div>
-                    <a href={`mailto:${COMPANY_FACTS.emails[0]}`} className="text-slate-800 hover:text-amber-800 font-medium hover:underline">
+                    <a href={`mailto:${COMPANY_FACTS.emails[0]}`} className="text-slate-800 hover:text-[#881337] font-medium hover:underline">
                       {COMPANY_FACTS.emails[0]}
                     </a>
                   </div>
                   <div>
-                    <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-amber-800 font-bold hover:underline">
+                    <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-[#881337] font-bold hover:underline">
                       {COMPANY_FACTS.emails[1]}
                     </a>
                     <span className="text-[10px] text-slate-500 block">Founder &amp; CEO Direct Inbox</span>
@@ -143,8 +143,8 @@ export const ContactPage: React.FC = () => {
 
             {/* Working Hours */}
             <div className="flex items-start space-x-3.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5">
-                <Clock className="w-4 h-4 text-amber-800" />
+              <div className="w-9 h-9 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0 mt-0.5">
+                <Clock className="w-4 h-4 text-[#881337]" />
               </div>
               <div className="space-y-1">
                 <div className="font-mono text-xs uppercase font-bold text-slate-500">Operating Schedule</div>
@@ -155,14 +155,14 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Social Links */}
-            <div className="pt-4 border-t border-amber-100 space-y-2">
+            <div className="pt-4 border-t border-rose-100 space-y-2">
               <div className="font-mono text-[10px] uppercase font-bold text-slate-500">Connect Directly</div>
               <div className="flex flex-wrap gap-2 text-xs font-mono">
                 <a
                   href="https://linkedin.com/company/hackuptechnology"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-amber-100 text-slate-700 font-bold transition-colors"
+                  className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-[#881337] text-slate-700 font-bold transition-colors"
                 >
                   LinkedIn
                 </a>
@@ -178,7 +178,7 @@ export const ContactPage: React.FC = () => {
                   href="https://twitter.com/hackuptech"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-amber-100 text-slate-700 font-bold transition-colors"
+                  className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-[#881337] text-slate-700 font-bold transition-colors"
                 >
                   Twitter / X
                 </a>
@@ -190,9 +190,9 @@ export const ContactPage: React.FC = () => {
 
         {/* Right Column: Interactive Consultation Form */}
         <div className="lg:col-span-7">
-          <div className="rounded-3xl bg-white border-2 border-amber-300 p-8 sm:p-10 shadow-xl space-y-6">
+          <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-10 shadow-xl space-y-6">
             <div className="space-y-1">
-              <span className="font-mono text-xs text-amber-800 font-bold uppercase tracking-wider">
+              <span className="font-mono text-xs text-[#881337] font-bold uppercase tracking-wider">
                 RAPID RESPONSE PROTOCOL
               </span>
               <h2 className="font-serif-header font-bold text-2xl text-slate-900">
@@ -204,7 +204,7 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {submitted ? (
-              <div className="p-8 rounded-2xl bg-amber-50 border border-emerald-300 text-center space-y-3">
+              <div className="p-8 rounded-2xl bg-rose-50 border border-emerald-300 text-center space-y-3">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
                 <h3 className="font-serif-header font-bold text-xl text-slate-900">Message Delivered</h3>
                 <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-sm mx-auto">
@@ -212,7 +212,7 @@ export const ContactPage: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="btn-gold-filled px-6 py-2 rounded-xl font-mono text-xs font-bold"
+                  className="btn-burgundy-filled px-6 py-2 rounded-xl font-mono text-xs font-bold text-white"
                 >
                   Send Another Message
                 </button>
@@ -228,7 +228,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. S. Karthikeyan"
-                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-amber-500 outline-none mt-1"
+                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-[#881337] outline-none mt-1"
                     />
                   </div>
                   <div>
@@ -239,7 +239,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. karthik@enterprise.in"
-                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-amber-500 outline-none mt-1"
+                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-[#881337] outline-none mt-1"
                     />
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-amber-500 outline-none mt-1"
+                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-[#881337] outline-none mt-1"
                     />
                   </div>
                   <div>
@@ -261,7 +261,7 @@ export const ContactPage: React.FC = () => {
                     <select
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-amber-500 outline-none mt-1 font-sans"
+                      className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-[#881337] outline-none mt-1 font-sans"
                     >
                       <option value="Enterprise VAPT & Audit Scoping">Enterprise VAPT &amp; Audit Scoping</option>
                       <option value="24/7 Managed SOC Deployment">24/7 Managed SOC Deployment</option>
@@ -282,15 +282,15 @@ export const ContactPage: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Provide details about your requirements, timeline, or asset scope..."
-                    className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-amber-500 outline-none mt-1"
+                    className="w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:border-[#881337] outline-none mt-1"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="btn-gold-filled w-full py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-xl"
+                  className="btn-burgundy-filled w-full py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-xl text-white"
                 >
-                  <Send className="w-4 h-4 text-slate-950" />
+                  <Send className="w-4 h-4 text-white" />
                   <span>Transmit Secure Message</span>
                 </button>
               </form>
@@ -302,11 +302,11 @@ export const ContactPage: React.FC = () => {
 
       {/* 5. EMBEDDED MAP */}
       <div className="space-y-4">
-        <div className="flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-          <MapPin className="w-4 h-4 text-amber-700" />
+        <div className="flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+          <MapPin className="w-4 h-4 text-[#881337]" />
           <span>GEOGRAPHIC LOCATION &bull; GANAPATHY, COIMBATORE - 641006</span>
         </div>
-        <div className="rounded-3xl overflow-hidden border-2 border-amber-300 shadow-xl h-80 sm:h-96 w-full bg-slate-100">
+        <div className="rounded-3xl overflow-hidden border-2 border-rose-200 shadow-xl h-80 sm:h-96 w-full bg-slate-100">
           <iframe
             title="Hackup Technology Headquarters Location Map"
             src="https://maps.google.com/maps?q=Hackup%20Technology,%20Ganapathy,%20Coimbatore,%20Tamil%20Nadu%20641006&t=&z=15&ie=UTF8&iwloc=&output=embed"

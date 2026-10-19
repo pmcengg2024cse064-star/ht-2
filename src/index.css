@@ -11,9 +11,12 @@
     --color-obsidian-violet: #08040F;
     --color-midnight-violet: #0F081D;
     --color-amethyst-card: rgba(26, 13, 48, 0.7);
-    --color-gold-brushed: #C4A77D;
-    --color-gold-warm: #D4AF37;
-    --color-violet-glow: #8B5CF6;
+    --color-burgundy-primary: #881337;
+    --color-burgundy-deep: #5B0E1B;
+    --color-burgundy-accent: #9F1239;
+    --color-gold-brushed: #881337;
+    --color-gold-warm: #9F1239;
+    --color-violet-glow: #881337;
     --color-text-cream: #F8FAFC;
     --color-text-muted: #A79AB2;
   }
@@ -57,7 +60,7 @@
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #C4A77D;
+    background: #881337;
   }
 }
 
@@ -83,10 +86,10 @@
 }
 
 /* =========================================================================
-   ANIMATED RUNNING GOLD SHEEN & MARQUEE KEYFRAMES (SLOW & ELEGANT)
+   ANIMATED RUNNING BURGUNDY GLOSSY SHEEN (LEFT TO RIGHT)
    ========================================================================= */
 
-@keyframes goldSheenSlide {
+@keyframes textGlossSweep {
   0% {
     background-position: -200% center;
   }
@@ -95,37 +98,48 @@
   }
 }
 
-.animate-gold-sheen {
+.animate-gold-sheen,
+.animate-burgundy-sheen,
+.glossy-burgundy-text,
+span.text-\[\#881337\]:not(:has(svg)),
+strong.text-\[\#881337\],
+b.text-\[\#881337\],
+h1 span.text-\[\#881337\],
+h2 span.text-\[\#881337\],
+h3 span.text-\[\#881337\],
+h4 span.text-\[\#881337\] {
   background: linear-gradient(
-    90deg,
-    #785215 0%,
-    #B38728 20%,
-    #E8C56A 40%,
-    #FFF8D6 50%,
-    #E8C56A 60%,
-    #B38728 80%,
-    #785215 100%
-  );
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldSheenSlide 12s ease-in-out infinite;
+    110deg,
+    #881337 0%,
+    #881337 28%,
+    #E11D48 42%,
+    #FFFFFF 50%,
+    #E11D48 58%,
+    #881337 72%,
+    #881337 100%
+  ) !important;
+  background-size: 240% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textGlossSweep 3.5s ease-in-out infinite !important;
   display: inline-block;
 }
 
-html.dark .animate-gold-sheen {
+html.dark .animate-gold-sheen,
+html.dark .animate-burgundy-sheen,
+html.dark .glossy-burgundy-text {
   background: linear-gradient(
-    90deg,
-    #E2E8F0 0%,
-    #D4AF37 25%,
-    #FFF9DC 50%,
-    #C4A77D 75%,
-    #E2E8F0 100%
-  );
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: goldSheenSlide 12s ease-in-out infinite;
+    110deg,
+    #FFFFFF 0%,
+    #FB7185 28%,
+    #FFFFFF 50%,
+    #E11D48 72%,
+    #FFFFFF 100%
+  ) !important;
+  background-size: 240% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textGlossSweep 3.5s ease-in-out infinite !important;
 }
 
 @keyframes marqueeScroll {
@@ -163,8 +177,8 @@ html.light .luxury-glass-card {
 
 .luxury-glass-card:hover,
 html.light .luxury-glass-card:hover {
-  border-color: #B38728 !important;
-  box-shadow: 0 16px 40px rgba(179, 135, 40, 0.16), 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  border-color: #881337 !important;
+  box-shadow: 0 16px 40px rgba(136, 19, 55, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05) !important;
 }
 
 .luxury-glass-card-violet,
@@ -185,77 +199,135 @@ html.light .luxury-glass-subtle {
 }
 
 /* =========================================================================
-   LUXURY GOLD & MAROON BUTTONS
+   WHITE & BURGUNDY EXECUTIVE BUTTONS WITH GLOSSY SHINE ANIMATION
    ========================================================================= */
-.btn-gold-filled {
-  background: linear-gradient(135deg, #B38728 0%, #D4AF37 50%, #9E721D 100%);
-  color: #08040F !important;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(179, 135, 40, 0.25);
-}
-.btn-gold-filled:hover {
-  background: linear-gradient(135deg, #D4AF37 0%, #B38728 100%);
-  color: #08040F !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(179, 135, 40, 0.35);
+
+@keyframes buttonGlossSweep {
+  0% {
+    left: -130%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  50% {
+    left: 140%;
+    opacity: 0.85;
+  }
+  100% {
+    left: 140%;
+    opacity: 0;
+  }
 }
 
-.btn-gold-outline {
-  background: transparent;
-  color: #B38728;
-  border: 1px solid rgba(179, 135, 40, 0.6);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.btn-gold-outline:hover {
-  background: rgba(179, 135, 40, 0.12);
-  border-color: #B38728;
-  color: #F8FAFC;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(179, 135, 40, 0.25);
-}
-html.light .btn-gold-outline {
-  color: #926E2B;
-  border-color: rgba(179, 135, 40, 0.7);
-}
-html.light .btn-gold-outline:hover {
-  background: rgba(179, 135, 40, 0.15);
-  color: #0F172A;
-}
-
-/* Burgundy Buttons for Academy */
-.btn-burgundy-filled {
+.btn-gold-filled,
+.btn-burgundy-filled,
+.btn-burgundy-gloss,
+button.bg-\[\#881337\],
+a.bg-\[\#881337\],
+button.bg-\[\#7A1426\],
+a.bg-\[\#7A1426\],
+button.bg-\[\#5B0E1B\],
+a.bg-\[\#5B0E1B\] {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
   background: linear-gradient(135deg, #7A1426 0%, #881337 50%, #5B0E1B 100%);
   color: #FFFFFF !important;
   font-weight: 700;
   letter-spacing: 0.04em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(122, 20, 38, 0.35);
+  box-shadow: 0 4px 20px rgba(136, 19, 55, 0.3);
 }
+
+.btn-navy-filled,
+.btn-navy-gloss {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate;
+  background: linear-gradient(135deg, #0B132B 0%, #1E3A8A 50%, #0F172A 100%);
+  color: #FFFFFF !important;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(30, 58, 138, 0.35);
+}
+
+.btn-gold-filled::after,
+.btn-burgundy-filled::after,
+.btn-burgundy-gloss::after,
+.btn-navy-filled::after,
+.btn-navy-gloss::after,
+button.bg-\[\#881337\]::after,
+a.bg-\[\#881337\]::after,
+button.bg-\[\#7A1426\]::after,
+a.bg-\[\#7A1426\]::after,
+button.bg-\[\#5B0E1B\]::after,
+a.bg-\[\#5B0E1B\]::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -130%;
+  width: 50%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.08) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: buttonGlossSweep 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.btn-gold-filled:hover::after,
+.btn-burgundy-filled:hover::after,
+.btn-burgundy-gloss:hover::after,
+.btn-navy-filled:hover::after,
+.btn-navy-gloss:hover::after,
+button.bg-\[\#881337\]:hover::after,
+a.bg-\[\#881337\]:hover::after {
+  animation: buttonGlossSweep 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.btn-gold-filled:hover,
 .btn-burgundy-filled:hover {
   background: linear-gradient(135deg, #9F1239 0%, #7A1426 100%);
   color: #FFFFFF !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(159, 18, 57, 0.45);
+  box-shadow: 0 8px 30px rgba(159, 18, 57, 0.4);
 }
 
+.btn-gold-outline,
 .btn-burgundy-outline {
   background: transparent;
-  color: #FB7185;
-  border: 1px solid rgba(251, 113, 133, 0.6);
+  color: #881337;
+  border: 1px solid rgba(136, 19, 55, 0.6);
   font-weight: 600;
   letter-spacing: 0.04em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.btn-gold-outline:hover,
 .btn-burgundy-outline:hover {
-  background: rgba(136, 19, 55, 0.25);
-  border-color: #FB7185;
-  color: #FFFFFF;
+  background: rgba(136, 19, 55, 0.08);
+  border-color: #881337;
+  color: #5B0E1B;
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(136, 19, 55, 0.35);
+  box-shadow: 0 6px 25px rgba(136, 19, 55, 0.2);
+}
+html.light .btn-gold-outline,
+html.light .btn-burgundy-outline {
+  color: #881337;
+  border-color: rgba(136, 19, 55, 0.6);
+}
+html.light .btn-gold-outline:hover,
+html.light .btn-burgundy-outline:hover {
+  background: rgba(136, 19, 55, 0.08);
+  color: #5B0E1B;
 }
 html.light .btn-burgundy-outline {
   color: #881337;
@@ -269,37 +341,24 @@ html.light .btn-burgundy-outline:hover {
 /* Maroon & Burgundy Buttons: Strictly Crisp White Text in Both Modes */
 button.bg-\[\#881337\],
 a.bg-\[\#881337\],
-.bg-\[\#881337\],
 button.bg-\[\#7A1426\],
 a.bg-\[\#7A1426\],
-.bg-\[\#7A1426\],
 button.bg-\[\#5B0E1B\],
 a.bg-\[\#5B0E1B\],
-.bg-\[\#5B0E1B\],
 html.light button.bg-\[\#881337\],
 html.light a.bg-\[\#881337\],
-html.light .bg-\[\#881337\],
 html.light button.bg-\[\#7A1426\],
 html.light a.bg-\[\#7A1426\],
-html.light .bg-\[\#7A1426\],
 html.light button.bg-\[\#5B0E1B\],
 html.light a.bg-\[\#5B0E1B\],
-html.light .bg-\[\#5B0E1B\] {
-  color: #FFFFFF !important;
-}
-
 button.bg-\[\#881337\] *,
 a.bg-\[\#881337\] *,
-.bg-\[\#881337\] *,
 button.bg-\[\#7A1426\] *,
 a.bg-\[\#7A1426\] *,
-.bg-\[\#7A1426\] *,
 html.light button.bg-\[\#881337\] *,
 html.light a.bg-\[\#881337\] *,
-html.light .bg-\[\#881337\] *,
 html.light button.bg-\[\#7A1426\] *,
-html.light a.bg-\[\#7A1426\] *,
-html.light .bg-\[\#7A1426\] * {
+html.light a.bg-\[\#7A1426\] * {
   color: #FFFFFF !important;
 }
 
@@ -339,8 +398,8 @@ html.light .luxury-grid-bg {
   background-color: #F8FAFC !important;
   background-size: 50px 50px;
   background-image: 
-    linear-gradient(to right, rgba(179, 135, 40, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(179, 135, 40, 0.12) 1px, transparent 1px) !important;
+    linear-gradient(to right, rgba(136, 19, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(136, 19, 55, 0.04) 1px, transparent 1px) !important;
 }
 
 /* =========================================================================
@@ -525,7 +584,7 @@ html.light nav {
 /* Footer in Light Mode */
 html.light footer {
   background-color: #F8FAFC !important;
-  border-top-color: rgba(179, 135, 40, 0.3) !important;
+  border-top-color: rgba(136, 19, 55, 0.25) !important;
   color: #334155 !important;
 }
 
@@ -550,41 +609,44 @@ html.light label:not([class*="text-"]) {
 /* Preserve Text on Explicit Action Buttons in Light Mode */
 html.light button.btn-gold-filled,
 html.light a.btn-gold-filled,
-html.light .btn-gold-filled {
-  color: #08040F !important;
-}
-
+html.light button.btn-gold-filled *,
+html.light a.btn-gold-filled *,
 html.light button.btn-burgundy-filled,
 html.light a.btn-burgundy-filled,
-html.light .btn-burgundy-filled,
-html.light button[class*="bg-[#5B0E1B]"],
-html.light a[class*="bg-[#5B0E1B]"],
-html.light button[class*="bg-[#7A1426]"],
-html.light a[class*="bg-[#7A1426]"],
-html.light button[class*="bg-[#450A12]"],
-html.light a[class*="bg-[#450A12]"],
-html.light button[class*="bg-[#881337]"],
-html.light a[class*="bg-[#881337]"],
-html.light button[class*="bg-rose-900"],
-html.light a[class*="bg-rose-900"],
-html.light [class*="bg-rose-900"],
-html.light [class*="bg-rose-900"] *,
-html.light button[class*="bg-slate-900"],
-html.light a[class*="bg-slate-900"],
+html.light button.btn-burgundy-filled *,
+html.light a.btn-burgundy-filled *,
+html.light button.bg-\[\#5B0E1B\],
+html.light a.bg-\[\#5B0E1B\],
+html.light button.bg-\[\#7A1426\],
+html.light a.bg-\[\#7A1426\],
+html.light button.bg-\[\#450A12\],
+html.light a.bg-\[\#450A12\],
+html.light button.bg-\[\#881337\],
+html.light a.bg-\[\#881337\],
+html.light button.bg-\[\#881337\] *,
+html.light a.bg-\[\#881337\] *,
+html.light button.bg-slate-900,
+html.light a.bg-slate-900,
+html.light button.bg-slate-900 *,
+html.light a.bg-slate-900 *,
 html.light button.bg-slate-950,
 html.light a.bg-slate-950,
+html.light button.bg-slate-950 *,
+html.light a.bg-slate-950 *,
 html.light button.bg-black,
 html.light a.bg-black,
+html.light button.bg-black *,
+html.light a.bg-black *,
 html.light button.btn-dark-slate,
 html.light a.btn-dark-slate {
   color: #FFFFFF !important;
 }
 
 /* Text overrides in Light Mode: ensure high contrast slate/charcoal on light backgrounds */
-html.light [class*="text-[#F8FAFC]"]:not(.btn-burgundy-filled *):not([class*="bg-[#881337]"] *):not([class*="bg-rose-900"] *):not([class*="bg-slate-900"] *):not(.bg-slate-950 *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *),
-html.light [class*="text-[#F1F5F9]"]:not(.btn-burgundy-filled *):not([class*="bg-[#881337]"] *):not([class*="bg-rose-900"] *):not([class*="bg-slate-900"] *):not(.bg-slate-950 *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *),
-html.light [class*="text-slate-100"]:not(.btn-burgundy-filled *):not([class*="bg-[#881337]"] *):not([class*="bg-rose-900"] *):not([class*="bg-slate-900"] *):not(.bg-slate-950 *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *),
-html.light [class*="text-slate-200"]:not(.btn-burgundy-filled *):not([class*="bg-[#881337]"] *):not([class*="bg-rose-900"] *):not([class*="bg-slate-900"] *):not(.bg-slate-950 *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *) {
+html.light [class*="text-[#F8FAFC]"]:not(.btn-burgundy-filled *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *),
+html.light [class*="text-[#F1F5F9]"]:not(.btn-burgundy-filled *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *),
+html.light [class*="text-slate-100"]:not(.btn-burgundy-filled *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *),
+html.light [class*="text-slate-200"]:not(.btn-burgundy-filled *):not(.image-banner-dark *):not(.badge-dark *):not(.dark-surface *):not(.dark-overlay-content *):not(.contact-bar-dark *):not(.stay-dark *):not(.dark-console *) {
   color: #334155 !important;
 }
 
@@ -670,9 +732,9 @@ html.light input:focus,
 html.light textarea:focus,
 html.light select:focus {
   background-color: #FFFFFF !important;
-  border-color: #B38728 !important;
+  border-color: #881337 !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(179, 135, 40, 0.2) !important;
+  box-shadow: 0 0 0 3px rgba(136, 19, 55, 0.15) !important;
 }
 
 /* Cyan & Amber Highlight Pills & Badges in Light Mode */
@@ -707,7 +769,7 @@ html.light [class*="text-cyan-400"] {
 
 html.light [class*="text-amber-300"],
 html.light [class*="text-amber-400"] {
-  color: #9E721D !important;
+  color: #881337 !important;
 }
 
 html.light [class*="text-emerald-300"],
@@ -766,13 +828,14 @@ html.light nav a:hover {
 
 @keyframes goldGlowPulse {
   0%, 100% {
-    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.35));
+    filter: drop-shadow(0 0 15px rgba(136, 19, 55, 0.35));
   }
   50% {
-    filter: drop-shadow(0 0 35px rgba(212, 175, 55, 0.75));
+    filter: drop-shadow(0 0 35px rgba(136, 19, 55, 0.65));
   }
 }
 
-.animate-gold-glow-pulse {
+.animate-gold-glow-pulse,
+.animate-burgundy-glow-pulse {
   animation: goldGlowPulse 3s ease-in-out infinite;
 }

@@ -85,7 +85,7 @@ export function App() {
       <Router>
         <ScrollToTop />
         
-        <div className="relative min-h-screen bg-slate-50 text-slate-900 selection:bg-amber-500/25 selection:text-slate-950 luxury-grid-bg">
+        <div className="relative min-h-screen bg-slate-50 text-slate-900 selection:bg-rose-200 selection:text-rose-950 luxury-grid-bg">
           
           {/* Interactive Particle Mesh */}
           <CanvasBackground />

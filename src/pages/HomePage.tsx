@@ -1,67 +1,103 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Building2, 
-  GraduationCap, 
   ArrowRight, 
   ShieldCheck, 
   Sparkles, 
   Check, 
   Award, 
-  Users, 
   Cpu, 
   Scale, 
-  Lock, 
-  Terminal,
-  FileCheck2,
-  Building,
-  Shield,
-  Download,
-  Flame,
-  ArrowUpRight,
-  Star,
-  ChevronLeft,
-  ChevronRight,
-  Send,
-  Phone,
-  Mail,
-  CheckCircle2,
-  HelpCircle,
-  FileSearch,
-  Search,
-  Server,
-  ShieldAlert,
-  Calendar,
-  Clock,
+  Building, 
+  Shield, 
+  Star, 
+  ChevronLeft, 
+  ChevronRight, 
+  Send, 
+  Phone, 
+  Mail, 
+  CheckCircle2, 
+  Briefcase,
   HeartPulse,
-  Briefcase
+  FileCheck2,
+  GraduationCap,
+  Globe,
+  ArrowUpRight
 } from 'lucide-react';
 import { TechMarquee } from '../components/common/TechMarquee';
 import { SEOHead } from '../components/common/SEOHead';
 import { 
   ENTERPRISE_SERVICES, 
-  ACADEMY_COURSES, 
   BLOG_POSTS, 
   GOOGLE_REVIEWS, 
   COMPANY_FACTS, 
-  FOUNDER_PROFILE,
-  CYBER_PATENTS,
-  PARTNER_INSTITUTIONS
+  CYBER_PATENTS
 } from '../data/cyberData';
+
+// High-performance 60fps counting animation component
+interface AnimatedCounterProps {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+}
+
+const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
+  value,
+  suffix = '',
+  prefix = '',
+  duration = 2000
+}) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const startTime = performance.now();
+          const step = (currentTime: number) => {
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            // Smooth ease-out cubic
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(easeProgress * value));
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              setCount(value);
+            }
+          };
+          requestAnimationFrame(step);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [value, duration]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {prefix}
+      {count >= 1000 ? count.toLocaleString() : count}
+      {suffix}
+    </span>
+  );
+};
 
 interface HomePageProps {
   onRequestAudit: (serviceTitle?: string) => void;
-  onBookDemo: (courseTitle?: string) => void;
+  onBookDemo?: (courseTitle?: string) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onRequestAudit,
-  onBookDemo,
 }) => {
-  // Toggle between Services and Courses (default: 'services')
-  const [activeCatalogTab, setActiveCatalogTab] = useState<'services' | 'courses'>('services');
-
   // Google reviews carousel state
   const [activeReviewIdx, setActiveReviewIdx] = useState(0);
 
@@ -75,6 +111,58 @@ export const HomePage: React.FC<HomePageProps> = ({
     message: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const videoRefA = useRef<HTMLVideoElement>(null);
+  const videoRefB = useRef<HTMLVideoElement>(null);
+  const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
+  const activeVideoRef = useRef<'A' | 'B'>('A');
+  const isSwitchingRef = useRef(false);
+
+  useEffect(() => {
+    const vA = videoRefA.current;
+    const vB = videoRefB.current;
+    if (!vA || !vB) return;
+
+    // Increased transition and playback speed (1.25x for brisk, fluid animation)
+    vA.playbackRate = 1.25;
+    vB.playbackRate = 1.25;
+
+    vA.play().catch(() => {
+      // Fallback if browser autoplay policy delays initial play
+    });
+
+    let animId: number;
+    const monitorPlayback = () => {
+      const current = activeVideoRef.current === 'A' ? vA : vB;
+      const next = activeVideoRef.current === 'A' ? vB : vA;
+
+      if (current && next && current.duration && !isNaN(current.duration)) {
+        // Trigger seamless crossfade handoff ~0.45s before current video ends to eliminate reload pause
+        if (current.currentTime >= current.duration - 0.45 && !isSwitchingRef.current) {
+          isSwitchingRef.current = true;
+          next.currentTime = 0;
+          next.playbackRate = 1.25;
+          next.play().then(() => {
+            const nextActive = activeVideoRef.current === 'A' ? 'B' : 'A';
+            activeVideoRef.current = nextActive;
+            setActiveVideo(nextActive);
+
+            setTimeout(() => {
+              isSwitchingRef.current = false;
+            }, 600);
+          }).catch(() => {
+            isSwitchingRef.current = false;
+          });
+        }
+      }
+      animId = requestAnimationFrame(monitorPlayback);
+    };
+
+    animId = requestAnimationFrame(monitorPlayback);
+
+    return () => {
+      cancelAnimationFrame(animId);
+    };
+  }, []);
 
   const handleNextReview = () => {
     setActiveReviewIdx((prev) => (prev + 1) % GOOGLE_REVIEWS.length);
@@ -90,16 +178,40 @@ export const HomePage: React.FC<HomePageProps> = ({
   };
 
   const experienceMetrics = [
-    { num: '10 Years', label: 'Cyber Defense Experience', sub: 'Foundational Industry Leadership' },
-    { num: '100+', label: 'Colleges & Corporates', sub: 'Audited & Modernized' },
-    { num: '54', label: 'College Partners', sub: 'Active Higher-Ed MoUs in Tamil Nadu' },
-    { num: '7', label: 'MNC Partners', sub: 'Corporate Hiring & Technology Alliances' }
+    { 
+      target: 10, 
+      suffix: ' Years', 
+      label: 'Cyber Defense Experience', 
+      sub: 'Foundational Industry Leadership',
+      icon: Award
+    },
+    { 
+      target: 2100, 
+      suffix: '+', 
+      label: 'Enterprise Security Audits', 
+      sub: 'Zero Breaches Post-Attestation',
+      icon: FileCheck2
+    },
+    { 
+      target: 54, 
+      suffix: '', 
+      label: 'Institutional Alliances', 
+      sub: 'Active Higher-Ed & CoE Partners',
+      icon: GraduationCap
+    },
+    { 
+      target: 7, 
+      suffix: '', 
+      label: 'MNC Corporate Alliances', 
+      sub: 'Enterprise Security Governance',
+      icon: Globe
+    }
   ];
 
   const whyHackupPillars = [
     {
       title: '10 Years of Field Experience',
-      desc: 'Over a decade defending state infrastructure, banking networks, and training national-grade cyber defenders.',
+      desc: 'Over a decade defending state infrastructure, banking networks, and critical production assets against sophisticated threat actors.',
       icon: Award
     },
     {
@@ -109,12 +221,12 @@ export const HomePage: React.FC<HomePageProps> = ({
     },
     {
       title: 'Police Cyber Cell Technical Advisor',
-      desc: 'Active consultant to the Tamil Nadu Police Cyber Crime Department on ransomware triage and Section 65B evidence.',
+      desc: 'Active consultant to the Tamil Nadu Police Cyber Crime Department on ransomware triage and Section 65B electronic evidence.',
       icon: Scale
     },
     {
       title: '100% Manual Exploit Verification',
-      desc: 'Zero scanner noise. We simulate real adversaries with chained PoCs and provide guaranteed Safe-to-Host certification.',
+      desc: 'Zero automated scanner noise. We simulate real adversaries with chained PoCs and provide guaranteed Safe-to-Host certification.',
       icon: ShieldCheck
     }
   ];
@@ -170,8 +282,8 @@ export const HomePage: React.FC<HomePageProps> = ({
     },
     {
       name: 'Higher Education & CoE',
-      desc: 'Campus Cyber Centers of Excellence, syllabus modernization, and hands-on cyber range labs for 54+ universities.',
-      icon: GraduationCap
+      desc: 'Campus Cyber Centers of Excellence, security architecture audits, and defense advisory for 54+ institutions.',
+      icon: Award
     },
     {
       name: 'Manufacturing & Industrial IoT',
@@ -186,292 +298,163 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* SEO HEAD FOR HOMEPAGE */}
       <SEOHead
         title="Cyber Security Company in Coimbatore | Hackup Technology"
-        description="Premier cyber security company in Coimbatore. Patented AI firewall, VAPT audits, 24/7 SOC, digital forensics & official EC-Council training center."
+        description="Premier enterprise cyber security company in Coimbatore. Patented AI firewall, VAPT audits, 24/7 SOC, digital forensics & high-assurance cyber advisory."
         canonical="https://hackuptechnology.com/"
         primaryKeyword="cyber security company in Coimbatore"
         breadcrumbs={[{ name: 'Home', url: '/' }]}
       />
 
-      {/* 1. HERO SECTION: ACCREDITATION PILL, HACKUP TECHNOLOGY HEADLINE, DUAL PORTAL CARDS */}
-      <section className="relative pt-8 sm:pt-14 pb-16 overflow-hidden">
-        {/* Subtle Tech Grid Background matching attached image */}
+      {/* 1. HERO SECTION: TWO-COLUMN LAYOUT WITH 3D CYBERSECURITY ANIMATION */}
+      <section className="relative pt-6 pb-6 lg:pt-8 lg:pb-8 overflow-hidden bg-gradient-to-b from-[#FFFFFF] via-[#F8FAFC] to-[#F1F5F9]">
+        
+        {/* Subtle Tech Diagonal Grid & Ambient Layer Scoped to Hero */}
         <div 
-          className="absolute inset-0 pointer-events-none -z-10 opacity-70"
+          className="absolute inset-0 pointer-events-none -z-10 opacity-60"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.045) 1px, transparent 1px)
+              linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px)
             `,
-            backgroundSize: '44px 44px'
+            backgroundSize: '48px 48px'
           }}
         />
-        {/* Soft Center Ambient Radial Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[450px] bg-amber-500/10 blur-[160px] rounded-full pointer-events-none -z-10" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          
-          {/* Top Accreditations Pill with Pulsing Green Dot & Shield */}
-          <div className="flex justify-center mb-5">
-            <motion.div 
-              initial={{ opacity: 0, y: -15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center space-x-2 px-4 sm:px-5 py-2 rounded-full bg-white/95 border border-slate-200/90 shadow-sm backdrop-blur-md"
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" />
-              <Shield className="w-3.5 h-3.5 text-amber-800 shrink-0" />
-              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-wider text-slate-800 uppercase">
-                OFFICIAL EC-COUNCIL ATC &bull; TANCCAO SECRETARIAT &bull; COIMBATORE HQ
-              </span>
-            </motion.div>
-          </div>
+        {/* Soft Burgundy Radial Glow Behind Video */}
+        <div className="absolute right-0 lg:right-6 top-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-[#881337]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
 
-          {/* Sub-headline Kicker with Sparkles */}
-          <div className="flex items-center justify-center space-x-2 mb-4 text-[#9E721D]">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-            <span className="font-mono text-xs sm:text-sm uppercase font-bold tracking-[0.2em] text-[#9E721D]">
-              SOVEREIGN CYBER ADVISORY &bull; RESEARCH &bull; EDUCATION
-            </span>
-            <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-          </div>
+        {/* Hero Scoped Typography & Keyframes: Matches "Hackup Technology" brand heading font */}
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+          .hero-font-brand {
+            font-family: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+          }
+        `}</style>
 
-          {/* Massive Display Headline: HACKUP TECHNOLOGY */}
-          <h1 className="font-sans font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05] text-center mb-6">
-            <span className="text-[#0B132B] inline-block mr-2 sm:mr-4">
-              HACKUP
-            </span>
-            <span className="bg-gradient-to-r from-amber-800 via-[#B8860B] to-amber-900 bg-clip-text text-transparent inline-block">
-              TECHNOLOGY
-            </span>
-          </h1>
-
-          {/* Subtitle Paragraph */}
-          <p className="font-sans text-base sm:text-lg md:text-xl text-slate-700 max-w-3xl mx-auto text-center leading-relaxed font-normal mb-7">
-            South India's premier cybersecurity enterprise. Defending mission-critical digital assets while engineering the next generation of certified national cyber defenders.
-          </p>
-
-          {/* 4 Micro Badges Row */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12 sm:mb-16">
-            {[
-              '2 Issued Cyber Patents',
-              'Tamil Nadu Police Consultant',
-              '54+ Partner Universities',
-              '100% Practical Cyber Range'
-            ].map((pill, idx) => (
-              <div
-                key={idx}
-                className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/95 border border-slate-200/90 shadow-sm text-xs font-sans font-semibold text-slate-700"
-              >
-                <span className="mr-1.5 text-slate-400 font-bold">&bull;</span>
-                <span>{pill}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Dual Portal Layout: Enterprise Solutions Hub & Hackup Academy Portal */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto text-left">
+        {/* Main 2-Column Responsive Container */}
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
             
-            {/* Left Card: Enterprise Solutions Hub */}
-            <div className="bg-white rounded-3xl border-2 border-amber-300/80 shadow-xl hover:shadow-2xl hover:border-amber-400 transition-all duration-300 overflow-hidden flex flex-col justify-between group">
-              {/* Top Image Banner with Overlays */}
-              <div className="relative h-60 sm:h-68 overflow-hidden bg-slate-950 image-banner-dark">
-                <img
-                  src="/images/portal_enterprise.jpg"
-                  alt="Enterprise Solutions Hub - Offensive Advisory, SOC, Audits"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="eager"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent pointer-events-none" />
-                
-                {/* Top-Left Category Badge */}
-                <div className="absolute top-4 left-4 inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-amber-300 shadow-md backdrop-blur-md z-10">
-                  <Briefcase className="w-3.5 h-3.5 text-amber-700" />
-                  <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-900">
-                    FOR ENTERPRISE &amp; BFSI
-                  </span>
-                </div>
-
-                {/* Bottom Overlay Info */}
-                <div className="absolute bottom-5 left-6 right-6 z-10 dark-overlay-content">
-                  <span className="font-mono text-[10px] sm:text-xs uppercase font-bold tracking-widest text-amber-400 block mb-1 drop-shadow">
-                    OFFENSIVE ADVISORY &bull; SOC &bull; AUDITS
-                  </span>
-                  <h3 
-                    className="font-serif-header font-bold text-2xl sm:text-3xl tracking-tight drop-shadow-md text-white"
-                    style={{ color: '#FFFFFF' }}
-                  >
-                    Enterprise Solutions Hub
-                  </h3>
-                </div>
+            {/* LEFT COLUMN: Headline, Paragraph, CTAs */}
+            <div className="lg:col-span-5 xl:col-span-5 text-left space-y-6 z-20 relative">
+              
+              {/* Eyebrow Accent & Text */}
+              <div className="flex items-center space-x-3">
+                <span className="w-8 sm:w-10 h-[2.5px] bg-[#881337] rounded-full inline-block shrink-0" />
+                <span className="hero-font-brand text-xs sm:text-[13px] font-bold tracking-[0.2em] text-[#0B132B] uppercase">
+                  INDIA'S PREMIER CYBERSECURITY ENTERPRISE
+                </span>
               </div>
 
-              {/* Card Body */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
-                <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                  Protect digital assets with zero-downtime Penetration Testing (VAPT), cloud security posture, compliance certifications, and 24/7 managed detection.
-                </p>
+              {/* Main Headline - Matches website heading font ("Hackup Technology") */}
+              <h1 className="hero-font-brand font-extrabold text-4xl sm:text-5xl lg:text-[44px] xl:text-[52px] text-[#0B132B] leading-[1.12] tracking-tight">
+                India's Premier<br />
+                <span className="text-[#881337] glossy-burgundy-text">Cybersecurity</span><br />
+                Enterprise for<br />
+                Advanced Solutions
+              </h1>
 
-                {/* Feature Checkmarks */}
-                <div className="space-y-3">
-                  {[
-                    'Enterprise VAPT & Red Teaming (Web, Mobile & APIs)',
-                    'Cloud Security & Kubernetes CIS Benchmark Hardening',
-                    'Turnkey 24/7 Managed SOC Deployment (Wazuh/Splunk)',
-                    'Privilege Access Governance (PAM) & Zero-Trust',
-                    'Section 65B Forensics & Emergency DFIR Triage'
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center space-x-3 text-xs sm:text-sm font-sans font-medium text-slate-800">
-                      <div className="w-5 h-5 rounded-full bg-amber-100 border border-amber-300/80 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 text-amber-700 stroke-[3]" />
-                      </div>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
+              {/* Supporting Paragraph */}
+              <p className="hero-font-brand font-normal text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                Empowering businesses with advanced cybersecurity solutions, intelligent threat detection, and proactive digital defence. At Hackup Technology, we engineer security that protects critical assets, strengthens digital resilience, and secures your business against an evolving threat landscape.
+              </p>
 
-                {/* Bottom CTA & Sub-link */}
-                <div className="pt-2 space-y-3">
-                  <Link
-                    to="/services"
-                    className="w-full btn-gold-filled py-4 rounded-xl font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transition-all cursor-pointer"
-                  >
-                    <span>ENTER ENTERPRISE PORTAL</span>
-                    <ArrowRight className="w-4 h-4 ml-1 text-slate-950" />
-                  </Link>
+              {/* CTA Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <Link
+                  to="/services"
+                  className="btn-burgundy-gloss inline-flex items-center space-x-2.5 px-8 py-3.5 rounded-full bg-[#881337] hover:bg-[#6e0f2c] text-white hero-font-brand text-sm font-semibold shadow-lg shadow-[#881337]/25 transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer"
+                >
+                  <span>Explore Our Services</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
 
-                  <button
-                    type="button"
-                    onClick={() => onRequestAudit('Direct Enterprise VAPT Scope Request')}
-                    className="w-full text-center text-xs font-mono font-semibold text-slate-600 hover:text-amber-800 transition-colors cursor-pointer block"
-                  >
-                    Schedule Rapid Assessment / NDA &rarr;
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => onRequestAudit('Enterprise Partnership & Security Consultation')}
+                  className="inline-flex items-center space-x-2.5 px-8 py-3.5 rounded-full bg-white hover:bg-rose-50/50 border border-[#881337] text-[#0B132B] hover:text-[#881337] hero-font-brand text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer shadow-sm"
+                >
+                  <span>Let's Collaborate</span>
+                  <ArrowRight className="w-4 h-4 text-[#881337] group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
+
             </div>
 
-            {/* Right Card: Hackup Academy Portal */}
-            <div className="bg-white rounded-3xl border-2 border-rose-300/80 shadow-xl hover:shadow-2xl hover:border-rose-400 transition-all duration-300 overflow-hidden flex flex-col justify-between group">
-              {/* Top Image Banner with Overlays */}
-              <div className="relative h-60 sm:h-68 overflow-hidden bg-slate-950 image-banner-dark">
-                <img
-                  src="/images/portal_student.jpg"
-                  alt="Hackup Academy Portal - EC-Council, Cyber Range, Internships"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="eager"
+            {/* RIGHT COLUMN: 3D Cybersecurity Animation Video (Seamless Zero-Reload 16:9 Loop) */}
+            <div className="lg:col-span-7 xl:col-span-7 flex items-center justify-center relative z-10 w-full">
+              <div className="relative w-full aspect-video max-w-[820px] rounded-2xl overflow-hidden flex items-center justify-center">
+                {/* Primary Video Buffer */}
+                <video
+                  ref={videoRefA}
+                  src="/videos/hackup-cybersecurity-hero.mp4"
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  className={`w-full h-full object-contain pointer-events-none select-none transition-opacity duration-300 ease-in-out ${
+                    activeVideo === 'A' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  }`}
+                  aria-label="3D Cybersecurity Shield and Threat Detection Animation"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent pointer-events-none" />
-                
-                {/* Top-Left Category Badge */}
-                <div className="absolute top-4 left-4 inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-rose-300 shadow-md backdrop-blur-md z-10">
-                  <GraduationCap className="w-3.5 h-3.5 text-[#6B1D2F]" />
-                  <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#6B1D2F]">
-                    FOR STUDENTS &amp; ASPIRING HACKERS
-                  </span>
-                </div>
 
-                {/* Bottom Overlay Info */}
-                <div className="absolute bottom-5 left-6 right-6 z-10 dark-overlay-content">
-                  <span className="font-mono text-[10px] sm:text-xs uppercase font-bold tracking-widest text-rose-300 block mb-1 drop-shadow">
-                    EC-COUNCIL &bull; CYBER RANGE &bull; INTERNSHIPS
-                  </span>
-                  <h3 
-                    className="font-serif-header font-bold text-2xl sm:text-3xl tracking-tight drop-shadow-md text-white"
-                    style={{ color: '#FFFFFF' }}
-                  >
-                    Hackup Academy Portal
-                  </h3>
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
-                <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                  Master offensive and defensive cyber warfare with official EC-Council certifications, Coimbatore live cyber range, and industry internships.
-                </p>
-
-                {/* Feature Checkmarks */}
-                <div className="space-y-3">
-                  {[
-                    'Certified Ethical Hacker (CEH v13) AI-Powered',
-                    'Certified SOC Analyst & SIEM Threat Hunting (CSA)',
-                    'Computer Hacking Forensic Investigator (CHFI)',
-                    'Coimbatore 1/3/6-Month Hands-On Industrial Internships',
-                    'Guaranteed Placement Assistance & 54+ College Network'
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center space-x-3 text-xs sm:text-sm font-sans font-medium text-slate-800">
-                      <div className="w-5 h-5 rounded-full bg-rose-100 border border-rose-300/80 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 text-[#6B1D2F] stroke-[3]" />
-                      </div>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Bottom CTA & Sub-link */}
-                <div className="pt-2 space-y-3">
-                  <Link
-                    to="/courses"
-                    className="w-full btn-burgundy-filled py-4 rounded-xl font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transition-all cursor-pointer text-white"
-                  >
-                    <span>ENTER HACKUP ACADEMY</span>
-                    <ArrowRight className="w-4 h-4 ml-1 text-white" />
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={() => onBookDemo('Certified Ethical Hacker (CEH v13)')}
-                    className="w-full text-center text-xs font-mono font-semibold text-slate-600 hover:text-[#6B1D2F] transition-colors cursor-pointer block"
-                  >
-                    Download Free EC-Council Syllabus PDF &rarr;
-                  </button>
-                </div>
+                {/* Secondary Video Buffer for Zero-Stutter Seamless Looping */}
+                <video
+                  ref={videoRefB}
+                  src="/videos/hackup-cybersecurity-hero.mp4"
+                  muted
+                  playsInline
+                  preload="auto"
+                  className={`absolute inset-0 w-full h-full object-contain pointer-events-none select-none transition-opacity duration-300 ease-in-out ${
+                    activeVideo === 'B' ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  }`}
+                  aria-hidden={activeVideo !== 'B'}
+                />
               </div>
             </div>
 
           </div>
-
         </div>
+
       </section>
 
-      {/* 2. TRUST BAR: GOOGLE REVIEWS, EC-COUNCIL, TANCCAO, PATENTS, PARTNERS */}
+      {/* 2. TRUST BAR: GOOGLE REVIEWS, TANCCAO, PATENTS, ALLIANCES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xl backdrop-blur-xl">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             
             {/* Trust 1: Google Reviews */}
             <div className="pt-2 sm:pt-0 space-y-1">
-              <div className="flex items-center justify-center space-x-1 text-amber-600 mb-1">
+              <div className="flex items-center justify-center space-x-1 text-amber-500 mb-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
                 ))}
               </div>
               <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                3,398 Reviews
+                4,343 Reviews
               </div>
               <div className="font-sans text-xs text-slate-600 font-medium">
-                4.9★ Average Rating
+                4.8 rating
               </div>
             </div>
 
-            {/* Trust 2: EC-Council Training Center */}
+            {/* Trust 2: Cyber Audits Attested */}
             <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-amber-700 mb-1">
-                <ShieldCheck className="w-4 h-4 text-[#9E721D]" />
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Accredited ATC</span>
+              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
+                <ShieldCheck className="w-4 h-4 text-[#881337]" />
+                <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Enterprise Track</span>
               </div>
               <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                EC-Council
+                2,100+
               </div>
               <div className="font-sans text-xs text-slate-600 font-medium">
-                Official Training Partner
+                Security Audits Delivered
               </div>
             </div>
 
             {/* Trust 3: TANCCAO */}
             <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-amber-700 mb-1">
-                <Scale className="w-4 h-4 text-[#9E721D]" />
+              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
+                <Scale className="w-4 h-4 text-[#881337]" />
                 <span className="font-mono text-[10px] uppercase font-bold text-slate-600">State Secretariat</span>
               </div>
               <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
@@ -484,8 +467,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Trust 4: 2 Issued Patents */}
             <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-amber-700 mb-1">
-                <Sparkles className="w-4 h-4 text-[#9E721D]" />
+              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
+                <Sparkles className="w-4 h-4 text-[#881337]" />
                 <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Proprietary IP</span>
               </div>
               <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
@@ -498,12 +481,12 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Trust 5: 54 Colleges & 7 MNC Partners */}
             <div className="pt-2 sm:pt-0 sm:pl-4 col-span-2 md:col-span-1 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-amber-700 mb-1">
-                <GraduationCap className="w-4 h-4 text-[#9E721D]" />
+              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
+                <Building2 className="w-4 h-4 text-[#881337]" />
                 <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Alliances</span>
               </div>
               <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                54+ Colleges
+                54+ Partners
               </div>
               <div className="font-sans text-xs text-slate-600 font-medium">
                 &amp; 7 Corporate MNCs
@@ -514,198 +497,91 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 3. SERVICES / COURSES TOGGLE SECTION: SERVICES DEFAULT (8 CARDS), COURSES (5 CARDS) */}
+      {/* 3. ENTERPRISE SERVICES CATALOG (ALL 8 SPECIALIZED DEFENSE SERVICES IN WHITE & BURGUNDY) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
-        {/* Toggle Header & Control */}
+        {/* Header */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-            <Sparkles className="w-4 h-4 text-amber-600" />
-            <span>SOLUTIONS DIRECTORY &bull; OFFENSIVE &bull; DEFENSIVE &bull; ACADEMY</span>
+          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+            <Sparkles className="w-4 h-4 text-[#881337]" />
+            <span>SOLUTIONS DIRECTORY &bull; OFFENSIVE DEFENSE &bull; 24/7 SOC &bull; GRC</span>
           </div>
           
           <h2 className="font-serif-header font-bold text-3xl sm:text-4xl text-slate-900">
-            Specialized Enterprise Services &amp; Accredited Courses
+            Specialized Enterprise Cybersecurity Services
           </h2>
 
           <p className="font-sans text-xs sm:text-sm text-slate-600 font-medium">
-            Toggle seamlessly between our 8 enterprise defense services (white &amp; gold) and 5 EC-Council certified academic tracks (burgundy).
+            Explore our 8 high-assurance cybersecurity services engineered for banking, healthcare, government, and software enterprises.
           </p>
-
-          {/* Cross-fade Tab Control Pill */}
-          <div className="inline-flex items-center p-1.5 rounded-full bg-slate-100 border border-slate-300 shadow-inner mt-2">
-            <button
-              onClick={() => setActiveCatalogTab('services')}
-              className={`relative z-10 px-6 py-2.5 rounded-full font-mono text-xs sm:text-sm font-bold tracking-wider cursor-pointer transition-colors duration-300 flex items-center space-x-2 ${
-                activeCatalogTab === 'services'
-                  ? 'text-slate-950 font-extrabold'
-                  : 'text-slate-600 hover:text-slate-950'
-              }`}
-            >
-              <Building2 className="w-4 h-4" />
-              <span>Enterprise Services (8)</span>
-              {activeCatalogTab === 'services' && (
-                <motion.div
-                  layoutId="catalog-active-pill"
-                  className="absolute inset-0 rounded-full btn-gold-filled shadow-lg shadow-[#D4AF37]/35 -z-10"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-            </button>
-
-            <button
-              onClick={() => setActiveCatalogTab('courses')}
-              className={`relative z-10 px-6 py-2.5 rounded-full font-mono text-xs sm:text-sm font-bold tracking-wider cursor-pointer transition-colors duration-300 flex items-center space-x-2 ${
-                activeCatalogTab === 'courses'
-                  ? 'text-white font-extrabold'
-                  : 'text-slate-600 hover:text-slate-950'
-              }`}
-            >
-              <GraduationCap className="w-4 h-4" />
-              <span>Certified Courses (5)</span>
-              {activeCatalogTab === 'courses' && (
-                <motion.div
-                  layoutId="catalog-active-pill"
-                  className="absolute inset-0 rounded-full btn-burgundy-filled shadow-lg shadow-[#881337]/40 -z-10"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-            </button>
-          </div>
         </div>
 
-        {/* Dynamic Cross-Fading Cards Grid */}
-        <AnimatePresence mode="wait">
-          {activeCatalogTab === 'services' ? (
-            <motion.div
-              key="services-grid"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.35 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        {/* 8 Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {ENTERPRISE_SERVICES.map((srv) => (
+            <div
+              key={srv.id}
+              className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
             >
-              {ENTERPRISE_SERVICES.map((srv) => (
-                <div
-                  key={srv.id}
-                  className="rounded-3xl bg-white border-2 border-amber-300 hover:border-[#D4AF37] p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
-                        {srv.badge}
-                      </span>
-                      <span className="text-[10px] font-mono text-slate-500">
-                        {srv.turnaroundDays}
-                      </span>
-                    </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-50 text-[#881337] border border-rose-200">
+                    {srv.badge}
+                  </span>
+                  <span className="text-[10px] font-mono text-slate-500">
+                    {srv.turnaroundDays}
+                  </span>
+                </div>
 
-                    <div className="space-y-1.5">
-                      <h3 className="font-serif-header font-bold text-lg text-slate-900 group-hover:text-[#9E721D] transition-colors leading-snug">
-                        {srv.shortTitle}
-                      </h3>
-                      <p className="font-sans text-xs text-slate-600 line-clamp-3 leading-relaxed">
-                        {srv.description}
-                      </p>
-                    </div>
+                <div className="space-y-1.5">
+                  <h3 className="font-serif-header font-bold text-lg text-slate-900 group-hover:text-[#881337] transition-colors leading-snug">
+                    {srv.shortTitle}
+                  </h3>
+                  <p className="font-sans text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                    {srv.description}
+                  </p>
+                </div>
 
-                    <div className="space-y-1.5 pt-2 border-t border-amber-100">
-                      <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
-                        Standards &bull; Compliance
+                <div className="space-y-1.5 pt-2 border-t border-rose-100">
+                  <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
+                    Standards &bull; Compliance
+                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {srv.standards.slice(0, 2).map((std, idx) => (
+                      <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                        {std}
                       </span>
-                      <div className="flex flex-wrap gap-1">
-                        {srv.standards.slice(0, 2).map((std, idx) => (
-                          <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">
-                            {std}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-6 space-y-2">
-                    <Link
-                      to={`/services/${srv.id}`}
-                      className="btn-gold-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101"
-                    >
-                      <span>Explore Service</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="courses-grid"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.35 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {ACADEMY_COURSES.map((course) => (
-                <div
-                  key={course.id}
-                  className="rounded-3xl bg-white border-2 border-rose-300 hover:border-rose-400 p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
+              </div>
+
+              <div className="pt-6 space-y-2">
+                <Link
+                  to={`/services/${srv.id}`}
+                  className="btn-burgundy-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101 text-white"
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-50 text-rose-900 border border-rose-200">
-                        {course.badge}
-                      </span>
-                      <span className="text-[10px] font-mono text-slate-500">
-                        {course.duration}
-                      </span>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <h3 className="font-serif-header font-bold text-lg text-slate-900 group-hover:text-rose-900 transition-colors leading-snug">
-                        {course.title}
-                      </h3>
-                      <p className="font-sans text-xs text-slate-600 line-clamp-3 leading-relaxed">
-                        {course.description}
-                      </p>
-                    </div>
-
-                    <div className="space-y-1.5 pt-2 border-t border-rose-100">
-                      <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
-                        Lab Scenarios &bull; Mode
-                      </span>
-                      <div className="text-xs font-mono text-slate-700">
-                        {course.practicalLabHours} &bull; {course.mode}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-6 space-y-2">
-                    <Link
-                      to={`/courses/${course.id}`}
-                      className="btn-burgundy-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101 text-white"
-                    >
-                      <span>View Course Details</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-white" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  <span>Explore Service</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
 
       </section>
 
-      {/* 4. WHY HACKUP */}
+      {/* 4. WHY HACKUP DISTINCTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-white border border-slate-200 p-8 sm:p-12 shadow-xl space-y-8">
           
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-              <Sparkles className="w-4 h-4 text-amber-600" />
+            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+              <Sparkles className="w-4 h-4 text-[#881337]" />
               <span>THE HACKUP DISTINCTION</span>
             </div>
             <h2 className="font-serif-header font-bold text-3xl text-slate-900">
-              Why Indian Enterprises &amp; Universities Choose Hackup
+              Why Indian Enterprises Choose Hackup
             </h2>
             <p className="font-sans text-xs sm:text-sm text-slate-600">
               Offensive capability honed by 10 years on the frontlines of real cyber warfare and law enforcement forensics.
@@ -716,9 +592,9 @@ export const HomePage: React.FC<HomePageProps> = ({
             {whyHackupPillars.map((pillar, idx) => {
               const Icon = pillar.icon;
               return (
-                <div key={idx} className="p-6 rounded-2xl bg-amber-50/50 border border-amber-200 space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-amber-800" />
+                <div key={idx} className="p-6 rounded-2xl bg-rose-50/40 border border-rose-200 space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-300 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-[#881337]" />
                   </div>
                   <h3 className="font-serif-header font-bold text-base text-slate-900">
                     {pillar.title}
@@ -734,38 +610,79 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 5. EXPERIENCE IN NUMBERS (10 YEARS, 100+ COLLEGES & CORPORATES, 54 COLLEGE PARTNERS, 7 MNC PARTNERS) */}
+      {/* 5. EXPERIENCE IN NUMBERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 shadow-2xl relative overflow-hidden dark-surface">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 shadow-2xl relative overflow-hidden dark-surface border border-slate-800">
+          
+          {/* Subtle Tech Cyber Grid & Ambient Glows */}
+          <div 
+            className="absolute inset-0 pointer-events-none opacity-20"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+              `,
+              backgroundSize: '36px 36px'
+            }}
+          />
+          <div className="absolute -top-24 right-1/4 w-96 h-96 bg-[#881337]/30 blur-[130px] rounded-full pointer-events-none" />
+          <div className="absolute -bottom-24 -left-20 w-96 h-96 bg-rose-600/20 blur-[130px] rounded-full pointer-events-none" />
 
-          <div className="relative z-10 space-y-8">
-            <div className="text-center space-y-2 max-w-2xl mx-auto">
-              <span className="font-mono text-xs text-amber-400 font-bold uppercase tracking-widest">
-                VERIFIABLE TRACK RECORD
-              </span>
-              <h2 className="font-serif-header font-bold text-3xl sm:text-4xl text-white">
+          <div className="relative z-10 space-y-10">
+            {/* Header with verified track record badge */}
+            <div className="text-center space-y-3 max-w-2xl mx-auto">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[11px] font-mono font-bold text-rose-300 uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping" />
+                <span>VERIFIABLE TRACK RECORD</span>
+              </div>
+              <h2 className="font-serif-header font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
                 Experience in Numbers
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-slate-300">
-                A sovereign footprint spanning executive cyber advisory, state police support, and university education.
+              <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
+                A sovereign footprint spanning executive cyber advisory, state police support, and critical enterprise defense.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-800 text-center">
-              {experienceMetrics.map((item, idx) => (
-                <div key={idx} className={`pt-4 sm:pt-0 ${idx !== 0 ? 'sm:pl-6' : ''} space-y-2`}>
-                  <div className="font-serif-header font-black text-3xl sm:text-5xl text-amber-400">
-                    {item.num}
-                  </div>
-                  <div className="font-sans text-sm font-bold text-white">
-                    {item.label}
-                  </div>
-                  <div className="font-sans text-xs text-slate-400">
-                    {item.sub}
-                  </div>
-                </div>
-              ))}
+            {/* 4 Animated Glass Stat Tiles with Icons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+              {experienceMetrics.map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="relative group p-6 sm:p-7 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-rose-500/50 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 shadow-xl hover:shadow-2xl hover:shadow-rose-950/30 flex flex-col items-center justify-between overflow-hidden"
+                  >
+                    {/* Ambient Hover Spotlight */}
+                    <div className="absolute -top-10 -right-10 w-28 h-28 bg-rose-500/10 group-hover:bg-rose-500/25 rounded-full blur-2xl transition-all pointer-events-none" />
+
+                    {/* Radiant Glowing Icon Badge */}
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-500/20 via-rose-900/40 to-slate-900 border border-rose-500/30 group-hover:border-rose-400/70 flex items-center justify-center text-rose-400 group-hover:text-rose-300 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-rose-950/50 mb-4">
+                      <IconComponent className="w-7 h-7 transition-transform duration-300 group-hover:rotate-6" />
+                    </div>
+
+                    {/* Animated Number Counter */}
+                    <div className="space-y-1 w-full">
+                      <div className="font-serif-header font-black text-3xl sm:text-4xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-rose-400 to-rose-200 group-hover:from-white group-hover:via-rose-300 group-hover:to-rose-400 transition-all duration-300 tracking-tight">
+                        <AnimatedCounter value={item.target} suffix={item.suffix} duration={1800} />
+                      </div>
+
+                      {/* Stat Label */}
+                      <div className="font-sans text-sm font-bold text-white tracking-wide pt-1">
+                        {item.label}
+                      </div>
+                    </div>
+
+                    {/* Subtitle / Footnote */}
+                    <div className="font-sans text-xs text-slate-400 pt-3 border-t border-white/10 mt-4 w-full">
+                      {item.sub}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -773,15 +690,48 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 6. AUTHORITY: FOUNDER CARD, PATENTS, PARTNERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-white border-2 border-amber-300 p-8 sm:p-12 shadow-xl space-y-10">
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl space-y-10">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
+            {/* Founder Portrait Column */}
+            <div className="lg:col-span-4 flex justify-center">
+              <div className="relative group w-full max-w-[300px] sm:max-w-[340px]">
+                {/* 3D Burgundy Gradient Frame */}
+                <div className="w-full aspect-[4/5] rounded-3xl p-1.5 bg-gradient-to-b from-[#881337] via-[#9F1239] to-rose-200 shadow-2xl shadow-rose-950/20 group-hover:scale-102 transition-transform duration-500">
+                  <div className="w-full h-full rounded-[22px] overflow-hidden bg-slate-900 relative">
+                    <img
+                      src="/images/dr_dinesh_paranthagan.jpg"
+                      alt="Dr. Dinesh Paranthagan - Founder & CEO, Hackup Technology"
+                      className="w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Caption Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5 text-left">
+                      <span className="font-serif-header font-bold text-lg text-white drop-shadow-md">
+                        Dr. Dinesh Paranthagan
+                      </span>
+                      <span className="font-mono text-[11px] text-rose-300 font-semibold tracking-wide mt-0.5">
+                        Founder &amp; CEO &bull; Secretary General TANCCAO
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Verified Leadership Float Badge */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-rose-50 border border-rose-300 px-4 py-1.5 rounded-full shadow-md flex items-center space-x-1.5 whitespace-nowrap">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#881337]" />
+                  <span className="font-mono text-[9px] uppercase font-bold text-[#881337] tracking-wider">
+                    TN Police Advisor &bull; Patent Holder
+                  </span>
+                </div>
+              </div>
+            </div>
+
             {/* Founder Card Info */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-                <Award className="w-4 h-4 text-amber-600" />
-                <span>STATE &bull; NATIONAL &bull; ACADEMIC AUTHORITY</span>
+            <div className="lg:col-span-8 space-y-4">
+              <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+                <Award className="w-4 h-4 text-[#881337]" />
+                <span>STATE &bull; NATIONAL &bull; CYBER DEFENSE AUTHORITY</span>
               </div>
 
               <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -795,8 +745,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Patent Cards Snapshot */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 {CYBER_PATENTS.map((pat) => (
-                  <div key={pat.id} className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-1.5">
-                    <span className="font-mono text-[9px] uppercase font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
+                  <div key={pat.id} className="p-4 rounded-xl bg-rose-50/60 border border-rose-200 space-y-1.5">
+                    <span className="font-mono text-[9px] uppercase font-bold text-[#881337] bg-rose-100 px-2 py-0.5 rounded">
                       {pat.patentNumber}
                     </span>
                     <h4 className="font-serif-header font-bold text-xs text-slate-900">
@@ -809,46 +759,65 @@ export const HomePage: React.FC<HomePageProps> = ({
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-4 pt-3 text-xs font-mono">
-                <Link to="/about-us" className="text-amber-800 hover:text-amber-950 font-bold hover:underline flex items-center space-x-1">
-                  <span>Read Complete Leadership Story</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-                <span>&bull;</span>
-                <Link to="/institutions-workshops" className="text-slate-600 hover:text-slate-900 font-semibold hover:underline">
-                  54+ Partner Universities
-                </Link>
-              </div>
-            </div>
+              {/* Executive Social Profiles */}
+              <div className="flex flex-wrap items-center gap-3 pt-3">
+                <span className="font-mono text-[11px] font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline-block mr-1">
+                  Connect Directly:
+                </span>
 
-            {/* Partner Institutions Snapshot */}
-            <div className="lg:col-span-5 p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-              <h4 className="font-serif-header font-bold text-sm text-slate-900 uppercase tracking-wider">
-                Trusted Across 54+ Higher Education Campuses
-              </h4>
-              <div className="space-y-2 text-xs font-sans text-slate-700">
-                <div className="p-2.5 rounded-lg bg-white border border-slate-200 font-medium">
-                  &bull; Vellore Institute of Technology (VIT)
-                </div>
-                <div className="p-2.5 rounded-lg bg-white border border-slate-200 font-medium">
-                  &bull; PSG College of Technology (PSG TECH)
-                </div>
-                <div className="p-2.5 rounded-lg bg-white border border-slate-200 font-medium">
-                  &bull; Sri Ramakrishna Engineering College (SREC)
-                </div>
-                <div className="p-2.5 rounded-lg bg-white border border-slate-200 font-medium">
-                  &bull; Madras Christian College (MCC)
-                </div>
+                {/* LinkedIn Premium Badge */}
+                <a
+                  href="https://www.linkedin.com/in/dineshparanthagan/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Dinesh Paranthagan on LinkedIn"
+                  className="group relative inline-flex items-center space-x-2.5 px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50/90 shadow-sm hover:shadow-md hover:border-[#0A66C2]/40 transition-all duration-200"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#0A66C2] flex items-center justify-center text-white shadow-sm shadow-[#0A66C2]/30 group-hover:scale-105 transition-transform duration-200">
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                    </svg>
+                  </div>
+                  <div className="text-left">
+                    <div className="font-mono text-[9px] uppercase font-bold text-slate-500 group-hover:text-[#0A66C2] transition-colors leading-none">
+                      LinkedIn
+                    </div>
+                    <div className="font-sans text-xs font-bold text-slate-900 leading-tight mt-0.5">
+                      Dinesh Paranthagan
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0A66C2] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 ml-1" />
+                </a>
+
+                {/* Instagram Premium Badge */}
+                <a
+                  href="https://www.instagram.com/dineshparanthagan?srtk=MWNseXh0am04aXJx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Dinesh Paranthagan on Instagram"
+                  className="group relative inline-flex items-center space-x-2.5 px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50/90 shadow-sm hover:shadow-md hover:border-pink-500/40 transition-all duration-200"
+                >
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] flex items-center justify-center text-white shadow-sm shadow-pink-500/30 group-hover:scale-105 transition-transform duration-200">
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  </div>
+                  <div className="text-left">
+                    <div className="font-mono text-[9px] uppercase font-bold text-slate-500 group-hover:text-pink-600 transition-colors leading-none">
+                      Instagram
+                    </div>
+                    <div className="font-sans text-xs font-bold text-slate-900 leading-tight mt-0.5">
+                      @dineshparanthagan
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 ml-1" />
+                </a>
               </div>
-              <Link
-                to="/institutions-workshops"
-                className="btn-gold-filled w-full py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider block text-center"
-              >
-                View All Partner Institutions &rarr;
-              </Link>
             </div>
 
           </div>
+
+
 
         </div>
       </section>
@@ -857,8 +826,8 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-            <ShieldCheck className="w-4 h-4 text-amber-600" />
+          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+            <ShieldCheck className="w-4 h-4 text-[#881337]" />
             <span>OPERATIONAL RIGOR</span>
           </div>
           <h2 className="font-serif-header font-bold text-3xl sm:text-4xl text-slate-900">
@@ -873,19 +842,19 @@ export const HomePage: React.FC<HomePageProps> = ({
           {processSteps.map((step, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm hover:shadow-md transition-all space-y-3 relative group"
+              className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-rose-400 shadow-sm hover:shadow-md transition-all space-y-3 relative group"
             >
               <div className="flex items-center justify-between">
-                <span className="font-serif-header font-black text-2xl text-amber-700/40 group-hover:text-amber-700 transition-colors">
+                <span className="font-serif-header font-black text-2xl text-rose-900/40 group-hover:text-[#881337] transition-colors">
                   {step.num}
                 </span>
-                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span className="w-2 h-2 rounded-full bg-[#881337]" />
               </div>
               <div className="space-y-1">
                 <h3 className="font-serif-header font-bold text-base text-slate-900">
                   {step.title}
                 </h3>
-                <div className="font-mono text-[10px] text-amber-800 font-semibold uppercase">
+                <div className="font-mono text-[10px] text-[#881337] font-semibold uppercase">
                   {step.tagline}
                 </div>
                 <p className="font-sans text-xs text-slate-600 leading-relaxed pt-1">
@@ -902,8 +871,8 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-            <Building2 className="w-4 h-4 text-amber-600" />
+          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+            <Building2 className="w-4 h-4 text-[#881337]" />
             <span>DOMAIN EXPERTISE</span>
           </div>
           <h2 className="font-serif-header font-bold text-3xl text-slate-900">
@@ -918,9 +887,9 @@ export const HomePage: React.FC<HomePageProps> = ({
           {industrySectors.map((ind, idx) => {
             const Icon = ind.icon;
             return (
-              <div key={idx} className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-amber-300 shadow-sm space-y-3">
-                <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-amber-800" />
+              <div key={idx} className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-rose-300 shadow-sm space-y-3">
+                <div className="w-9 h-9 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center">
+                  <Icon className="w-4 h-4 text-[#881337]" />
                 </div>
                 <h3 className="font-serif-header font-bold text-sm text-slate-900">
                   {ind.name}
@@ -935,21 +904,21 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       </section>
 
-      {/* 9. GOOGLE REVIEWS CAROUSEL (3,398 GOOGLE REVIEWS) */}
+      {/* 9. GOOGLE REVIEWS CAROUSEL */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
+          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
             <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-            <span>3,398 VERIFIED GOOGLE REVIEWS (4.9★)</span>
+            <span>4,343 VERIFIED CLIENT REVIEWS (4.8★)</span>
           </div>
           <h2 className="font-serif-header font-bold text-3xl text-slate-900">
-            What Clients &amp; Alumni Say
+            What Enterprise Leaders &amp; Partners Say
           </h2>
         </div>
 
         {/* Carousel Container */}
-        <div className="relative rounded-3xl bg-white border-2 border-amber-300 p-8 sm:p-12 shadow-xl">
+        <div className="relative rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl">
           <div className="max-w-3xl mx-auto space-y-6 text-center">
             
             {/* Stars */}
@@ -969,11 +938,11 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="font-sans font-bold text-sm sm:text-base text-slate-900">
                 {GOOGLE_REVIEWS[activeReviewIdx].name}
               </div>
-              <div className="font-mono text-xs text-amber-800 font-semibold">
+              <div className="font-mono text-xs text-[#881337] font-semibold">
                 {GOOGLE_REVIEWS[activeReviewIdx].role}
               </div>
               <div className="text-[11px] font-mono text-slate-400">
-                Verified Google Review &bull; {GOOGLE_REVIEWS[activeReviewIdx].date}
+                Verified Review &bull; {GOOGLE_REVIEWS[activeReviewIdx].date}
               </div>
             </div>
 
@@ -981,7 +950,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="flex items-center justify-center space-x-4 pt-4">
               <button
                 onClick={handlePrevReview}
-                className="p-2.5 rounded-full bg-slate-100 hover:bg-amber-100 border border-slate-300 text-slate-700 cursor-pointer transition-colors"
+                className="p-2.5 rounded-full bg-slate-100 hover:bg-rose-100 border border-slate-300 text-slate-700 cursor-pointer transition-colors"
                 aria-label="Previous Review"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -991,7 +960,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
               <button
                 onClick={handleNextReview}
-                className="p-2.5 rounded-full bg-slate-100 hover:bg-amber-100 border border-slate-300 text-slate-700 cursor-pointer transition-colors"
+                className="p-2.5 rounded-full bg-slate-100 hover:bg-rose-100 border border-slate-300 text-slate-700 cursor-pointer transition-colors"
                 aria-label="Next Review"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -1003,13 +972,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       </section>
 
-      {/* 10. LATEST BLOG POSTS (3) */}
+      {/* 10. LATEST RESEARCH INSIGHTS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
           <div className="space-y-2">
-            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-              <Sparkles className="w-4 h-4 text-amber-600" />
+            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+              <Sparkles className="w-4 h-4 text-[#881337]" />
               <span>THREAT RESEARCH &amp; INDUSTRY ADVISORIES</span>
             </div>
             <h2 className="font-serif-header font-bold text-3xl text-slate-900">
@@ -1018,7 +987,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
           <Link
             to="/blog"
-            className="text-xs font-mono font-bold text-[#9E721D] hover:underline flex items-center space-x-1"
+            className="text-xs font-mono font-bold text-[#881337] hover:underline flex items-center space-x-1"
           >
             <span>View All Research Articles</span>
             <ArrowRight className="w-4 h-4" />
@@ -1029,18 +998,18 @@ export const HomePage: React.FC<HomePageProps> = ({
           {BLOG_POSTS.slice(0, 3).map((post) => (
             <article
               key={post.slug}
-              className="rounded-3xl bg-white border border-slate-200 hover:border-amber-300 p-6 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 group"
+              className="rounded-3xl bg-white border border-slate-200 hover:border-rose-300 p-6 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 group"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-xs font-mono text-slate-500">
-                  <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 font-bold border border-amber-200">
+                  <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-[#881337] font-bold border border-rose-200">
                     {post.category}
                   </span>
                   <span>{post.readTime}</span>
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="font-serif-header font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#9E721D] transition-colors leading-snug">
+                  <h3 className="font-serif-header font-bold text-base sm:text-lg text-slate-900 group-hover:text-[#881337] transition-colors leading-snug">
                     <Link to={`/blog/${post.slug}`}>
                       {post.title}
                     </Link>
@@ -1055,7 +1024,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <span className="text-slate-500">{post.publishedDate}</span>
                 <Link
                   to={`/blog/${post.slug}`}
-                  className="text-amber-800 font-bold hover:underline flex items-center space-x-1"
+                  className="text-[#881337] font-bold hover:underline flex items-center space-x-1"
                 >
                   <span>Read Article</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -1069,13 +1038,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 11. FINAL CALL TO ACTION WITH CONSULTATION FORM */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-14 shadow-2xl relative overflow-hidden border border-amber-400/30 dark-surface">
+        <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-14 shadow-2xl relative overflow-hidden border border-rose-500/30 dark-surface">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left CTA Info */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
-                <ShieldCheck className="w-4 h-4 text-amber-400" />
+              <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-rose-400 uppercase tracking-widest">
+                <ShieldCheck className="w-4 h-4 text-rose-400" />
                 <span>CONFIDENTIAL &bull; PRODUCTION-SAFE &bull; NDA GUARANTEED</span>
               </div>
 
@@ -1084,20 +1053,20 @@ export const HomePage: React.FC<HomePageProps> = ({
               </h2>
 
               <p className="font-sans text-sm text-slate-300 leading-relaxed">
-                Connect directly with our security architects to scope your penetration testing requirements, 24/7 SIEM monitoring deployment, or academic MoU tie-up under complete confidentiality.
+                Connect directly with our senior security architects to scope your penetration testing requirements, 24/7 SIEM monitoring deployment, or enterprise compliance audits under complete mutual confidentiality.
               </p>
 
               <div className="space-y-3 pt-2 font-mono text-xs text-slate-300">
                 <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-amber-400" />
+                  <Phone className="w-4 h-4 text-rose-400" />
                   <span>{COMPANY_FACTS.phones[0]} / {COMPANY_FACTS.phones[1]}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-amber-400" />
+                  <Mail className="w-4 h-4 text-rose-400" />
                   <span>{COMPANY_FACTS.emails[0]}</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Building className="w-4 h-4 text-amber-400" />
+                  <Building className="w-4 h-4 text-rose-400" />
                   <span>Ganapathy, Coimbatore - 641006, Tamil Nadu</span>
                 </div>
               </div>
@@ -1118,7 +1087,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   </p>
                   <button
                     onClick={() => setFormSubmitted(false)}
-                    className="btn-gold-filled px-6 py-2 rounded-xl font-mono text-xs font-bold"
+                    className="btn-burgundy-filled px-6 py-2 rounded-xl font-mono text-xs font-bold text-white"
                   >
                     Submit Another Request
                   </button>
@@ -1138,7 +1107,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Arun Kumar"
-                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none"
                       />
                     </div>
                     <div className="space-y-1">
@@ -1149,7 +1118,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. arun@enterprise.com"
-                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none"
                       />
                     </div>
                   </div>
@@ -1163,36 +1132,36 @@ export const HomePage: React.FC<HomePageProps> = ({
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="font-mono text-[11px] font-bold text-slate-700">Company / College Name</label>
+                      <label className="font-mono text-[11px] font-bold text-slate-700">Organization / Enterprise</label>
                       <input
                         type="text"
                         value={formData.organization}
                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                         placeholder="Organization Name"
-                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-mono text-[11px] font-bold text-slate-700">Primary Service of Interest</label>
+                    <label className="font-mono text-[11px] font-bold text-slate-700">Primary Enterprise Service of Interest</label>
                     <select
                       value={formData.serviceInterest}
                       onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none font-sans"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none font-sans"
                     >
-                      <option value="Penetration Testing (VAPT)">Penetration Testing (VAPT)</option>
-                      <option value="Vulnerability Management & Security Audit">Vulnerability Management & Security Audit</option>
-                      <option value="24/7 Managed SOC Deployment">24/7 Managed SOC Deployment</option>
-                      <option value="ISO 27001 & DPDP Act Compliance">ISO 27001 & DPDP Act Compliance</option>
-                      <option value="Red Team vs Blue Team Emulation">Red Team vs Blue Team Emulation</option>
-                      <option value="Digital Forensics & 65B Investigation">Digital Forensics & 65B Investigation</option>
-                      <option value="EC-Council Certified Training / Internship">EC-Council Certified Training / Internship</option>
-                      <option value="College Cyber Range CoE Tie-up">College Cyber Range CoE Tie-up</option>
+                      <option value="Penetration Testing (VAPT)">Penetration Testing (VAPT - Web, Mobile, API)</option>
+                      <option value="Vulnerability Management & Security Audit">Vulnerability Management &amp; Security Audit</option>
+                      <option value="24/7 Managed SOC Deployment">24/7 Managed SOC Deployment (Wazuh/Splunk)</option>
+                      <option value="ISO 27001 & DPDP Act Compliance">ISO 27001, SOC 2 &amp; DPDP Act Compliance</option>
+                      <option value="Red Team vs Blue Team Emulation">Red Team vs Blue Team Adversary Emulation</option>
+                      <option value="Digital Forensics & 65B Investigation">Digital Forensics &amp; Section 65B Investigation</option>
+                      <option value="IoT & Industrial OT SCADA Security">IoT &amp; Industrial OT SCADA Security</option>
+                      <option value="AI Security & LLM Red Teaming">AI Security Architecture &amp; LLM Red Teaming</option>
                     </select>
                   </div>
 
@@ -1202,16 +1171,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                       rows={2}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Brief details about target assets, expected deadlines, or specific requirements..."
-                      className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none"
+                      placeholder="Brief details about target assets, expected deadlines, or specific compliance requirements..."
+                      className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] focus:ring-1 focus:ring-[#881337] outline-none"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full btn-gold-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg"
+                    className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white"
                   >
-                    <Send className="w-3.5 h-3.5 text-slate-950" />
+                    <Send className="w-3.5 h-3.5 text-white" />
                     <span>Submit Confidential Request</span>
                   </button>
                 </form>
@@ -1225,7 +1194,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* Trust marquee at the bottom */}
       <div className="space-y-4 text-center pt-6">
         <div className="text-xs font-mono text-slate-500 uppercase tracking-widest font-bold">
-          DEFENDING LAW ENFORCEMENT, CRITICAL INFRASTRUCTURE &amp; 54+ UNIVERSITIES
+          DEFENDING LAW ENFORCEMENT, CRITICAL INFRASTRUCTURE &amp; ENTERPRISES PAN-INDIA
         </div>
         <TechMarquee />
       </div>

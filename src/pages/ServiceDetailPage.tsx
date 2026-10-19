@@ -102,15 +102,15 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
 
       {/* 2. BREADCRUMB */}
       <nav aria-label="Breadcrumb" className="flex items-center space-x-2 font-mono text-xs text-slate-500">
-        <Link to="/" className="hover:text-[#9E721D] transition-colors">Home</Link>
+        <Link to="/" className="hover:text-[#881337] transition-colors">Home</Link>
         <span>/</span>
-        <Link to="/services" className="hover:text-[#9E721D] transition-colors">Services</Link>
+        <Link to="/services" className="hover:text-[#881337] transition-colors">Services</Link>
         <span>/</span>
-        <span className="text-[#9E721D] font-bold">{service.shortTitle}</span>
+        <span className="text-[#881337] font-bold">{service.shortTitle}</span>
       </nav>
 
       {/* 3. HERO WITH CONSULTATION BUTTON */}
-      <div className="bg-white rounded-3xl overflow-hidden border-2 border-amber-300 shadow-xl">
+      <div className="bg-white rounded-3xl overflow-hidden border-2 border-rose-200 shadow-xl">
         {service.imageUrl && (
           <div className="h-64 sm:h-80 w-full overflow-hidden bg-slate-950 relative image-banner-dark">
             <img
@@ -122,7 +122,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent pointer-events-none" />
             
             <div className="absolute top-6 left-6 flex items-center space-x-3 z-10">
-              <span className="font-mono text-xs uppercase font-bold tracking-widest text-amber-300 bg-amber-950/90 px-3.5 py-1.5 rounded-full border border-amber-500/40 backdrop-blur-md">
+              <span className="font-mono text-xs uppercase font-bold tracking-widest text-rose-200 bg-[#4A0A13]/90 px-3.5 py-1.5 rounded-full border border-rose-500/40 backdrop-blur-md">
                 {service.badge}
               </span>
               <span className="font-mono text-xs text-slate-200 bg-slate-950/80 px-3 py-1 rounded-full border border-slate-700 backdrop-blur-md">
@@ -137,7 +137,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
               >
                 {service.title}
               </h1>
-              <p className="font-mono text-xs sm:text-sm text-amber-300 mt-2 font-semibold drop-shadow">
+              <p className="font-mono text-xs sm:text-sm text-rose-300 mt-2 font-semibold drop-shadow">
                 {service.tagline}
               </p>
             </div>
@@ -152,11 +152,11 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
             <button
               onClick={() => onRequestAudit(service.title)}
-              className="w-full sm:w-auto btn-gold-filled px-8 py-3.5 rounded-xl font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-xl hover:scale-102 cursor-pointer"
+              className="w-full sm:w-auto btn-burgundy-filled px-8 py-3.5 rounded-xl font-mono text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-xl hover:scale-102 cursor-pointer text-white"
             >
-              <ShieldCheck className="w-4 h-4 text-slate-950" />
+              <ShieldCheck className="w-4 h-4 text-white" />
               <span>Book Your Cyber Consultation</span>
-              <ArrowRight className="w-4 h-4 text-slate-950" />
+              <ArrowRight className="w-4 h-4 text-white" />
             </button>
             <span className="font-mono text-xs text-slate-500">
               Zero Production Downtime &bull; 100% NDA Protected
@@ -169,9 +169,9 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         {/* Who It Is For */}
-        <div className="p-8 rounded-3xl bg-white border border-amber-200 shadow-md space-y-4">
-          <div className="flex items-center space-x-2 text-amber-800 font-mono text-xs uppercase font-bold tracking-wider">
-            <Building2 className="w-4 h-4 text-amber-600" />
+        <div className="p-8 rounded-3xl bg-white border border-rose-200 shadow-md space-y-4">
+          <div className="flex items-center space-x-2 text-[#881337] font-mono text-xs uppercase font-bold tracking-wider">
+            <Building2 className="w-4 h-4 text-[#881337]" />
             <span>Target Organizations &bull; Who It Is For</span>
           </div>
           <h2 className="font-serif-header font-bold text-xl text-slate-900">
@@ -180,8 +180,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
           <ul className="space-y-3 pt-2">
             {service.whoIsItFor?.map((item, idx) => (
               <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm text-slate-700">
-                <div className="w-5 h-5 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3 h-3 text-amber-800" />
+                <div className="w-5 h-5 rounded-full bg-rose-100 border border-rose-300 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3 h-3 text-[#881337]" />
                 </div>
                 <span>{item}</span>
               </li>
@@ -190,9 +190,9 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
         </div>
 
         {/* What Is Included */}
-        <div className="p-8 rounded-3xl bg-white border border-amber-200 shadow-md space-y-4">
-          <div className="flex items-center space-x-2 text-amber-800 font-mono text-xs uppercase font-bold tracking-wider">
-            <Layers className="w-4 h-4 text-amber-600" />
+        <div className="p-8 rounded-3xl bg-white border border-rose-200 shadow-md space-y-4">
+          <div className="flex items-center space-x-2 text-[#881337] font-mono text-xs uppercase font-bold tracking-wider">
+            <Layers className="w-4 h-4 text-[#881337]" />
             <span>Scope Of Work &bull; What Is Included</span>
           </div>
           <h2 className="font-serif-header font-bold text-xl text-slate-900">
@@ -201,8 +201,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
           <ul className="space-y-3 pt-2">
             {service.whatIsIncluded?.map((item, idx) => (
               <li key={idx} className="flex items-start space-x-3 text-xs sm:text-sm text-slate-700">
-                <div className="w-5 h-5 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-3 h-3 text-amber-800" />
+                <div className="w-5 h-5 rounded-full bg-rose-100 border border-rose-300 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-3 h-3 text-[#881337]" />
                 </div>
                 <span>{item}</span>
               </li>
@@ -215,7 +215,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
       {/* 5. METHODOLOGY (5-STAGE EXECUTION FLOW) */}
       <div className="space-y-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <span className="font-mono text-xs text-amber-800 font-bold uppercase tracking-widest">
+          <span className="font-mono text-xs text-[#881337] font-bold uppercase tracking-widest">
             RIGOROUS AUDITING FLOW
           </span>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -226,7 +226,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {service.methodology?.map((step, idx) => (
             <div key={idx} className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
-              <span className="font-mono text-xs text-amber-800 font-bold block">{step.step}</span>
+              <span className="font-mono text-xs text-[#881337] font-bold block">{step.step}</span>
               <h3 className="font-serif-header font-bold text-sm text-slate-900">{step.title}</h3>
               <p className="font-sans text-xs text-slate-600 leading-relaxed">{step.desc}</p>
             </div>
@@ -236,8 +236,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
 
       {/* 6. DELIVERABLES */}
       <div className="p-8 rounded-3xl bg-slate-900 text-white shadow-xl space-y-6 dark-surface">
-        <div className="flex items-center space-x-2 text-amber-400 font-mono text-xs uppercase font-bold tracking-wider">
-          <FileCheck2 className="w-4 h-4 text-amber-400" />
+        <div className="flex items-center space-x-2 text-rose-400 font-mono text-xs uppercase font-bold tracking-wider">
+          <FileCheck2 className="w-4 h-4 text-rose-400" />
           <span>Executive &amp; Technical Deliverables</span>
         </div>
         <h2 
@@ -250,8 +250,8 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           {service.deliverables?.map((deliv, idx) => (
             <div key={idx} className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 flex items-start space-x-3 text-xs sm:text-sm text-slate-200">
-              <div className="w-5 h-5 rounded-full bg-amber-400/20 border border-amber-400/40 flex items-center justify-center shrink-0 mt-0.5">
-                <Check className="w-3 h-3 text-amber-400" />
+              <div className="w-5 h-5 rounded-full bg-rose-900/40 border border-rose-500/40 flex items-center justify-center shrink-0 mt-0.5">
+                <Check className="w-3 h-3 text-rose-400" />
               </div>
               <span>{deliv}</span>
             </div>
@@ -262,7 +262,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
       {/* 7. FAQ ACCORDION */}
       <div className="space-y-6 max-w-4xl mx-auto">
         <div className="text-center space-y-2">
-          <span className="font-mono text-xs text-amber-800 font-bold uppercase tracking-widest">
+          <span className="font-mono text-xs text-[#881337] font-bold uppercase tracking-widest">
             TRANSPARENCY &amp; COMPLIANCE
           </span>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -278,10 +278,10 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
             >
               <button
                 onClick={() => setOpenFaqIdx(openFaqIdx === idx ? null : idx)}
-                className="w-full p-5 text-left flex items-center justify-between font-serif-header font-bold text-sm sm:text-base text-slate-900 hover:text-amber-800 transition-colors cursor-pointer"
+                className="w-full p-5 text-left flex items-center justify-between font-serif-header font-bold text-sm sm:text-base text-slate-900 hover:text-[#881337] transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
-                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${openFaqIdx === idx ? 'rotate-180 text-amber-600' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${openFaqIdx === idx ? 'rotate-180 text-[#881337]' : ''}`} />
               </button>
               {openFaqIdx === idx && (
                 <div className="px-5 pb-5 font-sans text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
@@ -293,44 +293,17 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
         </div>
       </div>
 
-      {/* 8. RELATED SERVICES & RELATED COURSE */}
+      {/* 8. RELATED ENTERPRISE SERVICES */}
       <div className="space-y-6 pt-4 border-t border-slate-200">
         <h2 className="font-serif-header font-bold text-2xl text-slate-900">
-          Related Solutions &amp; Academic Upskilling
+          Related Enterprise Defense Solutions
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Related Course Card (Burgundy styling) */}
-          {relatedCourse && (
-            <div className="rounded-3xl bg-white border-2 border-rose-300 p-6 flex flex-col justify-between shadow-md">
-              <div className="space-y-3">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-100 text-rose-800">
-                  Accredited Course Track
-                </span>
-                <h3 className="font-serif-header font-bold text-base text-slate-900">
-                  {relatedCourse.title}
-                </h3>
-                <p className="font-sans text-xs text-slate-600 line-clamp-3">
-                  {relatedCourse.description}
-                </p>
-              </div>
-              <div className="pt-4">
-                <Link
-                  to={`/courses/${relatedCourse.id}`}
-                  className="btn-burgundy-filled w-full py-2 rounded-xl text-xs font-mono font-bold text-center block text-white"
-                >
-                  Explore Course Track &rarr;
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {/* Related Services Cards (White & Gold styling) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {relatedServices.map((rel) => (
-            <div key={rel.id} className="rounded-3xl bg-white border-2 border-amber-300 p-6 flex flex-col justify-between shadow-md">
+            <div key={rel.id} className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-6 flex flex-col justify-between shadow-md hover:shadow-xl transition-all">
               <div className="space-y-3">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 text-amber-800">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-50 text-[#881337] border border-rose-200">
                   Complementary Service
                 </span>
                 <h3 className="font-serif-header font-bold text-base text-slate-900">
@@ -343,21 +316,20 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
               <div className="pt-4">
                 <Link
                   to={`/services/${rel.id}`}
-                  className="btn-gold-filled w-full py-2 rounded-xl text-xs font-mono font-bold text-center block"
+                  className="btn-burgundy-filled w-full py-2 rounded-xl text-xs font-mono font-bold text-center block text-white"
                 >
                   View Service &rarr;
                 </Link>
               </div>
             </div>
           ))}
-
         </div>
       </div>
 
       {/* 9. CONSULTATION FORM */}
-      <div className="p-8 sm:p-12 rounded-3xl bg-amber-50/70 border-2 border-amber-300 shadow-xl max-w-3xl mx-auto space-y-6">
+      <div className="p-8 sm:p-12 rounded-3xl bg-rose-50/70 border-2 border-rose-200 shadow-xl max-w-3xl mx-auto space-y-6">
         <div className="text-center space-y-2">
-          <span className="font-mono text-xs text-amber-800 font-bold uppercase tracking-widest">
+          <span className="font-mono text-xs text-[#881337] font-bold uppercase tracking-widest">
             DIRECT TECHNICAL SCOPING
           </span>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -387,7 +359,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Dinesh Kumar"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 outline-none bg-white mt-1"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] outline-none bg-white mt-1"
                 />
               </div>
               <div>
@@ -398,7 +370,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="e.g. dinesh@company.com"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 outline-none bg-white mt-1"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] outline-none bg-white mt-1"
                 />
               </div>
             </div>
@@ -412,7 +384,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+91 93620 12339"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 outline-none bg-white mt-1"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] outline-none bg-white mt-1"
                 />
               </div>
               <div>
@@ -422,7 +394,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   placeholder="Organization or Entity"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 outline-none bg-white mt-1"
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] outline-none bg-white mt-1"
                 />
               </div>
             </div>
@@ -434,15 +406,15 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
                 value={formData.scope}
                 onChange={(e) => setFormData({ ...formData, scope: e.target.value })}
                 placeholder={`Provide any specific target domains, IPs, compliance deadlines for ${service.shortTitle}...`}
-                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-amber-500 outline-none bg-white mt-1"
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-[#881337] outline-none bg-white mt-1"
               />
             </div>
 
             <button
               type="submit"
-              className="btn-gold-filled w-full py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg"
+              className="btn-burgundy-filled w-full py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white"
             >
-              <Send className="w-3.5 h-3.5 text-slate-950" />
+              <Send className="w-3.5 h-3.5 text-white" />
               <span>Submit Scoping Request</span>
             </button>
           </form>

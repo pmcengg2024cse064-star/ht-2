@@ -30,18 +30,18 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <footer className="relative bg-slate-100 border-t border-slate-200 text-slate-600 font-sans pt-16 pb-12 overflow-hidden">
       
-      {/* Top Subtle Brushed Gold Line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+      {/* Top Subtle Burgundy Line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-[#881337] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main 4-Column Clean Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-300">
           
-          {/* Column 1: Hackup Enterprise Services (White & Gold) */}
+          {/* Column 1: Hackup Enterprise Services (Burgundy) */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2 text-[#9E721D] font-mono text-xs font-bold uppercase tracking-wider">
-              <Building2 className="w-4 h-4 text-[#B38728]" />
+            <div className="flex items-center space-x-2 text-[#881337] font-mono text-xs font-bold uppercase tracking-wider">
+              <Building2 className="w-4 h-4 text-[#881337]" />
               <span>Enterprise Services</span>
             </div>
             
@@ -67,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-[#9E721D] hover:underline font-mono font-bold mt-1 block">
+                <Link to="/services" className="text-[#881337] hover:underline font-mono font-bold mt-1 block">
                   &rarr; View All 8 Enterprise Services
                 </Link>
               </li>
@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Column 3: Institutional, Portfolio & Research */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2 text-slate-800 font-mono text-xs font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4 text-[#B38728]" />
+              <ShieldCheck className="w-4 h-4 text-[#881337]" />
               <span>Company &amp; Research</span>
             </div>
             
@@ -139,7 +139,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="text-amber-800 hover:underline font-mono font-bold mt-1 block">
+                <Link to="/blog" className="text-[#881337] hover:underline font-mono font-bold mt-1 block">
                   &rarr; Cybersecurity Threat Research
                 </Link>
               </li>
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 4: Coimbatore HQ Office & Verified Contact */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2 text-[#9E721D] font-mono text-xs font-bold uppercase tracking-wider">
+            <div className="flex items-center space-x-2 text-[#881337] font-mono text-xs font-bold uppercase tracking-wider">
               <MapPin className="w-4 h-4" />
               <span>Coimbatore HQ Office</span>
             </div>
@@ -163,26 +163,26 @@ export const Footer: React.FC<FooterProps> = ({
 
               <div className="space-y-1 pt-2 font-mono text-[11px]">
                 <div className="flex items-center space-x-2">
-                  <Phone className="w-3.5 h-3.5 text-[#B38728] shrink-0" />
+                  <Phone className="w-3.5 h-3.5 text-[#881337] shrink-0" />
                   <a href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`} className="hover:text-slate-950 transition-colors font-bold">
                     {COMPANY_FACTS.phones[0]}
                   </a>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Phone className="w-3.5 h-3.5 text-[#B38728] shrink-0" />
+                  <Phone className="w-3.5 h-3.5 text-[#881337] shrink-0" />
                   <a href={`tel:${COMPANY_FACTS.phones[1].replace(/\s+/g, '')}`} className="hover:text-slate-950 transition-colors">
                     {COMPANY_FACTS.phones[1]}
                   </a>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Mail className="w-3.5 h-3.5 text-[#B38728] shrink-0" />
+                  <Mail className="w-3.5 h-3.5 text-[#881337] shrink-0" />
                   <a href={`mailto:${COMPANY_FACTS.emails[0]}`} className="hover:text-slate-950 transition-colors">
                     {COMPANY_FACTS.emails[0]}
                   </a>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Mail className="w-3.5 h-3.5 text-[#B38728] shrink-0" />
-                  <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-[#9E721D] hover:underline transition-colors font-bold">
+                  <Mail className="w-3.5 h-3.5 text-[#881337] shrink-0" />
+                  <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-[#881337] hover:underline transition-colors font-bold">
                     {COMPANY_FACTS.emails[1]}
                   </a>
                 </div>
@@ -194,7 +194,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom Bar: Copyright & Legal Links */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-center md:text-left font-medium">
+          <div className="flex wrap items-center gap-2 sm:gap-4 text-center md:text-left font-medium">
             <span>&copy; {new Date().getFullYear()} Hackup Technology Pvt Ltd. All Rights Reserved.</span>
             <span className="hidden sm:inline">&bull;</span>
             <span>EC-Council Accredited Training Center</span>
@@ -213,7 +213,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span>&bull;</span>
             <button
               onClick={onOpenDisclosure}
-              className="text-[#9E721D] hover:underline cursor-pointer"
+              className="text-[#881337] hover:underline cursor-pointer"
             >
               Responsible Disclosure
             </button>

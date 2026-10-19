@@ -321,7 +321,7 @@ export const FOUNDER_PROFILE = {
     proprietaryPatents: '2 Issued Patents',
     partnerUniversities: '54+ Institutions',
     partnerMncs: '7 MNC Partners',
-    googleReviews: '3,398 Reviews (4.9 Rating)',
+    googleReviews: '4,343 Reviews (4.8 Rating)',
     yearsExperience: '10 Years Experience'
   },
   overview: 'Dinesh Paranthagan is an acclaimed cybersecurity leader, state law enforcement technical consultant, and patent inventor. With over a decade of hands-on expertise in offensive vulnerability assessment, digital forensics evidence under Section 65B, and national cyber defense education, he directs Hackup Technology as South India’s sovereign cybersecurity powerhouse.',
@@ -357,7 +357,8 @@ export const FOUNDER_PROFILE = {
     email: 'dinesh@hackuptechnology.com',
     phone: '+91 93620 12339',
     office: 'Hackup Technology HQ, No.4, First Street, Sri Venkatesapuram, Ganapathy, Coimbatore - 641006, Tamil Nadu',
-    linkedInUrl: 'https://linkedin.com/in/dinesh-paranthagan'
+    linkedInUrl: 'https://www.linkedin.com/in/dineshparanthagan/',
+    instagramUrl: 'https://www.instagram.com/dineshparanthagan?srtk=MWNseXh0am04aXJx'
   }
 };
 
@@ -1417,7 +1418,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
 ];
 
 // ----------------------------------------------------
-// GOOGLE REVIEWS (3,398 Reviews, 4.9 Rating)
+// GOOGLE REVIEWS (4,343 Reviews, 4.8 Rating)
 // ----------------------------------------------------
 export const GOOGLE_REVIEWS: GoogleReview[] = [
   {

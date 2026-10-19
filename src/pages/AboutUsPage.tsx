@@ -151,22 +151,22 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
 
       {/* 2. BREADCRUMB */}
       <nav aria-label="Breadcrumb" className="flex items-center space-x-2 font-mono text-xs text-slate-500">
-        <Link to="/" className="hover:text-[#9E721D] transition-colors">Home</Link>
+        <Link to="/" className="hover:text-[#881337] transition-colors">Home</Link>
         <span>/</span>
-        <span className="text-[#9E721D] font-bold">About Us</span>
+        <span className="text-[#881337] font-bold">About Us</span>
       </nav>
 
       {/* 3. HERO & COMPANY STORY */}
       <div className="space-y-6">
         <div className="text-center space-y-4 max-w-4xl mx-auto">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-xs font-mono font-bold text-amber-900 shadow-sm">
-            <ShieldCheck className="w-4 h-4 text-amber-700" />
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] shadow-sm">
+            <ShieldCheck className="w-4 h-4 text-[#881337]" />
             <span>ESTABLISHED IN COIMBATORE, TAMIL NADU &bull; 10 YEARS OF LEADERSHIP</span>
           </div>
 
           <h1 className="font-serif-header font-black text-3xl sm:text-5xl text-slate-950 tracking-tight leading-tight">
             Defending Critical Frontiers.{' '}
-            <span className="text-gold-pure block mt-1">
+            <span className="text-[#881337] block mt-1">
               Engineering the Nation's Cyber Defense Workforce.
             </span>
           </h1>
@@ -177,22 +177,22 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
 
         {/* Company Facts Bar */}
-        <div className="rounded-3xl bg-white border-2 border-amber-300 p-6 sm:p-8 shadow-lg">
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-6 sm:p-8 shadow-lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             <div className="space-y-1">
-              <div className="font-serif-header font-black text-3xl text-amber-800">10 Years</div>
+              <div className="font-serif-header font-black text-3xl text-[#881337]">10 Years</div>
               <div className="text-xs font-sans text-slate-600 font-semibold">Active Industry Experience</div>
             </div>
             <div className="space-y-1 sm:pl-4">
-              <div className="font-serif-header font-black text-3xl text-amber-800">3,398</div>
-              <div className="text-xs font-sans text-slate-600 font-semibold">Google Reviews (4.9★)</div>
+              <div className="font-serif-header font-black text-3xl text-[#881337]">4,343</div>
+              <div className="text-xs font-sans text-slate-600 font-semibold">Google Reviews (4.8★)</div>
             </div>
             <div className="space-y-1 sm:pl-4">
-              <div className="font-serif-header font-black text-3xl text-amber-800">2 Patents</div>
+              <div className="font-serif-header font-black text-3xl text-[#881337]">2 Patents</div>
               <div className="text-xs font-sans text-slate-600 font-semibold">AI Firewall &amp; Binary RE</div>
             </div>
             <div className="space-y-1 sm:pl-4">
-              <div className="font-serif-header font-black text-3xl text-amber-800">54 &bull; 7</div>
+              <div className="font-serif-header font-black text-3xl text-[#881337]">54 &bull; 7</div>
               <div className="text-xs font-sans text-slate-600 font-semibold">54 Colleges &amp; 7 MNCs</div>
             </div>
           </div>
@@ -200,11 +200,11 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       </div>
 
       {/* 4. FOUNDER PROFILE: DR. DINESH PARANTHAGAN */}
-      <div className="rounded-3xl bg-white border-2 border-amber-300 p-8 sm:p-12 shadow-xl space-y-8">
+      <div className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-8 sm:p-12 shadow-xl space-y-8 transition-all">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           <div className="lg:col-span-4">
-            <div className="rounded-2xl overflow-hidden border-2 border-amber-300 shadow-xl bg-slate-950 relative h-96">
+            <div className="rounded-2xl overflow-hidden border-2 border-rose-200 shadow-xl bg-slate-950 relative h-96">
               <img
                 src={FOUNDER_PROFILE.contact.linkedInUrl ? '/images/founder_dinesh.jpg' : '/images/founder_dinesh.jpg'}
                 alt="Dr. Dinesh Paranthagan, Founder & CEO"
@@ -213,7 +213,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-4 right-4 z-10 dark-overlay-content">
-                <span className="text-[10px] font-mono text-amber-300 uppercase font-bold tracking-wider block drop-shadow">
+                <span className="text-[10px] font-mono text-rose-200 uppercase font-bold tracking-wider block drop-shadow">
                   FOUNDER &amp; CEO
                 </span>
                 <h3 
@@ -230,8 +230,8 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
           </div>
 
           <div className="lg:col-span-8 space-y-4">
-            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-              <Award className="w-4 h-4 text-amber-600" />
+            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+              <Award className="w-4 h-4 text-[#881337]" />
               <span>LEADERSHIP &bull; STATE SECRETARY GENERAL &bull; PATENT INVENTOR</span>
             </div>
 
@@ -246,8 +246,8 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
             {/* Badges / Roles */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
               {FOUNDER_PROFILE.badges.map((b, idx) => (
-                <div key={idx} className="flex items-center space-x-2 text-xs font-mono text-slate-800 p-2 rounded-lg bg-amber-50/70 border border-amber-200">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                <div key={idx} className="flex items-center space-x-2 text-xs font-mono text-slate-800 p-2 rounded-lg bg-rose-50/70 border border-rose-200">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#881337] shrink-0" />
                   <span>{b}</span>
                 </div>
               ))}
@@ -255,7 +255,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
 
             <div className="pt-2 text-xs font-mono text-slate-600 space-y-1">
               <div><strong>DEFCON Chapter:</strong> Lead Organizer, DEFCON Coimbatore 2026 Chapter (#DC91422)</div>
-              <div><strong>Direct Email:</strong> <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-amber-800 font-bold hover:underline">{COMPANY_FACTS.emails[1]}</a></div>
+              <div><strong>Direct Email:</strong> <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-[#881337] font-bold hover:underline">{COMPANY_FACTS.emails[1]}</a></div>
             </div>
           </div>
 
@@ -265,8 +265,8 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       {/* 5. PROPRIETARY PATENTS (2 PATENTS) */}
       <div className="space-y-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-            <Sparkles className="w-4 h-4 text-amber-600" />
+          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+            <Sparkles className="w-4 h-4 text-[#881337]" />
             <span>SOVEREIGN RESEARCH &amp; INTELLECTUAL PROPERTY</span>
           </div>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -279,9 +279,9 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {CYBER_PATENTS.map((pat) => (
-            <div key={pat.id} className="rounded-3xl bg-white border-2 border-amber-300 p-8 shadow-lg space-y-4">
+            <div key={pat.id} className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-8 shadow-lg hover:shadow-xl transition-all space-y-4">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-rose-100 text-[#881337] border border-rose-200">
                   {pat.patentNumber}
                 </span>
                 <span className="text-xs font-mono text-slate-500 font-semibold">
@@ -297,13 +297,13 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
                 {pat.abstract}
               </p>
 
-              <div className="space-y-1.5 pt-2 border-t border-amber-100">
+              <div className="space-y-1.5 pt-2 border-t border-rose-100">
                 <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
                   Core Innovations:
                 </span>
                 {pat.coreInnovations.map((ci, cIdx) => (
                   <div key={cIdx} className="text-xs font-mono text-slate-700 flex items-start space-x-2">
-                    <span className="text-amber-700 font-bold">&bull;</span>
+                    <span className="text-[#881337] font-bold">&bull;</span>
                     <span>{ci}</span>
                   </div>
                 ))}
@@ -316,8 +316,8 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       {/* 6. 5 EXPERIENCE AREAS */}
       <div className="space-y-8">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">
-            <Layers className="w-4 h-4 text-amber-600" />
+          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+            <Layers className="w-4 h-4 text-[#881337]" />
             <span>OPERATIONAL BREADTH &bull; 5 CORE SPHERES</span>
           </div>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -336,8 +336,8 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
               onClick={() => setActiveAreaIdx(idx)}
               className={`px-4 py-2 rounded-xl border transition-all cursor-pointer font-bold ${
                 activeAreaIdx === idx
-                  ? 'bg-amber-100 border-amber-400 text-amber-950 shadow-sm'
-                  : 'bg-white border-slate-300 text-slate-700 hover:border-amber-300'
+                  ? 'bg-[#881337] border-[#881337] text-white shadow-sm'
+                  : 'bg-white border-slate-300 text-slate-700 hover:border-rose-300'
               }`}
             >
               {area.title}
@@ -346,16 +346,16 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
 
         {/* Active Area Card */}
-        <div className="rounded-3xl bg-white border-2 border-amber-300 p-8 sm:p-10 shadow-xl space-y-4">
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-10 shadow-xl space-y-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 border border-amber-300 flex items-center justify-center">
-              {React.createElement(experienceAreas[activeAreaIdx].icon, { className: 'w-5 h-5 text-amber-800' })}
+            <div className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-200 flex items-center justify-center">
+              {React.createElement(experienceAreas[activeAreaIdx].icon, { className: 'w-5 h-5 text-[#881337]' })}
             </div>
             <div>
               <h3 className="font-serif-header font-bold text-xl text-slate-900">
                 {experienceAreas[activeAreaIdx].title}
               </h3>
-              <span className="font-mono text-xs text-amber-800 font-semibold">
+              <span className="font-mono text-xs text-[#881337] font-semibold">
                 {experienceAreas[activeAreaIdx].subtitle}
               </span>
             </div>
@@ -365,7 +365,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
             {experienceAreas[activeAreaIdx].desc}
           </p>
 
-          <div className="space-y-2 pt-2 border-t border-amber-100">
+          <div className="space-y-2 pt-2 border-t border-rose-100">
             <span className="font-mono text-[11px] uppercase font-bold text-slate-500 block">
               Key Contributions &bull; Deliverables:
             </span>
@@ -382,7 +382,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       {/* 7. PARTNERS: 54 COLLEGES & 7 MNCS */}
       <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 shadow-xl space-y-8 dark-surface">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <span className="font-mono text-xs text-amber-400 font-bold uppercase tracking-widest">
+          <span className="font-mono text-xs text-rose-300 font-bold uppercase tracking-widest">
             INSTITUTIONAL FOOTPRINT
           </span>
           <h2 
@@ -399,7 +399,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 font-mono text-xs">
           {PARTNER_INSTITUTIONS.slice(0, 12).map((inst, idx) => (
             <div key={idx} className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
-              <span className="text-[10px] text-amber-400 font-bold block">{inst.badge}</span>
+              <span className="text-[10px] text-rose-300 font-bold block">{inst.badge}</span>
               <div className="text-slate-200 font-medium leading-tight">{inst.name}</div>
               <div className="text-[10px] text-slate-400">{inst.location}</div>
             </div>
@@ -409,10 +409,10 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         <div className="text-center pt-2">
           <Link
             to="/institutions-workshops"
-            className="btn-gold-filled px-6 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center space-x-2"
+            className="btn-burgundy-filled px-6 py-2.5 rounded-xl text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center space-x-2 text-white"
           >
             <span>Explore All 54+ Academic Partnerships &amp; Workshops</span>
-            <ArrowRight className="w-4 h-4 text-slate-950" />
+            <ArrowRight className="w-4 h-4 text-white" />
           </Link>
         </div>
       </div>
@@ -420,7 +420,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       {/* 8. EXECUTIVE TEAM */}
       <div className="space-y-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <span className="font-mono text-xs text-amber-800 font-bold uppercase tracking-widest">
+          <span className="font-mono text-xs text-[#881337] font-bold uppercase tracking-widest">
             OUR PEOPLE
           </span>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
@@ -430,7 +430,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {executiveTeam.map((member, idx) => (
-            <div key={idx} className="rounded-3xl bg-white border-2 border-amber-300 p-6 shadow-md space-y-4">
+            <div key={idx} className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-6 shadow-md hover:shadow-xl transition-all space-y-4">
               <div className="h-44 rounded-2xl overflow-hidden bg-slate-950">
                 <img
                   src={member.image}
@@ -441,7 +441,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
               </div>
               <div className="space-y-1">
                 <h3 className="font-serif-header font-bold text-lg text-slate-900">{member.name}</h3>
-                <div className="font-mono text-xs text-amber-800 font-semibold">{member.role}</div>
+                <div className="font-mono text-xs text-[#881337] font-semibold">{member.role}</div>
                 <div className="font-sans text-[11px] text-slate-500 font-medium" dangerouslySetInnerHTML={{ __html: member.credentials }} />
                 <p className="font-sans text-xs text-slate-600 pt-1 leading-relaxed">{member.desc}</p>
               </div>
@@ -451,7 +451,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       </div>
 
       {/* 9. BOTTOM CTA */}
-      <div className="p-8 sm:p-10 rounded-3xl bg-amber-50 border-2 border-amber-300 text-center space-y-4">
+      <div className="p-8 sm:p-10 rounded-3xl bg-rose-50/60 border-2 border-rose-200 text-center space-y-4">
         <h3 className="font-serif-header font-bold text-2xl text-slate-900">
           Partner with South India’s Most Trusted Cyber Security Firm
         </h3>
@@ -460,9 +460,9 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </p>
         <button
           onClick={() => onRequestConsultation('Executive Consultation')}
-          className="btn-gold-filled px-8 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center space-x-2 shadow-lg"
+          className="btn-burgundy-filled px-8 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center space-x-2 shadow-lg text-white"
         >
-          <Phone className="w-4 h-4 text-slate-950" />
+          <Phone className="w-4 h-4 text-white" />
           <span>Book Executive Cyber Consultation</span>
         </button>
       </div>
