@@ -1,180 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
   <url>
-    <loc>https://hackuptechnology.com/</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Services Overview -->
   <url>
-    <loc>https://hackuptechnology.com/services</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- 8 Dedicated Service Pages -->
   <url>
-    <loc>https://hackuptechnology.com/services/penetration-testing-vapt</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/penetration-testing-vapt</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/vulnerability-management-security-audit</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/vulnerability-management-security-audit</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/soc-managed-security</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/soc-managed-security</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/grc-compliance-consulting</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/grc-compliance-consulting</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/red-team-blue-team</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/red-team-blue-team</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/iot-ot-security</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/iot-ot-security</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/digital-forensics-cybercrime-investigation</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/digital-forensics-cybercrime-investigation</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/services/ai-security</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/services/ai-security</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Courses Overview -->
   <url>
-    <loc>https://hackuptechnology.com/courses</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/courses</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- 5 Dedicated Course Pages -->
   <url>
-    <loc>https://hackuptechnology.com/courses/certified-ethical-hacker-ceh</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/courses/certified-ethical-hacker-ceh</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/courses/cloud-security-engineer-ccse</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/courses/cloud-security-engineer-ccse</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/courses/devsecops-engineer-ecde</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/courses/devsecops-engineer-ecde</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/courses/encryption-specialist-eces</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/courses/encryption-specialist-eces</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/courses/cyber-security-internship</loc>
-    <lastmod>2026-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Institutional & Portfolio Pages -->
-  <url>
-    <loc>https://hackuptechnology.com/institutions-workshops</loc>
-    <lastmod>2026-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://hackuptechnology.com/portfolio</loc>
-    <lastmod>2026-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://hackuptechnology.com/about-us</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/courses/cyber-security-internship</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/gallery</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/institutions-workshops</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/portfolio</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/about-us</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/gallery</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Blog Directory & Articles -->
   <url>
-    <loc>https://hackuptechnology.com/blog</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/blog</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/blog/vapt-methodology-guide-2026</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/blog/vapt-methodology-guide-2026</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/blog/dpdp-act-iso27001-compliance-roadmap</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/blog/dpdp-act-iso27001-compliance-roadmap</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/blog/ai-firewall-nextgen-soc-defense</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/blog/ai-firewall-nextgen-soc-defense</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
-
-  <!-- Contact & Legal -->
   <url>
-    <loc>https://hackuptechnology.com/contact</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/contact</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/privacy-policy</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/privacy-policy</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://hackuptechnology.com/terms</loc>
-    <lastmod>2026-03-01</lastmod>
+    <loc>https://ht-2-five.vercel.app/terms</loc>
+    <lastmod>2026-10-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/founder-patents</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/cyber-range</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/community</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ht-2-five.vercel.app/estimate</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

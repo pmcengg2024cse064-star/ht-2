@@ -16,7 +16,7 @@ import {
   Lock,
   Phone
 } from 'lucide-react';
-import { ENTERPRISE_SERVICES, COMPANY_FACTS } from '../data/cyberData';
+import { ENTERPRISE_SERVICES, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 interface ServicesPageProps {
@@ -51,7 +51,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
       <SEOHead
         title="Cybersecurity Services Coimbatore India | Hackup Tech"
         description="Enterprise cybersecurity services Coimbatore India: VAPT, 24/7 SOC, ISO 27001 GRC consulting, Red Teaming, IoT security & AI defense solutions."
-        canonical="https://hackuptechnology.com/services"
+        canonical={`${SITE_URL}/services`}
         primaryKeyword="cybersecurity services Coimbatore India"
         breadcrumbs={[
           { name: 'Home', url: '/' },

@@ -33,7 +33,8 @@ import {
   BLOG_POSTS, 
   GOOGLE_REVIEWS, 
   COMPANY_FACTS, 
-  CYBER_PATENTS
+  CYBER_PATENTS,
+  SITE_URL
 } from '../data/cyberData';
 
 // High-performance 60fps counting animation component
@@ -299,7 +300,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <SEOHead
         title="Cyber Security Company in Coimbatore | Hackup Technology"
         description="Premier enterprise cyber security company in Coimbatore. Patented AI firewall, VAPT audits, 24/7 SOC, digital forensics & high-assurance cyber advisory."
-        canonical="https://hackuptechnology.com/"
+        canonical={`${SITE_URL}/`}
         primaryKeyword="cyber security company in Coimbatore"
         breadcrumbs={[{ name: 'Home', url: '/' }]}
       />

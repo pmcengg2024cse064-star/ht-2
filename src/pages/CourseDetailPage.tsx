@@ -17,7 +17,7 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
-import { ACADEMY_COURSES, ENTERPRISE_SERVICES, SEO_METADATA_MAP, COMPANY_FACTS } from '../data/cyberData';
+import { ACADEMY_COURSES, ENTERPRISE_SERVICES, SEO_METADATA_MAP, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 interface CourseDetailPageProps {
@@ -69,7 +69,7 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
   const seoData = SEO_METADATA_MAP[`/courses/${course.id}`] || {
     title: `${course.title} | Hackup Technology`,
     description: course.description.slice(0, 155),
-    canonical: `https://hackuptechnology.com/courses/${course.id}`,
+    canonical: `${SITE_URL}/courses/${course.id}`,
     primaryKeyword: course.title
   };
 

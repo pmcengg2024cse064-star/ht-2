@@ -13,7 +13,7 @@ import {
   Search,
   BookOpen
 } from 'lucide-react';
-import { ACADEMY_COURSES, COMPANY_FACTS } from '../data/cyberData';
+import { ACADEMY_COURSES, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 interface CoursesPageProps {
@@ -40,7 +40,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
       <SEOHead
         title="Best Cyber Security Course in Coimbatore | Hackup"
         description="Best cyber security course in Coimbatore. Official EC-Council Accredited Training Center for CEH v13, CCSE, ECDE, ECES & industrial internships."
-        canonical="https://hackuptechnology.com/courses"
+        canonical={`${SITE_URL}/courses`}
         primaryKeyword="best cyber security course in Coimbatore"
         breadcrumbs={[
           { name: 'Home', url: '/' },

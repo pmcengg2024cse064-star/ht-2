@@ -14,9 +14,10 @@ import {
   Phone,
   Mail
 } from 'lucide-react';
-import { FOUNDER_PROFILE, CYBER_PATENTS } from '../data/cyberData';
+import { FOUNDER_PROFILE, CYBER_PATENTS, SITE_URL } from '../data/cyberData';
 import { PatentsSection } from '../components/founder/PatentsSection';
 import { FounderSpotlight } from '../components/founder/FounderSpotlight';
+import { SEOHead } from '../components/common/SEOHead';
 
 interface FounderPatentsPageProps {
   onRequestAudit: (serviceTitle?: string) => void;
@@ -29,6 +30,16 @@ export const FounderPatentsPage: React.FC<FounderPatentsPageProps> = ({
 }) => {
   return (
     <div className="space-y-16 animate-fadeIn pb-20">
+      <SEOHead
+        title="Dual Cybersecurity Patents & Founder Profile | Hackup Tech"
+        description="Discover Hackup Technology patents in AI firewall & binary reverse engineering led by Founder & CEO Dr. Dinesh Paranthagan, TANCCAO Secretary General."
+        canonical={`${SITE_URL}/founder-patents`}
+        primaryKeyword="cybersecurity patents India"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Founder & Patents', url: '/founder-patents' }
+        ]}
+      />
       
       {/* Hero Header */}
       <section className="relative pt-12 pb-8 overflow-hidden text-center space-y-4 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

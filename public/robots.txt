@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hackuptechnology.com/sitemap.xml
+Sitemap: https://ht-2-five.vercel.app/sitemap.xml

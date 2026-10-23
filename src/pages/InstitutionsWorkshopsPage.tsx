@@ -15,7 +15,7 @@ import {
   Sparkles,
   BookOpen
 } from 'lucide-react';
-import { PARTNER_INSTITUTIONS, COMPANY_FACTS, FOUNDER_PROFILE } from '../data/cyberData';
+import { PARTNER_INSTITUTIONS, COMPANY_FACTS, FOUNDER_PROFILE, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 interface InstitutionsWorkshopsPageProps {
@@ -78,7 +78,7 @@ export const InstitutionsWorkshopsPage: React.FC<InstitutionsWorkshopsPageProps>
       <SEOHead
         title="Ethical Hacking Workshop for Colleges | 54+ Partners"
         description="Ethical hacking workshop for colleges across Tamil Nadu. Campus Cyber Range Center of Excellence (CoE), FDPs, and curriculum modernization."
-        canonical="https://hackuptechnology.com/institutions-workshops"
+        canonical={`${SITE_URL}/institutions-workshops`}
         primaryKeyword="ethical hacking workshop for colleges"
         breadcrumbs={[
           { name: 'Home', url: '/' },

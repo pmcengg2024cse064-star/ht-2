@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { COMPANY_FACTS, SEO_METADATA_MAP } from '../../data/cyberData';
+import { COMPANY_FACTS, SITE_URL } from '../../data/cyberData';
 
 export interface BreadcrumbItem {
   name: string;
@@ -74,7 +74,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     }
 
     // 4. Canonical Tag
-    const currentUrl = canonical || window.location.href;
+    const currentUrl = canonical || (typeof window !== 'undefined' ? `${SITE_URL}${window.location.pathname}` : SITE_URL);
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {
       canonicalLink = document.createElement('link');
@@ -89,27 +89,27 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('og:url', currentUrl, true);
     setMetaTag('og:type', type === 'article' ? 'article' : 'website', true);
     setMetaTag('og:site_name', 'Hackup Technology', true);
-    setMetaTag('og:image', 'https://hackuptechnology.com/images/hackup_logo.png', true);
+    setMetaTag('og:image', `${SITE_URL}/images/hackup_logo.png`, true);
 
     // 6. Twitter Card Tags
     setMetaTag('twitter:card', 'summary_large_image');
     setMetaTag('twitter:title', title || 'Hackup Technology');
     setMetaTag('twitter:description', description || 'Premier cybersecurity company in Coimbatore.');
-    setMetaTag('twitter:image', 'https://hackuptechnology.com/images/hackup_logo.png');
+    setMetaTag('twitter:image', `${SITE_URL}/images/hackup_logo.png`);
 
     // 7. Structured Data (JSON-LD)
     const jsonLdScripts: HTMLScriptElement[] = [];
 
-    // Base Organization & LocalBusiness with Reviews
+    // Base Organization, WebSite & LocalBusiness
     const orgSchema = {
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'Organization',
-          '@id': 'https://hackuptechnology.com/#organization',
+          '@id': `${SITE_URL}/#organization`,
           name: 'Hackup Technology Pvt Ltd',
-          url: 'https://hackuptechnology.com',
-          logo: 'https://hackuptechnology.com/images/hackup_logo.png',
+          url: SITE_URL,
+          logo: `${SITE_URL}/images/hackup_logo.png`,
           founder: {
             '@type': 'Person',
             name: COMPANY_FACTS.founderName,
@@ -127,10 +127,21 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           ]
         },
         {
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/#website`,
+          url: SITE_URL,
+          name: 'Hackup Technology',
+          description: 'Premier Cybersecurity Firm & EC-Council Accredited Training Center',
+          publisher: {
+            '@id': `${SITE_URL}/#organization`
+          },
+          inLanguage: 'en-US'
+        },
+        {
           '@type': 'LocalBusiness',
-          '@id': 'https://hackuptechnology.com/#localbusiness',
+          '@id': `${SITE_URL}/#localbusiness`,
           name: 'Hackup Technology Pvt Ltd',
-          image: 'https://hackuptechnology.com/images/hackup_logo.png',
+          image: `${SITE_URL}/images/hackup_logo.png`,
           telephone: COMPANY_FACTS.phones[0],
           email: COMPANY_FACTS.emails[0],
           address: {
@@ -162,7 +173,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           '@type': 'ListItem',
           position: idx + 1,
           name: crumb.name,
-          item: crumb.url.startsWith('http') ? crumb.url : `https://hackuptechnology.com${crumb.url}`
+          item: crumb.url.startsWith('http') ? crumb.url : `${SITE_URL}${crumb.url}`
         }))
       };
       const bScript = document.createElement('script');
@@ -181,7 +192,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
         name: serviceData.name,
         description: serviceData.description,
         provider: {
-          '@id': 'https://hackuptechnology.com/#organization'
+          '@id': `${SITE_URL}/#organization`
         },
         areaServed: {
           '@type': 'Country',
@@ -204,7 +215,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
         name: courseData.name,
         description: courseData.description,
         provider: {
-          '@id': 'https://hackuptechnology.com/#organization'
+          '@id': `${SITE_URL}/#organization`
         }
       };
       const cScript = document.createElement('script');
@@ -249,9 +260,9 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           name: articleData.author
         },
         publisher: {
-          '@id': 'https://hackuptechnology.com/#organization'
+          '@id': `${SITE_URL}/#organization`
         },
-        image: articleData.image || 'https://hackuptechnology.com/images/hackup_logo.png'
+        image: articleData.image ? (articleData.image.startsWith('http') ? articleData.image : `${SITE_URL}${articleData.image}`) : `${SITE_URL}/images/hackup_logo.png`
       };
       const aScript = document.createElement('script');
       aScript.type = 'application/ld+json';

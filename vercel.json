@@ -1,4 +1,15 @@
 {
+  "redirects": [
+    { "source": "/enterprise", "destination": "/services", "permanent": true },
+    { "source": "/enterprise/services/:serviceId", "destination": "/services/:serviceId", "permanent": true },
+    { "source": "/academy", "destination": "/courses", "permanent": true },
+    { "source": "/academy/courses/:courseId", "destination": "/courses/:courseId", "permanent": true },
+    { "source": "/about", "destination": "/about-us", "permanent": true },
+    { "source": "/institutional-reach", "destination": "/institutions-workshops", "permanent": true },
+    { "source": "/internship", "destination": "/courses/cyber-security-internship", "permanent": true },
+    { "source": "/defcon", "destination": "/community", "permanent": true },
+    { "source": "/patents", "destination": "/founder-patents", "permanent": true }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

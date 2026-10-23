@@ -2,6 +2,8 @@ import React from 'react';
 import { Shield, Users, Trophy, Sparkles, MessageSquare, Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { DefconChapterHub } from '../components/community/DefconChapterHub';
 import { DefconContactSection } from '../components/community/DefconContactSection';
+import { SITE_URL } from '../data/cyberData';
+import { SEOHead } from '../components/common/SEOHead';
 
 interface CommunityPageProps {
   onGetInvolved: (title: string) => void;
@@ -10,6 +12,16 @@ interface CommunityPageProps {
 export const CommunityPage: React.FC<CommunityPageProps> = ({ onGetInvolved }) => {
   return (
     <div className="space-y-16 animate-fadeIn pb-16">
+      <SEOHead
+        title="DEFCON Coimbatore Chapter (#DC91422) | Hackup Community"
+        description="Official DEFCON Coimbatore Chapter (#DC91422). Monthly red team workshops, Kovai HackCon CTFs, and ethical hacker meetups in Tamil Nadu."
+        canonical={`${SITE_URL}/community`}
+        primaryKeyword="DEFCON Coimbatore community"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Community', url: '/community' }
+        ]}
+      />
       
       {/* Community Dedicated Hero */}
       <section className="relative pt-12 pb-8 overflow-hidden">

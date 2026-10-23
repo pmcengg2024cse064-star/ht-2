@@ -12,7 +12,7 @@ import {
   Building2,
   Tag
 } from 'lucide-react';
-import { BLOG_POSTS, ENTERPRISE_SERVICES, ACADEMY_COURSES, COMPANY_FACTS } from '../data/cyberData';
+import { BLOG_POSTS, ENTERPRISE_SERVICES, ACADEMY_COURSES, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 export const BlogPostPage: React.FC = () => {
@@ -29,7 +29,7 @@ export const BlogPostPage: React.FC = () => {
       <SEOHead
         title={post.metaTitle}
         description={post.metaDescription}
-        canonical={`https://hackuptechnology.com/blog/${post.slug}`}
+        canonical={`${SITE_URL}/blog/${post.slug}`}
         primaryKeyword={post.primaryKeyword}
         breadcrumbs={[
           { name: 'Home', url: '/' },

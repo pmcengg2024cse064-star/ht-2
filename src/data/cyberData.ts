@@ -1573,6 +1573,8 @@ export const FAQ_DATA = {
   ]
 };
 
+export const SITE_URL = 'https://ht-2-five.vercel.app';
+
 // ----------------------------------------------------
 // SEO METADATA MAPPING (Title < 60 chars, Meta < 160 chars)
 // ----------------------------------------------------
@@ -1580,146 +1582,188 @@ export const SEO_METADATA_MAP: Record<string, { title: string; description: stri
   '/': {
     title: 'Cyber Security Company in Coimbatore | Hackup Technology',
     description: 'Premier cyber security company in Coimbatore. Patented AI firewall, VAPT audits, 24/7 SOC, digital forensics & official EC-Council training center.',
-    canonical: 'https://hackuptechnology.com/',
+    canonical: `${SITE_URL}/`,
     primaryKeyword: 'cyber security company in Coimbatore'
   },
   '/services': {
     title: 'Cybersecurity Services Coimbatore India | Hackup Tech',
     description: 'Enterprise cybersecurity services Coimbatore India: VAPT, 24/7 SOC, ISO 27001 GRC consulting, Red Teaming, IoT security & AI defense solutions.',
-    canonical: 'https://hackuptechnology.com/services',
+    canonical: `${SITE_URL}/services`,
     primaryKeyword: 'cybersecurity services Coimbatore India'
   },
   '/services/penetration-testing-vapt': {
     title: 'VAPT Services India | Penetration Testing Coimbatore',
     description: 'Top-tier VAPT services India. Zero-downtime penetration testing for web, mobile, APIs and networks with official Safe-to-Host certification.',
-    canonical: 'https://hackuptechnology.com/services/penetration-testing-vapt',
+    canonical: `${SITE_URL}/services/penetration-testing-vapt`,
     primaryKeyword: 'VAPT services India'
   },
   '/services/vulnerability-management-security-audit': {
     title: 'Vulnerability Assessment & Security Audit | Hackup',
     description: 'Continuous vulnerability assessment and enterprise security audit services. Asset discovery, CVE prioritization, and continuous posture management.',
-    canonical: 'https://hackuptechnology.com/services/vulnerability-management-security-audit',
+    canonical: `${SITE_URL}/services/vulnerability-management-security-audit`,
     primaryKeyword: 'vulnerability assessment'
   },
   '/services/soc-managed-security': {
     title: 'Managed Security Services India | 24/7 SOC Operations',
     description: '24/7 managed security services India. Turnkey Wazuh & Splunk SIEM deployment, real-time threat hunting, and rapid incident response triage.',
-    canonical: 'https://hackuptechnology.com/services/soc-managed-security',
+    canonical: `${SITE_URL}/services/soc-managed-security`,
     primaryKeyword: 'managed security services India'
   },
   '/services/grc-compliance-consulting': {
     title: 'ISO 27001 and GRC Consulting India | DPDP Act Audit',
     description: 'ISO 27001 and GRC consulting India. Guaranteed audit readiness for SOC 2 Type II, Indian DPDP Act 2023, and RBI regulatory frameworks.',
-    canonical: 'https://hackuptechnology.com/services/grc-compliance-consulting',
+    canonical: `${SITE_URL}/services/grc-compliance-consulting`,
     primaryKeyword: 'ISO 27001 and GRC consulting India'
   },
   '/services/red-team-blue-team': {
     title: 'Red Team Assessment & Adversary Simulation | Hackup',
     description: 'Elite red team assessment and purple team operations in India. Realistic adversary simulation, EDR evasion, and defensive resilience training.',
-    canonical: 'https://hackuptechnology.com/services/red-team-blue-team',
+    canonical: `${SITE_URL}/services/red-team-blue-team`,
     primaryKeyword: 'red team assessment'
   },
   '/services/iot-ot-security': {
     title: 'IoT Security Assessment & SCADA Testing | Hackup',
     description: 'IoT security assessment, firmware reverse engineering, and industrial OT/SCADA penetration testing adhering to IEC 62443 standards.',
-    canonical: 'https://hackuptechnology.com/services/iot-ot-security',
+    canonical: `${SITE_URL}/services/iot-ot-security`,
     primaryKeyword: 'IoT security assessment'
   },
   '/services/digital-forensics-cybercrime-investigation': {
     title: 'Digital Forensics Coimbatore | Section 65B DFIR Triage',
     description: 'Digital forensics Coimbatore. 24/7 emergency ransomware triage, memory analysis & Section 65B court evidence dossiers for cybercrime cells.',
-    canonical: 'https://hackuptechnology.com/services/digital-forensics-cybercrime-investigation',
+    canonical: `${SITE_URL}/services/digital-forensics-cybercrime-investigation`,
     primaryKeyword: 'digital forensics Coimbatore'
   },
   '/services/ai-security': {
     title: 'AI Security Consulting India | Patented LLM Defense',
     description: 'AI security consulting India. Patented AI firewall, LLM red teaming, prompt injection defense, and RAG vector database protection.',
-    canonical: 'https://hackuptechnology.com/services/ai-security',
+    canonical: `${SITE_URL}/services/ai-security`,
     primaryKeyword: 'AI security consulting India'
   },
   '/courses': {
     title: 'Best Cyber Security Course in Coimbatore | Hackup',
     description: 'Best cyber security course in Coimbatore. Official EC-Council Accredited Training Center for CEH v13, CCSE, ECDE, ECES & industrial internships.',
-    canonical: 'https://hackuptechnology.com/courses',
+    canonical: `${SITE_URL}/courses`,
     primaryKeyword: 'best cyber security course in Coimbatore'
   },
   '/courses/certified-ethical-hacker-ceh': {
     title: 'CEH Training in Coimbatore | EC-Council CEH v13 ATC',
     description: 'Official CEH training in Coimbatore at Hackup Technology. EC-Council accredited training partner, practical labs, Aspen access & exam vouchers.',
-    canonical: 'https://hackuptechnology.com/courses/certified-ethical-hacker-ceh',
+    canonical: `${SITE_URL}/courses/certified-ethical-hacker-ceh`,
     primaryKeyword: 'CEH training in Coimbatore'
   },
   '/courses/cloud-security-engineer-ccse': {
     title: 'Cloud Security Course Coimbatore | EC-Council CCSE',
     description: 'EC-Council certified cloud security course (CCSE). Multi-cloud defense across AWS, Azure, GCP, container security, and Kubernetes hardening.',
-    canonical: 'https://hackuptechnology.com/courses/cloud-security-engineer-ccse',
+    canonical: `${SITE_URL}/courses/cloud-security-engineer-ccse`,
     primaryKeyword: 'cloud security course'
   },
   '/courses/devsecops-engineer-ecde': {
     title: 'DevSecOps Training Coimbatore | EC-Council ECDE Labs',
     description: 'Hands-on DevSecOps training with EC-Council ECDE curriculum. Shift security left with automated SAST, DAST, SCA in GitHub Actions & CI/CD.',
-    canonical: 'https://hackuptechnology.com/courses/devsecops-engineer-ecde',
+    canonical: `${SITE_URL}/courses/devsecops-engineer-ecde`,
     primaryKeyword: 'DevSecOps training'
   },
   '/courses/encryption-specialist-eces': {
     title: 'Encryption Specialist Course | EC-Council ECES Program',
     description: 'Certified encryption specialist course (ECES). Master applied cryptography, PKI, digital signatures, and DPDP Act data protection standards.',
-    canonical: 'https://hackuptechnology.com/courses/encryption-specialist-eces',
+    canonical: `${SITE_URL}/courses/encryption-specialist-eces`,
     primaryKeyword: 'encryption specialist course'
   },
   '/courses/cyber-security-internship': {
     title: 'Cybersecurity Internship in Coimbatore | 1/3/6 Months',
     description: 'Premier cybersecurity internship in Coimbatore. Hands-on practical cyber range labs, live VAPT projects, certificate & placement assistance.',
-    canonical: 'https://hackuptechnology.com/courses/cyber-security-internship',
+    canonical: `${SITE_URL}/courses/cyber-security-internship`,
     primaryKeyword: 'cybersecurity internship in Coimbatore'
   },
   '/institutions-workshops': {
     title: 'Ethical Hacking Workshop for Colleges | 54+ Partners',
     description: 'Ethical hacking workshop for colleges across Tamil Nadu. Campus Cyber Range Center of Excellence (CoE), FDPs, and curriculum modernization.',
-    canonical: 'https://hackuptechnology.com/institutions-workshops',
+    canonical: `${SITE_URL}/institutions-workshops`,
     primaryKeyword: 'ethical hacking workshop for colleges'
   },
   '/portfolio': {
     title: 'Cybersecurity Case Studies & Portfolio | Hackup Tech',
     description: 'Explore Hackup Technology’s proven cybersecurity portfolio: BFSI core audits, police cybercrime triage, and hospital zero-trust defense.',
-    canonical: 'https://hackuptechnology.com/portfolio',
+    canonical: `${SITE_URL}/portfolio`,
     primaryKeyword: 'cybersecurity company India'
   },
   '/about-us': {
     title: 'About Us | Hackup Technology Coimbatore Leadership',
     description: 'Learn about Hackup Technology: CEO Dinesh Paranthagan, 10 years experience, TANCCAO Sec. Gen., 2 patents, 54 colleges & 7 MNC partners.',
-    canonical: 'https://hackuptechnology.com/about-us',
+    canonical: `${SITE_URL}/about-us`,
     primaryKeyword: 'cybersecurity company in Coimbatore'
   },
   '/gallery': {
     title: 'Cyber Range & Event Gallery | Hackup Technology',
     description: 'Visual gallery of Hackup Technology’s Coimbatore Cyber Range, DEFCON Coimbatore 2026 meetups, campus hackathons, and police workshops.',
-    canonical: 'https://hackuptechnology.com/gallery',
+    canonical: `${SITE_URL}/gallery`,
     primaryKeyword: 'cybersecurity training institute in Tamil Nadu'
   },
   '/blog': {
     title: 'Cybersecurity Insights & Threat Research | Hackup Blog',
     description: 'Authoritative cybersecurity research from Hackup Technology: VAPT guides, DPDP Act compliance, AI firewalls, and red team strategies.',
-    canonical: 'https://hackuptechnology.com/blog',
+    canonical: `${SITE_URL}/blog`,
     primaryKeyword: 'cybersecurity company India'
+  },
+  '/blog/vapt-methodology-guide-2026': {
+    title: 'VAPT Services India | 2026 Penetration Testing Guide',
+    description: 'Complete 2026 guide to enterprise VAPT services in India. Learn zero-downtime penetration testing methodologies, OWASP standards, and safe-to-host certification.',
+    canonical: `${SITE_URL}/blog/vapt-methodology-guide-2026`,
+    primaryKeyword: 'VAPT services India'
+  },
+  '/blog/dpdp-act-iso27001-compliance-roadmap': {
+    title: 'ISO 27001 & GRC Consulting India | DPDP Act Roadmap',
+    description: 'Step-by-step compliance roadmap for ISO 27001:2022 and the Indian DPDP Act 2023. Essential controls, consent architectures, and audit readiness strategies.',
+    canonical: `${SITE_URL}/blog/dpdp-act-iso27001-compliance-roadmap`,
+    primaryKeyword: 'ISO 27001 and GRC consulting India'
+  },
+  '/blog/ai-firewall-nextgen-soc-defense': {
+    title: 'Managed Security Services India | AI Firewall & SOC',
+    description: 'How patented AI-based firewalls and 24/7 managed SOC operations detect and isolate zero-day cyber threats in sub-milliseconds across Indian enterprises.',
+    canonical: `${SITE_URL}/blog/ai-firewall-nextgen-soc-defense`,
+    primaryKeyword: 'managed security services India'
   },
   '/contact': {
     title: 'Contact Hackup Technology | Coimbatore HQ & Phone',
     description: 'Contact Hackup Technology in Ganapathy, Coimbatore. Phone: +91 93620 12339 / +91 96262 15976. 24/7 cyber incident consultation.',
-    canonical: 'https://hackuptechnology.com/contact',
+    canonical: `${SITE_URL}/contact`,
     primaryKeyword: 'cyber security company in Coimbatore'
   },
   '/privacy-policy': {
     title: 'Privacy Policy | Hackup Technology Pvt Ltd',
     description: 'Hackup Technology Privacy Policy. Learn how we safeguard your personal data in full compliance with the Indian DPDP Act 2023.',
-    canonical: 'https://hackuptechnology.com/privacy-policy',
+    canonical: `${SITE_URL}/privacy-policy`,
     primaryKeyword: 'DPDP Act compliance'
   },
   '/terms': {
     title: 'Terms of Service | Hackup Technology Pvt Ltd',
     description: 'Hackup Technology Terms of Service governing enterprise cybersecurity services, training programs, and NDA obligations.',
-    canonical: 'https://hackuptechnology.com/terms',
+    canonical: `${SITE_URL}/terms`,
     primaryKeyword: 'cybersecurity company India'
+  },
+  '/founder-patents': {
+    title: 'Dual Cybersecurity Patents & Founder Profile | Hackup Tech',
+    description: 'Discover Hackup Technology patents in AI firewall & binary reverse engineering led by Founder & CEO Dr. Dinesh Paranthagan, TANCCAO Secretary General.',
+    canonical: `${SITE_URL}/founder-patents`,
+    primaryKeyword: 'cybersecurity patents India'
+  },
+  '/cyber-range': {
+    title: 'Live Cyber Range Sandbox & Attack Lab | Hackup Tech',
+    description: 'Experience hands-on offensive & defensive topology simulations at Hackup Technology\'s Coimbatore Cyber Range. Zero static slides, 2,200+ attack tools.',
+    canonical: `${SITE_URL}/cyber-range`,
+    primaryKeyword: 'cyber range Coimbatore'
+  },
+  '/community': {
+    title: 'DEFCON Coimbatore Chapter (#DC91422) | Hackup Community',
+    description: 'Official DEFCON Coimbatore Chapter (#DC91422). Monthly red team workshops, Kovai HackCon CTFs, and ethical hacker meetups in Tamil Nadu.',
+    canonical: `${SITE_URL}/community`,
+    primaryKeyword: 'DEFCON Coimbatore community'
+  },
+  '/estimate': {
+    title: 'Cybersecurity Cost & Training Scope Estimator | Hackup Tech',
+    description: 'Calculate enterprise VAPT audit timelines and regulatory scopes, or map your personalized 3-stage cybersecurity career training path.',
+    canonical: `${SITE_URL}/estimate`,
+    primaryKeyword: 'VAPT cost estimator'
   }
 };
 

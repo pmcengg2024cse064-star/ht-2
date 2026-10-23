@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Tag
 } from 'lucide-react';
-import { BLOG_POSTS } from '../data/cyberData';
+import { BLOG_POSTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 export const BlogPage: React.FC = () => {
@@ -34,7 +34,7 @@ export const BlogPage: React.FC = () => {
       <SEOHead
         title="Cybersecurity Insights & Threat Research | Hackup Blog"
         description="Authoritative cybersecurity research from Hackup Technology: VAPT guides, DPDP Act compliance, AI firewalls, and red team strategies."
-        canonical="https://hackuptechnology.com/blog"
+        canonical={`${SITE_URL}/blog`}
         primaryKeyword="cybersecurity company India"
         breadcrumbs={[
           { name: 'Home', url: '/' },

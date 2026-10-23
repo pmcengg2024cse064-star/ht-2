@@ -26,7 +26,8 @@ import {
   FOUNDER_PROFILE, 
   CYBER_PATENTS, 
   PARTNER_INSTITUTIONS, 
-  COMPANY_FACTS 
+  COMPANY_FACTS,
+  SITE_URL 
 } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
@@ -141,7 +142,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       <SEOHead
         title="About Us | Hackup Technology Coimbatore Leadership"
         description="Learn about Hackup Technology: CEO Dinesh Paranthagan, 10 years experience, TANCCAO Sec. Gen., 2 patents, 54 colleges & 7 MNC partners."
-        canonical="https://hackuptechnology.com/about-us"
+        canonical={`${SITE_URL}/about-us`}
         primaryKeyword="cybersecurity company in Coimbatore"
         breadcrumbs={[
           { name: 'Home', url: '/' },

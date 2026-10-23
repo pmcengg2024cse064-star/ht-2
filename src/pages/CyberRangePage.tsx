@@ -1,6 +1,8 @@
 import React from 'react';
 import { Terminal, Shield, Flame, Award, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { CyberRangeVisualizer } from '../components/academy/CyberRangeVisualizer';
+import { SITE_URL } from '../data/cyberData';
+import { SEOHead } from '../components/common/SEOHead';
 
 interface CyberRangePageProps {
   onRequestDemo: () => void;
@@ -9,6 +11,16 @@ interface CyberRangePageProps {
 export const CyberRangePage: React.FC<CyberRangePageProps> = ({ onRequestDemo }) => {
   return (
     <div className="space-y-16 animate-fadeIn pb-16">
+      <SEOHead
+        title="Live Cyber Range Sandbox & Attack Lab | Hackup Tech"
+        description="Experience hands-on offensive & defensive topology simulations at Hackup Technology's Coimbatore Cyber Range. Zero static slides, 2,200+ attack tools."
+        canonical={`${SITE_URL}/cyber-range`}
+        primaryKeyword="cyber range Coimbatore"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Cyber Range', url: '/cyber-range' }
+        ]}
+      />
       
       {/* Cyber Range Dedicated Hero */}
       <section className="relative pt-12 pb-8 overflow-hidden">

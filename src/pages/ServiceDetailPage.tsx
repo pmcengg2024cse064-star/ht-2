@@ -18,7 +18,7 @@ import {
   CheckCircle2,
   BookOpen
 } from 'lucide-react';
-import { ENTERPRISE_SERVICES, ACADEMY_COURSES, BLOG_POSTS, SEO_METADATA_MAP, COMPANY_FACTS } from '../data/cyberData';
+import { ENTERPRISE_SERVICES, ACADEMY_COURSES, BLOG_POSTS, SEO_METADATA_MAP, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 interface ServiceDetailPageProps {
@@ -74,7 +74,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onRequestA
   const seoData = SEO_METADATA_MAP[`/services/${service.id}`] || {
     title: `${service.title} | Hackup Technology`,
     description: service.description.slice(0, 155),
-    canonical: `https://hackuptechnology.com/services/${service.id}`,
+    canonical: `${SITE_URL}/services/${service.id}`,
     primaryKeyword: service.shortTitle
   };
 

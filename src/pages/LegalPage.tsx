@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { ShieldCheck, Scale, Lock, ArrowLeft } from 'lucide-react';
-import { COMPANY_FACTS } from '../data/cyberData';
+import { COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 export const LegalPage: React.FC = () => {
@@ -19,7 +19,7 @@ export const LegalPage: React.FC = () => {
             ? 'Hackup Technology Privacy Policy. Learn how we safeguard your personal data in full compliance with the Indian DPDP Act 2023.'
             : 'Hackup Technology Terms of Service governing enterprise cybersecurity services, training programs, and NDA obligations.'
         }
-        canonical={`https://hackuptechnology.com${location.pathname}`}
+        canonical={`${SITE_URL}${location.pathname}`}
         primaryKeyword={isPrivacy ? 'DPDP Act compliance' : 'cybersecurity company India'}
         breadcrumbs={[
           { name: 'Home', url: '/' },

@@ -12,7 +12,7 @@ import {
   ExternalLink,
   MessageSquare
 } from 'lucide-react';
-import { COMPANY_FACTS } from '../data/cyberData';
+import { COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 export const ContactPage: React.FC = () => {
@@ -37,7 +37,7 @@ export const ContactPage: React.FC = () => {
       <SEOHead
         title="Contact Hackup Technology | Coimbatore HQ & Phone"
         description="Contact Hackup Technology in Ganapathy, Coimbatore. Phone: +91 93620 12339 / +91 96262 15976. 24/7 cyber incident consultation."
-        canonical="https://hackuptechnology.com/contact"
+        canonical={`${SITE_URL}/contact`}
         primaryKeyword="cyber security company in Coimbatore"
         breadcrumbs={[
           { name: 'Home', url: '/' },

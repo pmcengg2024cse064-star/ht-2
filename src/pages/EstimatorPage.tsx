@@ -2,6 +2,8 @@ import React from 'react';
 import { Calculator } from 'lucide-react';
 import { DualEstimatorPathFinder } from '../components/interactive/DualEstimatorPathFinder';
 import { FaqSection } from '../components/faq/FaqSection';
+import { SITE_URL } from '../data/cyberData';
+import { SEOHead } from '../components/common/SEOHead';
 
 interface EstimatorPageProps {
   onRequestAuditWithScope: (scopeDetails: any) => void;
@@ -14,6 +16,16 @@ export const EstimatorPage: React.FC<EstimatorPageProps> = ({
 }) => {
   return (
     <div className="space-y-16 animate-fadeIn pb-16">
+      <SEOHead
+        title="Cybersecurity Cost & Training Scope Estimator | Hackup Tech"
+        description="Calculate enterprise VAPT audit timelines and regulatory scopes, or map your personalized 3-stage cybersecurity career training path."
+        canonical={`${SITE_URL}/estimate`}
+        primaryKeyword="VAPT cost estimator"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Estimator', url: '/estimate' }
+        ]}
+      />
       
       {/* Estimator Hero */}
       <section className="relative pt-12 pb-8 overflow-hidden text-center space-y-4 max-w-4xl mx-auto px-4">

@@ -11,7 +11,7 @@ import {
   Terminal,
   Scale
 } from 'lucide-react';
-import { PORTFOLIO_ITEMS } from '../data/cyberData';
+import { PORTFOLIO_ITEMS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 interface PortfolioPageProps {
@@ -26,7 +26,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onRequestAudit }) 
       <SEOHead
         title="Cybersecurity Case Studies & Portfolio | Hackup Tech"
         description="Explore Hackup Technology’s proven cybersecurity portfolio: BFSI core audits, police cybercrime triage, and hospital zero-trust defense."
-        canonical="https://hackuptechnology.com/portfolio"
+        canonical={`${SITE_URL}/portfolio`}
         primaryKeyword="cybersecurity company India"
         breadcrumbs={[
           { name: 'Home', url: '/' },

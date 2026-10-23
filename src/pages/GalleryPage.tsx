@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   ArrowRight
 } from 'lucide-react';
-import { GALLERY_ITEMS } from '../data/cyberData';
+import { GALLERY_ITEMS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
 
 export const GalleryPage: React.FC = () => {
@@ -29,7 +29,7 @@ export const GalleryPage: React.FC = () => {
       <SEOHead
         title="Cyber Range & Event Gallery | Hackup Technology"
         description="Visual gallery of Hackup Technology’s Coimbatore Cyber Range, DEFCON Coimbatore 2026 meetups, campus hackathons, and police workshops."
-        canonical="https://hackuptechnology.com/gallery"
+        canonical={`${SITE_URL}/gallery`}
         primaryKeyword="cybersecurity training institute in Tamil Nadu"
         breadcrumbs={[
           { name: 'Home', url: '/' },
