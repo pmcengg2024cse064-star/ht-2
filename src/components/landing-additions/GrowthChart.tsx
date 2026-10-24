@@ -59,7 +59,7 @@ export const GrowthChart: React.FC = () => {
   });
 
   return (
-    <div className="rounded-3xl bg-white border-2 border-rose-200/80 p-6 sm:p-8 shadow-xl mt-12">
+    <div className="rounded-3xl bg-white border border-rose-100/90 hover:border-rose-200 p-6 sm:p-8 shadow-lg shadow-rose-950/5 mt-12 transition-all">
       {/* Panel Header */}
       <div className="flex items-center space-x-2.5 mb-6 pb-4 border-b border-rose-100">
         <div className="w-8 h-8 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-[#881337]">
@@ -72,10 +72,7 @@ export const GrowthChart: React.FC = () => {
 
       {/* Screen-reader-only accessible text summary */}
       <div className="sr-only">
-        <h4>Colleges reached growth summary:</h4>
-        <p>In 2014: 10 colleges. In 2018: 50 colleges. In 2020: 100 colleges.</p>
-        <h4>Business clients growth summary:</h4>
-        <p>In 2016: 10 business clients. In 2019: 50+ business clients.</p>
+        Colleges reached: 10 in 2014, 50 in 2018, 100 in 2020. Business clients: 10 in 2016, 50+ in 2019.
       </div>
 
       {/* 2-Column Responsive Grid on Desktop, Stacked on Mobile */}
@@ -127,7 +124,7 @@ export const GrowthChart: React.FC = () => {
                 variants={areaVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: true, margin: '0px' }}
               />
 
               {/* Line path */}
@@ -141,7 +138,7 @@ export const GrowthChart: React.FC = () => {
                 variants={lineVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: true, margin: '0px' }}
               />
 
               {/* Data points & labels */}
@@ -158,7 +155,7 @@ export const GrowthChart: React.FC = () => {
                     variants={pointVariants(i)}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: '-40px' }}
+                    viewport={{ once: true, margin: '0px' }}
                     className="drop-shadow-sm"
                   />
 
@@ -243,7 +240,7 @@ export const GrowthChart: React.FC = () => {
                 variants={areaVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: true, margin: '0px' }}
               />
 
               {/* Line path */}
@@ -257,7 +254,7 @@ export const GrowthChart: React.FC = () => {
                 variants={lineVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: true, margin: '0px' }}
               />
 
               {/* Data points & labels */}
@@ -274,7 +271,7 @@ export const GrowthChart: React.FC = () => {
                     variants={pointVariants(i)}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: '-40px' }}
+                    viewport={{ once: true, margin: '0px' }}
                     className="drop-shadow-sm"
                   />
 

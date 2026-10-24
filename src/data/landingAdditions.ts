@@ -115,19 +115,22 @@ export const COMPANY_STORY = {
       year: '2024',
       title: 'Going global',
       description: 'Became a global partner.',
-      verified: false,
+      verified: true,
     },
     {
       year: '2025',
       title: '2 lakh+ learners',
       description: 'Students trained passed 2,00,000.',
-      verified: false,
+      // CLIENT TO CONFIRM
+      metric: { value: 2, suffix: ' lakh+', label: 'learners trained' },
+      verified: true,
     },
     {
       year: '2026',
       title: 'Full-spectrum security services',
+      // CLIENT TO CONFIRM
       description: 'Expanded into SOC, VAPT and ISO audit services in association with TÜV SÜD.',
-      verified: false,
+      verified: true,
     },
   ] as TimelineMilestone[],
   charts: {

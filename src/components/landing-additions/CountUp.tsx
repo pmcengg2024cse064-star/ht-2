@@ -32,6 +32,11 @@ export const CountUp: React.FC<CountUpProps> = ({
     const element = ref.current;
     if (!element) return;
 
+    if (typeof IntersectionObserver === 'undefined') {
+      setCount(value);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimated.current) {
@@ -39,7 +44,8 @@ export const CountUp: React.FC<CountUpProps> = ({
           const startTime = performance.now();
 
           const step = (currentTime: number) => {
-            const progress = Math.min((currentTime - startTime) / duration, 1);
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
             // Ease-out cubic: 1 - (1 - progress)^3
             const easeProgress = 1 - Math.pow(1 - progress, 3);
             setCount(Math.floor(easeProgress * value));
@@ -54,7 +60,7 @@ export const CountUp: React.FC<CountUpProps> = ({
           requestAnimationFrame(step);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
 
     observer.observe(element);
@@ -70,7 +76,7 @@ export const CountUp: React.FC<CountUpProps> = ({
         {displayCount}
         {suffix}
       </span>
-      {label && <span className="ml-1 font-sans">{label}</span>}
+      {label && <span className="ml-1 font-sans"> {label}</span>}
     </span>
   );
 };

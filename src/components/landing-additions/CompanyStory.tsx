@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
-import { Sparkles, TrendingUp, ArrowUpRight } from 'lucide-react';
+import { Sparkles, TrendingUp } from 'lucide-react';
 import { COMPANY_STORY, TimelineMilestone } from '../../data/landingAdditions';
 import { CountUp } from './CountUp';
 import { GrowthChart } from './GrowthChart';
@@ -9,8 +9,8 @@ export const CompanyStory: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  // Filter ONLY verified items per specification
-  const verifiedMilestones: TimelineMilestone[] = COMPANY_STORY.milestones.filter(
+  // All 11 milestones rendered in order
+  const milestones: TimelineMilestone[] = COMPANY_STORY.milestones.filter(
     (item) => item.verified === true
   );
 
@@ -25,14 +25,17 @@ export const CompanyStory: React.FC = () => {
     damping: 30,
   });
 
-  // Calculate node diameter progressively from 14px to 30px
+  // Calculate position of the glowing head dot riding the leading edge
+  const headDotTop = useTransform(smoothProgress, (val) => `${Math.min(Math.max(val, 0), 1) * 100}%`);
+
+  // Calculate node diameter progressively from 14px to 30px across the 11 milestones
   const getNodeSize = (idx: number, total: number) => {
     if (total <= 1) return 20;
-    return Math.round(14 + (idx / (total - 1)) * 16);
+    return Math.min(30, Math.round(14 + (idx / (total - 1)) * 16));
   };
 
   return (
-    <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden font-sans">
+    <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 overflow-hidden font-sans">
       
       {/* Scoped Keyframes for Ambient Upward Drifting Burgundy Orbs */}
       <style>{`
@@ -68,7 +71,7 @@ export const CompanyStory: React.FC = () => {
 
       {/* 1. Header (Entrance Reveal Pattern matching HomePage) */}
       <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 sm:mb-20">
-        <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
+        <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest px-3 py-1 rounded-full bg-rose-50 border border-rose-200/80">
           <Sparkles className="w-4 h-4 text-[#881337]" />
           <span>{COMPANY_STORY.eyebrow}</span>
         </div>
@@ -78,17 +81,17 @@ export const CompanyStory: React.FC = () => {
           <span className="text-[#881337] glossy-burgundy-text">Hackup Technology</span>
         </h2>
 
-        <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="font-sans text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
           {COMPANY_STORY.intro}
         </p>
       </div>
 
       {/* 2. Timeline with Interactive Growth Spine */}
-      <div ref={containerRef} className="relative pb-10">
+      <div ref={containerRef} className="relative pb-6">
         
         {/* The Vertical Growth Spine */}
         {/* Desktop: Centered at 50%. Mobile: Left-aligned at 24px (left-6) */}
-        <div className="absolute top-4 bottom-24 left-6 md:left-1/2 -translate-x-1/2 w-[3px]">
+        <div className="absolute top-6 bottom-6 left-6 md:left-1/2 -translate-x-1/2 w-[3px]">
           {/* Base Muted Track */}
           <div className="w-full h-full bg-slate-200/90 rounded-full" />
 
@@ -100,14 +103,22 @@ export const CompanyStory: React.FC = () => {
               scaleY: shouldReduceMotion ? 1 : smoothProgress,
             }}
           />
+
+          {/* Soft glowing head dot that rides the leading edge of the progress line */}
+          <motion.div
+            style={{
+              top: shouldReduceMotion ? '100%' : headDotTop,
+            }}
+            className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-rose-500 border-2 border-white shadow-[0_0_12px_rgba(225,29,72,0.85)] z-30 pointer-events-none"
+          />
         </div>
 
         {/* Milestones List */}
-        <div className="space-y-12 sm:space-y-16">
-          {verifiedMilestones.map((milestone, idx) => {
+        <div className="space-y-10 sm:space-y-14">
+          {milestones.map((milestone, idx) => {
             const isEven = idx % 2 === 0;
-            const nodeSize = getNodeSize(idx, verifiedMilestones.length);
-            const isLast = idx === verifiedMilestones.length - 1;
+            const nodeSize = getNodeSize(idx, milestones.length);
+            const isLast = idx === milestones.length - 1;
 
             return (
               <div
@@ -116,11 +127,11 @@ export const CompanyStory: React.FC = () => {
               >
                 
                 {/* Node on Spine (Centered on Desktop, Left-Aligned on Mobile) */}
-                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
+                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-6 md:top-1/2 -translate-y-1/2 flex items-center justify-center z-20">
                   <motion.div
                     initial={shouldReduceMotion ? { scale: 1 } : { scale: 0 }}
                     whileInView={{ scale: 1 }}
-                    viewport={{ once: true, margin: '-60px' }}
+                    viewport={{ once: true, margin: '-40px' }}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
@@ -130,16 +141,16 @@ export const CompanyStory: React.FC = () => {
                     className="relative rounded-full bg-gradient-to-tr from-[#5B0E1B] via-[#881337] to-[#BE123C] border-2 border-white shadow-md flex items-center justify-center"
                   >
                     {/* Inner glowing center */}
-                    <div className="w-2 h-2 rounded-full bg-white" />
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white" />
 
                     {/* One-time ripple expansion (non-reduced-motion) */}
                     {!shouldReduceMotion && (
                       <span className="absolute inset-0 rounded-full bg-[#881337] opacity-40 animate-ping pointer-events-none" />
                     )}
 
-                    {/* Subtle pulse on the latest milestone */}
+                    {/* Subtle pulse on the latest milestone (2026) */}
                     {isLast && !shouldReduceMotion && (
-                      <span className="absolute -inset-1.5 rounded-full border border-rose-500/60 animate-pulse pointer-events-none" />
+                      <span className="absolute -inset-1.5 rounded-full border border-rose-500/70 animate-pulse pointer-events-none" />
                     )}
                   </motion.div>
                 </div>
@@ -157,13 +168,13 @@ export const CompanyStory: React.FC = () => {
                         : { opacity: 0, x: isEven ? -48 : 48, y: 16 }
                     }
                     whileInView={{ opacity: 1, x: 0, y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
+                    viewport={{ once: true, margin: '-40px' }}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.1 }
+                        : { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay: 0.05 }
                     }
-                    className="group relative rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 hover:border-rose-300 p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                    className="group relative rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 hover:border-rose-300 p-5 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                   >
                     {/* Desktop Connector Line from Spine to Card */}
                     <div
@@ -195,7 +206,7 @@ export const CompanyStory: React.FC = () => {
                       {milestone.description}
                     </p>
 
-                    {/* Metric Chip (If present on verified milestone) */}
+                    {/* Metric Chip (If present on milestone) */}
                     {milestone.metric && (
                       <div
                         className={`pt-4 mt-4 border-t border-rose-100/80 flex items-center ${
@@ -221,20 +232,20 @@ export const CompanyStory: React.FC = () => {
           })}
         </div>
 
-        {/* 3. Closing Microcopy & Final Glowing Node */}
-        <div className="relative pt-12 text-center flex flex-col items-center">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5B0E1B] to-[#881337] text-white flex items-center justify-center shadow-lg shadow-rose-950/20 mb-3 border-2 border-white">
-            <TrendingUp className="w-5 h-5 text-white" />
-          </div>
-          <p className="font-serif-header font-bold text-sm sm:text-base text-slate-800 tracking-wide">
-            {COMPANY_STORY.closingMicrocopy}
-          </p>
-        </div>
-
       </div>
 
-      {/* 4. Growth At A Glance Panel */}
+      {/* 3. Growth At A Glance Panel (Rendered AFTER last milestone card) */}
       <GrowthChart />
+
+      {/* 4. Closing Microcopy & Final Glowing Node (Rendered AFTER panel) */}
+      <div className="relative pt-12 pb-4 text-center flex flex-col items-center">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#5B0E1B] to-[#881337] text-white flex items-center justify-center shadow-lg shadow-rose-950/20 mb-3 border-2 border-white">
+          <TrendingUp className="w-5 h-5 text-white" />
+        </div>
+        <p className="font-serif-header font-bold text-sm sm:text-base text-slate-800 tracking-wide">
+          {COMPANY_STORY.closingMicrocopy}
+        </p>
+      </div>
 
     </section>
   );
