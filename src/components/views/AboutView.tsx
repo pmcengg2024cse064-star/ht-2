@@ -55,7 +55,7 @@ export const AboutView: React.FC<AboutViewProps> = ({
               Enterprise Defense Driven by Active Practitioners
             </h3>
             <p className="font-sans text-xs sm:text-sm text-[#A79AB2] leading-relaxed">
-              Founded in Coimbatore, Hackup Technology Pvt Ltd has grown to become Tamil Nadu's leading authority on high-assurance vulnerability assessments, cloud DevSecOps audits, and EC-Council certified education.
+              Founded in 2013 in Coimbatore, Hackup Technology Pvt Ltd has grown to become Tamil Nadu's leading authority on high-assurance vulnerability assessments, cloud DevSecOps audits, and EC-Council certified education.
             </p>
             <p className="font-sans text-xs sm:text-sm text-[#A79AB2] leading-relaxed">
               Unlike traditional IT training institutes or automated scanning shops, every service and course at Hackup Technology is led by practicing red team consultants who discover 0-day exploits and triage live ransomware attacks.

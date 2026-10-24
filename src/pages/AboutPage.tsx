@@ -27,7 +27,8 @@ import {
   Compass,
   Check,
   ChevronRight,
-  BookOpen
+  BookOpen,
+  Download
 } from 'lucide-react';
 import { AcademicFootprint } from '../components/institutional/AcademicFootprint';
 import { PatentsSection } from '../components/founder/PatentsSection';
@@ -170,7 +171,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               <span className="text-[#D4AF37] font-semibold">ABOUT HACKUP TECHNOLOGY</span>
               <span className="text-slate-600 hidden sm:inline">|</span>
               <span className="text-slate-400 hidden sm:inline font-medium">
-                ESTABLISHED IN COIMBATORE, TAMIL NADU
+                FOUNDED IN 2013 IN COIMBATORE, TAMIL NADU
               </span>
             </div>
 
@@ -419,12 +420,20 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 </span>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap justify-center gap-2">
+                <a
+                  href="/downloads/Dinesh_Paranthagan_Executive_Profile.pdf"
+                  download="Dinesh_Paranthagan_Executive_Profile.pdf"
+                  className="btn-burgundy-filled inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-white shadow-md hover:scale-102 transition-transform cursor-pointer"
+                >
+                  <Download className="w-4 h-4 text-white" />
+                  <span>Download Profile (PDF)</span>
+                </a>
                 <a
                   href="https://linkedin.com/in/dinesh-paranthagan"
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-gold-outline inline-flex items-center space-x-2 px-6 py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider"
+                  className="btn-gold-outline inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider"
                 >
                   <span>Connect on LinkedIn</span>
                   <ExternalLink className="w-4 h-4 text-[#9E721D]" />
@@ -495,11 +504,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                   <div className="flex items-center space-x-2">
                     <Sparkles className="w-4 h-4 text-[#9E721D] shrink-0" />
                     <span className="font-serif-header font-bold text-base text-amber-900">
-                      Proprietary Patent Holder &amp; Cyber Inventor
+                      Proprietary Patent Holder
                     </span>
                   </div>
                   <p className="text-slate-700 pl-6 leading-relaxed">
-                    Co-inventor of two landmark published patents: <em>AI-Based Firewall Security System</em> and <em>Automated Pentesting &amp; Reverse Engineering Suite</em>.
+                    Inventor and holder of 2 published Indian cybersecurity patents for sovereign cyber defense and automated security architectures.
                   </p>
                 </div>
 

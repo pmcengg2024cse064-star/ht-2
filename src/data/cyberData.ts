@@ -194,7 +194,8 @@ export const COMPANY_FACTS = {
   founderName: 'Dinesh Paranthagan',
   founderQualifications: 'M.C.A., Ph.D.',
   founderTitle: 'Founder and Chief Executive Officer',
-  experienceYears: 10,
+  foundedYear: 2013,
+  experienceYears: 13,
   secretaryGeneralRole: 'Secretary General of TANCCAO (Tamil Nadu Cyber Crime Action Organization)',
   googleReviewsCount: 3398,
   googleRating: 4.9,
@@ -322,9 +323,9 @@ export const FOUNDER_PROFILE = {
     partnerUniversities: '54+ Institutions',
     partnerMncs: '7 MNC Partners',
     googleReviews: '4,343 Reviews (4.8 Rating)',
-    yearsExperience: '10 Years Experience'
+    yearsExperience: '13+ Years Experience'
   },
-  overview: 'Dinesh Paranthagan is an acclaimed cybersecurity leader, state law enforcement technical consultant, and patent inventor. With over a decade of hands-on expertise in offensive vulnerability assessment, digital forensics evidence under Section 65B, and national cyber defense education, he directs Hackup Technology as South India’s sovereign cybersecurity powerhouse.',
+  overview: 'Dinesh Paranthagan is the Founder & CEO of Hackup Technology and a cybersecurity practitioner with over 13 years of experience as an ethical hacker and penetration tester. His work spans VAPT, SOC implementation, digital forensics, cybercrime investigation, GRC consulting, red and blue team engagements, IoT security and AI-integrated cybersecurity. He has supported cyber crime investigations. A regular voice on Tamil media and a sought-after resource person for colleges, Dinesh is passionate about turning students into skilled, ethical defenders.',
   keyContributions: [
     {
       title: 'Consultant to Tamil Nadu Police Cyber Crime Department',
@@ -344,7 +345,7 @@ export const FOUNDER_PROFILE = {
     },
     {
       title: 'Dual Cyber Patent Holder',
-      desc: 'Inventor of 2 published Indian cybersecurity patents: an AI-based Firewall Security System and an Automated Pentesting and Binary Reverse Engineering Tool.'
+      desc: 'Inventor and holder of 2 published Indian cybersecurity patents for sovereign cyber defense.'
     }
   ],
   awards: [
@@ -358,7 +359,8 @@ export const FOUNDER_PROFILE = {
     phone: '+91 93620 12339',
     office: 'Hackup Technology HQ, No.4, First Street, Sri Venkatesapuram, Ganapathy, Coimbatore - 641006, Tamil Nadu',
     linkedInUrl: 'https://www.linkedin.com/in/dineshparanthagan/',
-    instagramUrl: 'https://www.instagram.com/dineshparanthagan?srtk=MWNseXh0am04aXJx'
+    instagramUrl: 'https://www.instagram.com/dineshparanthagan?srtk=MWNseXh0am04aXJx',
+    profileDownloadUrl: '/downloads/Dinesh_Paranthagan_Executive_Profile.pdf'
   }
 };
 

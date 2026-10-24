@@ -11,7 +11,8 @@ import {
   Quote, 
   Mail, 
   Phone,
-  FileCheck2
+  FileCheck2,
+  Download
 } from 'lucide-react';
 import { FOUNDER_PROFILE } from '../../data/cyberData';
 
@@ -155,7 +156,16 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({
               </div>
 
               {/* Actions & Direct Connect */}
-              <div className="pt-4 flex flex-col sm:flex-row items-center gap-3">
+              <div className="pt-4 flex flex-col sm:flex-row flex-wrap items-center gap-3">
+                <a
+                  href="/downloads/Dinesh_Paranthagan_Executive_Profile.pdf"
+                  download="Dinesh_Paranthagan_Executive_Profile.pdf"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider bg-[#881337] hover:bg-[#5B0E1B] text-white transition-all flex items-center justify-center space-x-2 cursor-pointer shadow-md hover:scale-102"
+                >
+                  <Download className="w-4 h-4 text-white" />
+                  <span>Download Entire Profile (PDF)</span>
+                </a>
+
                 <a
                   href="https://linkedin.com/in/dinesh-paranthagan"
                   target="_blank"

@@ -20,7 +20,8 @@ import {
   CheckCircle2,
   Lock,
   Layers,
-  Star
+  Star,
+  Download
 } from 'lucide-react';
 import { 
   FOUNDER_PROFILE, 
@@ -162,7 +163,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         <div className="text-center space-y-4 max-w-4xl mx-auto">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] shadow-sm">
             <ShieldCheck className="w-4 h-4 text-[#881337]" />
-            <span>ESTABLISHED IN COIMBATORE, TAMIL NADU &bull; 10 YEARS OF LEADERSHIP</span>
+            <span>FOUNDED IN 2013 &bull; COIMBATORE, TAMIL NADU &bull; 13+ YEARS OF LEADERSHIP</span>
           </div>
 
           <h1 className="font-serif-header font-black text-3xl sm:text-5xl text-slate-950 tracking-tight leading-tight">
@@ -173,7 +174,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
           </h1>
 
           <p className="font-sans text-sm sm:text-base text-slate-700 max-w-3xl mx-auto leading-relaxed">
-            Founded a decade ago in Ganapathy, Coimbatore by Dr. Dinesh Paranthagan, Hackup Technology Pvt Ltd is an executive cybersecurity enterprise, defense research institution, and EC-Council Accredited Training Center trusted across corporate boardrooms, police commissionerates, and 54+ universities.
+            Founded in 2013 in Ganapathy, Coimbatore by Dr. Dinesh Paranthagan, Hackup Technology Pvt Ltd is an executive cybersecurity enterprise, defense research institution, and EC-Council Accredited Training Center trusted across corporate boardrooms, police commissionerates, and 54+ universities.
           </p>
         </div>
 
@@ -181,7 +182,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         <div className="rounded-3xl bg-white border-2 border-rose-200 p-6 sm:p-8 shadow-lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             <div className="space-y-1">
-              <div className="font-serif-header font-black text-3xl text-[#881337]">10 Years</div>
+              <div className="font-serif-header font-black text-3xl text-[#881337]">13+ Years</div>
               <div className="text-xs font-sans text-slate-600 font-semibold">Active Industry Experience</div>
             </div>
             <div className="space-y-1 sm:pl-4">
@@ -190,7 +191,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
             </div>
             <div className="space-y-1 sm:pl-4">
               <div className="font-serif-header font-black text-3xl text-[#881337]">2 Patents</div>
-              <div className="text-xs font-sans text-slate-600 font-semibold">AI Firewall &amp; Binary RE</div>
+              <div className="text-xs font-sans text-slate-600 font-semibold">Published Cyber Patents</div>
             </div>
             <div className="space-y-1 sm:pl-4">
               <div className="font-serif-header font-black text-3xl text-[#881337]">54 &bull; 7</div>
@@ -258,60 +259,45 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
               <div><strong>DEFCON Chapter:</strong> Lead Organizer, DEFCON Coimbatore 2026 Chapter (#DC91422)</div>
               <div><strong>Direct Email:</strong> <a href={`mailto:${COMPANY_FACTS.emails[1]}`} className="text-[#881337] font-bold hover:underline">{COMPANY_FACTS.emails[1]}</a></div>
             </div>
+
+            {/* Downloadable Option for Entire Profile */}
+            <div className="pt-4 flex flex-wrap items-center gap-3">
+              <a
+                href="/downloads/Dinesh_Paranthagan_Executive_Profile.pdf"
+                download="Dinesh_Paranthagan_Executive_Profile.pdf"
+                className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 text-white shadow-md hover:scale-102 transition-transform cursor-pointer"
+              >
+                <Download className="w-4 h-4 text-white" />
+                <span>Download Entire Profile (PDF)</span>
+              </a>
+
+              <a
+                href={FOUNDER_PROFILE.contact.linkedInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 text-slate-700 shadow-sm transition-all"
+              >
+                <span>LinkedIn Profile</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#881337]" />
+              </a>
+            </div>
           </div>
 
         </div>
       </div>
 
-      {/* 5. PROPRIETARY PATENTS (2 PATENTS) */}
-      <div className="space-y-6">
-        <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
-            <Sparkles className="w-4 h-4 text-[#881337]" />
-            <span>SOVEREIGN RESEARCH &amp; INTELLECTUAL PROPERTY</span>
-          </div>
-          <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
-            2 Issued Indian Cyber Patents
-          </h2>
-          <p className="font-sans text-xs sm:text-sm text-slate-600">
-            Proprietary inventions authored by Dinesh Paranthagan, powering Hackup’s commercial VAPT and SOC advisory.
-          </p>
+      {/* 5. PROPRIETARY PATENTS (2 PATENTS - DETAILS REMOVED) */}
+      <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-10 shadow-lg text-center space-y-4">
+        <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200">
+          <Sparkles className="w-4 h-4 text-[#881337]" />
+          <span>INTELLECTUAL PROPERTY &bull; 2 PATENTS</span>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {CYBER_PATENTS.map((pat) => (
-            <div key={pat.id} className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-8 shadow-lg hover:shadow-xl transition-all space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-rose-100 text-[#881337] border border-rose-200">
-                  {pat.patentNumber}
-                </span>
-                <span className="text-xs font-mono text-slate-500 font-semibold">
-                  Granted: {pat.grantYear}
-                </span>
-              </div>
-
-              <h3 className="font-serif-header font-bold text-lg text-slate-900">
-                {pat.title}
-              </h3>
-
-              <p className="font-sans text-xs text-slate-700 leading-relaxed">
-                {pat.abstract}
-              </p>
-
-              <div className="space-y-1.5 pt-2 border-t border-rose-100">
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
-                  Core Innovations:
-                </span>
-                {pat.coreInnovations.map((ci, cIdx) => (
-                  <div key={cIdx} className="text-xs font-mono text-slate-700 flex items-start space-x-2">
-                    <span className="text-[#881337] font-bold">&bull;</span>
-                    <span>{ci}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
+          Holder of 2 Published Cyber Defense Patents
+        </h2>
+        <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          Dinesh Paranthagan is the inventor and holder of 2 published Indian cybersecurity patents recognized for sovereign cyber defense and automated security architectures.
+        </p>
       </div>
 
       {/* 6. 5 EXPERIENCE AREAS */}
