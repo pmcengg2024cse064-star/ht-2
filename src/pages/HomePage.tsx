@@ -28,6 +28,9 @@ import {
 } from 'lucide-react';
 import { TechMarquee } from '../components/common/TechMarquee';
 import { SEOHead } from '../components/common/SEOHead';
+import { CompanyStory } from '../components/landing-additions/CompanyStory';
+import { MissionVision } from '../components/landing-additions/MissionVision';
+import { FounderMessage } from '../components/landing-additions/FounderMessage';
 import { 
   ENTERPRISE_SERVICES, 
   BLOG_POSTS, 
@@ -689,6 +692,12 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
+      {/* 5A. COMPANY STORY (ANIMATED GROWTH JOURNEY) */}
+      <CompanyStory />
+
+      {/* 5B. MISSION & VISION */}
+      <MissionVision />
+
       {/* 6. AUTHORITY: FOUNDER CARD, PATENTS, PARTNERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl space-y-10">
@@ -822,6 +831,9 @@ export const HomePage: React.FC<HomePageProps> = ({
 
         </div>
       </section>
+
+      {/* 6B. FOUNDER'S MESSAGE & MEDIA */}
+      <FounderMessage />
 
       {/* 7. PROCESS: ASSESS, TEST, REPORT, FIX AND RETEST, MONITOR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

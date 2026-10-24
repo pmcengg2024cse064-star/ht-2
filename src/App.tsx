@@ -5,6 +5,7 @@ import { CanvasBackground } from './components/common/CanvasBackground';
 import { Navbar } from './components/common/Navbar';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import { BackToTop } from './components/common/BackToTop';
+import { WhatsAppFloat } from './components/common/WhatsAppFloat';
 import { CyberChatbot } from './components/chat/CyberChatbot';
 import { Footer } from './components/footer/Footer';
 
@@ -288,6 +289,9 @@ export function App() {
 
           {/* Floating Scroll Progress & Back To Top Control */}
           <BackToTop />
+
+          {/* Floating WhatsApp Quick Contact Button */}
+          <WhatsAppFloat />
 
           {/* Modals & Drawers */}
           <B2BAuditModal
