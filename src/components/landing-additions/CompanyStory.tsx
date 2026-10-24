@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'fr
 import { Sparkles, TrendingUp } from 'lucide-react';
 import { COMPANY_STORY, TimelineMilestone } from '../../data/landingAdditions';
 import { CountUp } from './CountUp';
-import { GrowthChart } from './GrowthChart';
 
 export const CompanyStory: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -233,9 +232,6 @@ export const CompanyStory: React.FC = () => {
         </div>
 
       </div>
-
-      {/* 3. Growth At A Glance Panel (Rendered AFTER last milestone card) */}
-      <GrowthChart />
 
       {/* 4. Closing Microcopy & Final Glowing Node (Rendered AFTER panel) */}
       <div className="relative pt-12 pb-4 text-center flex flex-col items-center">
