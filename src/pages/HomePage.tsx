@@ -421,10 +421,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       </section>
 
-      {/* 2. TRUST BAR: GOOGLE REVIEWS, TANCCAO, PATENTS, ALLIANCES */}
+      {/* 2. TRUST BAR: GOOGLE REVIEWS, CYBER AUDITS, PATENTS, ALLIANCES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xl backdrop-blur-xl">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             
             {/* Trust 1: Google Reviews */}
             <div className="pt-2 sm:pt-0 space-y-1">
@@ -455,21 +455,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </div>
 
-            {/* Trust 3: TANCCAO */}
-            <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
-                <Scale className="w-4 h-4 text-[#881337]" />
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-600">State Secretariat</span>
-              </div>
-              <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                TANCCAO
-              </div>
-              <div className="font-sans text-xs text-slate-600 font-medium">
-                Secretary General Lead
-              </div>
-            </div>
-
-            {/* Trust 4: 2 Issued Patents */}
+            {/* Trust 3: 2 Issued Patents */}
             <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
               <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
                 <Sparkles className="w-4 h-4 text-[#881337]" />
@@ -479,12 +465,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                 2 Patents
               </div>
               <div className="font-sans text-xs text-slate-600 font-medium">
-                AI Firewall &amp; Binary RE
+                Published Cyber Patents
               </div>
             </div>
 
-            {/* Trust 5: 54 Colleges & 7 MNC Partners */}
-            <div className="pt-2 sm:pt-0 sm:pl-4 col-span-2 md:col-span-1 space-y-1">
+            {/* Trust 4: 54 Colleges & 7 MNC Partners */}
+            <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
               <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
                 <Building2 className="w-4 h-4 text-[#881337]" />
                 <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Alliances</span>
