@@ -28,6 +28,9 @@ import {
 } from 'lucide-react';
 import { TechMarquee } from '../components/common/TechMarquee';
 import { SEOHead } from '../components/common/SEOHead';
+import { CompanyStory } from '../components/landing-additions/CompanyStory';
+import { MissionVision } from '../components/landing-additions/MissionVision';
+import { FounderMessage } from '../components/landing-additions/FounderMessage';
 import { 
   ENTERPRISE_SERVICES, 
   BLOG_POSTS, 
@@ -689,6 +692,12 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
+      {/* 5A. COMPANY STORY (ANIMATED GROWTH JOURNEY) */}
+      <CompanyStory />
+
+      {/* 5B. MISSION & VISION */}
+      <MissionVision />
+
       {/* 6. AUTHORITY: FOUNDER CARD, PATENTS, PARTNERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl space-y-10">
@@ -740,24 +749,19 @@ export const HomePage: React.FC<HomePageProps> = ({
               </h2>
 
               <p className="font-sans text-xs sm:text-sm text-slate-700 leading-relaxed">
-                As Founder &amp; CEO of Hackup Technology and Secretary General of TANCCAO, Dr. Dinesh Paranthagan has steered over 2,100 enterprise cybersecurity audits, authored 2 proprietary defense patents, and serves as an official technical consultant to the Tamil Nadu Police Cyber Crime Department.
+                Dinesh Paranthagan is the Founder &amp; CEO of Hackup Technology and a cybersecurity practitioner with over 13 years of experience as an ethical hacker and penetration tester. His work spans VAPT, SOC implementation, digital forensics, cybercrime investigation, GRC consulting, red and blue team engagements, IoT security and AI-integrated cybersecurity. He has supported cyber crime investigations. A regular voice on Tamil media and a sought-after resource person for colleges, Dinesh is passionate about turning students into skilled, ethical defenders.
               </p>
 
-              {/* Patent Cards Snapshot */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                {CYBER_PATENTS.map((pat) => (
-                  <div key={pat.id} className="p-4 rounded-xl bg-rose-50/60 border border-rose-200 space-y-1.5">
-                    <span className="font-mono text-[9px] uppercase font-bold text-[#881337] bg-rose-100 px-2 py-0.5 rounded">
-                      {pat.patentNumber}
-                    </span>
-                    <h4 className="font-serif-header font-bold text-xs text-slate-900">
-                      {pat.title}
-                    </h4>
-                    <p className="font-sans text-[11px] text-slate-600 line-clamp-2">
-                      {pat.shortDesc}
-                    </p>
-                  </div>
-                ))}
+              {/* Mention Two Patents without specific details */}
+              <div className="pt-1 flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-950 font-mono text-xs font-semibold">
+                  <Sparkles className="w-4 h-4 text-[#881337] shrink-0" />
+                  <span>Holder of 2 Published Cyber Defense Patents</span>
+                </div>
+                <div className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-mono text-xs font-semibold">
+                  <ShieldCheck className="w-4 h-4 text-[#881337] shrink-0" />
+                  <span>13+ Years Offensive Security Practice</span>
+                </div>
               </div>
 
               {/* Executive Social Profiles */}
@@ -822,6 +826,9 @@ export const HomePage: React.FC<HomePageProps> = ({
 
         </div>
       </section>
+
+      {/* 6B. FOUNDER'S MESSAGE & MEDIA */}
+      <FounderMessage />
 
       {/* 7. PROCESS: ASSESS, TEST, REPORT, FIX AND RETEST, MONITOR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

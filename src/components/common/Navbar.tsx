@@ -329,14 +329,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Contact Coimbatore HQ
                 </Link>
 
-                {/* Courses in Mobile */}
-                <Link
-                  to="/courses"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-[#1E3A8A] border-b border-slate-100 hover:text-blue-900"
-                >
-                  Courses &amp; Training
-                </Link>
+                {/* Highlighted Courses Button in Mobile Drawer */}
+                <div className="pt-2 pb-1">
+                  <Link
+                    to="/courses"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="btn-navy-filled w-full py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white shadow-lg text-center"
+                  >
+                    <GraduationCap className="w-4 h-4 text-white" />
+                    <span>Courses &amp; Certifications</span>
+                  </Link>
+                </div>
 
                 <div className="pt-2">
                   <button
