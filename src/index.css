@@ -21,6 +21,11 @@
     --color-text-muted: #A79AB2;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 140px;
+  }
+
   /* Light Mode Base Default */
   body {
     background-color: #F8FAFC;

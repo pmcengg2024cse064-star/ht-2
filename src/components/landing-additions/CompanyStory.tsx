@@ -4,7 +4,11 @@ import { Sparkles, TrendingUp } from 'lucide-react';
 import { COMPANY_STORY, TimelineMilestone } from '../../data/landingAdditions';
 import { CountUp } from './CountUp';
 
-export const CompanyStory: React.FC = () => {
+interface CompanyStoryProps {
+  className?: string;
+}
+
+export const CompanyStory: React.FC<CompanyStoryProps> = ({ className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
 
@@ -34,7 +38,7 @@ export const CompanyStory: React.FC = () => {
   };
 
   return (
-    <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 overflow-hidden font-sans">
+    <section className={`relative overflow-hidden font-sans ${className !== undefined ? className : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24'}`}>
       
       {/* Scoped Keyframes for Ambient Upward Drifting Burgundy Orbs */}
       <style>{`

@@ -8,7 +8,9 @@ import {
   Phone, 
   Mail, 
   MapPin, 
-  GraduationCap
+  GraduationCap,
+  ArrowLeft,
+  ArrowRight
 } from 'lucide-react';
 import { COMPANY_FACTS } from '../../data/cyberData';
 
@@ -22,10 +24,15 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({
   onRequestConsultation,
+  onBookDemo,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  const isServices = location.pathname.startsWith('/services');
+  const isCourses = location.pathname.startsWith('/courses');
+  const isCorporate = !isServices && !isCourses;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,30 +47,73 @@ export const Navbar: React.FC<NavbarProps> = ({
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
+  const handleNavAnchor = (e: React.MouseEvent<HTMLAnchorElement>, targetPath: string, hash: string) => {
+    if (location.pathname === targetPath) {
+      e.preventDefault();
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* 2. STICKY HEADER */}
       <header className="sticky top-0 z-50 w-full font-sans shadow-md">
         
-        {/* FIXED CONTACT BAR ON SCROLL & AT TOP */}
+        {/* FIXED CONTACT / TRUST BAR ON SCROLL & AT TOP */}
         <div className="w-full bg-white/95 border-b border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] font-mono text-slate-700 shadow-xs backdrop-blur-md">
           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-1 gap-x-4">
             
+            {/* Left Context-Sensitive Trust Badge */}
             <div className="flex items-center space-x-3 text-slate-700">
-              <span className="hidden sm:inline-flex items-center space-x-1">
-                <MapPin className="w-3 h-3 text-[#881337]" />
-                <span className="font-sans font-semibold text-slate-800">Ganapathy, Coimbatore</span>
-              </span>
-              <span className="text-slate-300 hidden sm:inline">|</span>
-              <span className="inline-flex items-center space-x-1.5 text-red-700 font-bold text-[10px] uppercase tracking-wider">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-                </span>
-                <span>Active 24/7 Incident Hotline</span>
-              </span>
+              {isServices ? (
+                <>
+                  <span className="hidden sm:inline-flex items-center space-x-1.5 text-slate-900 font-semibold">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#881337]" />
+                    <span>TÜV SÜD Assured Security Audit Partner</span>
+                  </span>
+                  <span className="text-slate-300 hidden sm:inline">|</span>
+                  <span className="inline-flex items-center space-x-1.5 text-[#881337] font-bold text-[10px] uppercase tracking-wider">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                    </span>
+                    <span>24/7 Managed SOC Hotline</span>
+                  </span>
+                </>
+              ) : isCourses ? (
+                <>
+                  <span className="hidden sm:inline-flex items-center space-x-1.5 text-slate-900 font-semibold">
+                    <GraduationCap className="w-3.5 h-3.5 text-[#881337]" />
+                    <span>Official EC-Council ATC &bull; 65%+ Hands-On Labs</span>
+                  </span>
+                  <span className="text-slate-300 hidden sm:inline">|</span>
+                  <span className="inline-flex items-center space-x-1.5 text-emerald-700 font-bold text-[10px] uppercase tracking-wider">
+                    <span>Admissions Open: CEH v13 AI Cohort</span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="hidden sm:inline-flex items-center space-x-1">
+                    <MapPin className="w-3 h-3 text-[#881337]" />
+                    <span className="font-sans font-semibold text-slate-800">Ganapathy, Coimbatore HQ</span>
+                  </span>
+                  <span className="text-slate-300 hidden sm:inline">|</span>
+                  <span className="inline-flex items-center space-x-1.5 text-red-700 font-bold text-[10px] uppercase tracking-wider">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                    </span>
+                    <span>Active 24/7 Incident Hotline</span>
+                  </span>
+                </>
+              )}
             </div>
 
+            {/* Right Contact Direct Dial */}
             <div className="flex items-center space-x-3 sm:space-x-4 shrink-0 font-semibold">
               <a 
                 href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`} 
@@ -108,11 +158,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               
-              {/* Brand Logo */}
+              {/* Brand Logo & Experience Identity */}
               <div className="flex items-center space-x-3 shrink-0">
                 <Link
                   to="/"
                   className="flex items-center space-x-3 group text-left cursor-pointer"
+                  title="Return to Corporate Homepage"
                 >
                   <div className="relative flex items-center justify-center w-11 h-11 rounded-xl overflow-hidden shadow-md border border-slate-200 group-hover:border-[#881337] transition-all bg-white p-1">
                     <img
@@ -128,115 +179,251 @@ export const Navbar: React.FC<NavbarProps> = ({
                         HACKUP
                       </span>
                       <span className="font-serif-header font-bold text-sm sm:text-base tracking-widest text-[#881337]">
-                        TECHNOLOGY
+                        {isServices ? 'SERVICES' : isCourses ? 'ACADEMY' : 'TECHNOLOGY'}
                       </span>
                     </div>
                     <div className="font-mono text-[9.5px] uppercase tracking-[0.22em] text-slate-500 -mt-0.5 font-bold">
-                      Art of Security
+                      {isServices 
+                        ? 'Cyber Defense & VAPT' 
+                        : isCourses 
+                        ? 'Education & Cyber Labs' 
+                        : 'Art of Security'}
                     </div>
                   </div>
                 </Link>
               </div>
 
-              {/* TARGET DESKTOP NAVIGATION ITEMS */}
+              {/* DESKTOP NAVIGATION ITEMS (DYNAMICALLY ADAPTED BY EXPERIENCE) */}
               <nav className="hidden lg:flex items-center space-x-1 font-mono text-xs font-semibold text-slate-700">
                 
-                {/* 1. Home */}
-                <NavLink
-                  to="/"
-                  end
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Home
-                </NavLink>
+                {/* 1. SERVICES EXPERIENCE NAVIGATION */}
+                {isServices && (
+                  <>
+                    <Link
+                      to="/"
+                      className="px-2.5 py-2 rounded-lg text-slate-600 hover:text-slate-950 hover:bg-slate-100 flex items-center space-x-1 font-semibold transition-colors mr-1"
+                      title="Back to Corporate Homepage"
+                    >
+                      <ArrowLeft className="w-3.5 h-3.5 text-[#881337]" />
+                      <span>Corporate</span>
+                    </Link>
 
-                {/* 2. Services (Instant 1-Click Redirect) */}
-                <NavLink
-                  to="/services"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive || location.pathname.startsWith('/services')
-                        ? 'text-[#881337] font-bold bg-rose-50'
-                        : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Services
-                </NavLink>
+                    <a
+                      href="/services#overview"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#overview')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Overview
+                    </a>
 
-                {/* 3. Portfolio */}
-                <NavLink
-                  to="/portfolio"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Portfolio
-                </NavLink>
+                    <a
+                      href="/services#services-catalog"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#services-catalog')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      All Services
+                    </a>
 
-                {/* 4. About Us */}
-                <NavLink
-                  to="/about-us"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  About Us
-                </NavLink>
+                    <a
+                      href="/services#why-hackup"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#why-hackup')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Why Hackup
+                    </a>
 
-                {/* 5. Blog */}
-                <NavLink
-                  to="/blog"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Blog
-                </NavLink>
+                    <a
+                      href="/services#industries"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#industries')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Industries
+                    </a>
 
-                {/* 6. Contact */}
-                <NavLink
-                  to="/contact"
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg transition-colors ${
-                      isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
-                    }`
-                  }
-                >
-                  Contact
-                </NavLink>
+                    <a
+                      href="/services#process"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#process')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Process
+                    </a>
+
+                    <a
+                      href="/services#faqs"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#faqs')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      FAQs
+                    </a>
+                  </>
+                )}
+
+                {/* 2. COURSES EXPERIENCE NAVIGATION */}
+                {isCourses && (
+                  <>
+                    <Link
+                      to="/"
+                      className="px-2.5 py-2 rounded-lg text-slate-600 hover:text-slate-950 hover:bg-slate-100 flex items-center space-x-1 font-semibold transition-colors mr-1"
+                      title="Back to Corporate Homepage"
+                    >
+                      <ArrowLeft className="w-3.5 h-3.5 text-[#881337]" />
+                      <span>Corporate</span>
+                    </Link>
+
+                    <a
+                      href="/courses#courses-hero"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#courses-hero')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Overview
+                    </a>
+
+                    <a
+                      href="/courses#trust-credibility"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#trust-credibility')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Why Trust Us
+                    </a>
+
+
+                    <a
+                      href="/courses#featured-courses"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#featured-courses')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Courses
+                    </a>
+
+                    <a
+                      href="/courses#cyber-labs"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#cyber-labs')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      Cyber Labs
+                    </a>
+
+                    <a
+                      href="/courses#for-colleges"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#for-colleges')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      For Colleges
+                    </a>
+
+                    <a
+                      href="/courses#faqs"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#faqs')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      FAQs
+                    </a>
+                  </>
+                )}
+
+                {/* 3. CORPORATE HOMEPAGE NAVIGATION */}
+                {isCorporate && (
+                  <>
+                    <NavLink
+                      to="/"
+                      end
+                      className={({ isActive }) =>
+                        `px-3 py-2 rounded-lg transition-colors ${
+                          isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                        }`
+                      }
+                    >
+                      Home
+                    </NavLink>
+
+
+                    <NavLink
+                      to="/about-us"
+                      className={({ isActive }) =>
+                        `px-3 py-2 rounded-lg transition-colors ${
+                          isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                        }`
+                      }
+                    >
+                      About Us
+                    </NavLink>
+
+                    <NavLink
+                      to="/blog"
+                      className={({ isActive }) =>
+                        `px-3 py-2 rounded-lg transition-colors ${
+                          isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                        }`
+                      }
+                    >
+                      Blog
+                    </NavLink>
+
+                    <NavLink
+                      to="/contact"
+                      className={({ isActive }) =>
+                        `px-3 py-2 rounded-lg transition-colors ${
+                          isActive ? 'text-[#881337] font-bold bg-rose-50' : 'hover:text-slate-950 hover:bg-slate-100'
+                        }`
+                      }
+                    >
+                      Contact
+                    </NavLink>
+                  </>
+                )}
 
               </nav>
 
-              {/* ACTION BUTTONS: Courses (Instant 1-Click Redirect) & Book Consultation (Burgundy) */}
+              {/* ACTION BUTTONS (EXPERIENCE SPECIFIC CONVERSION CTAS) */}
               <div className="hidden lg:flex items-center space-x-3">
-                {/* Courses Button (White & Navy Blue Theme - Redirects instantly on one click) */}
-                <Link
-                  to="/courses"
-                  className="btn-navy-filled px-4 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-lg cursor-pointer hover:scale-102 text-white"
-                >
-                  <GraduationCap className="w-4 h-4 text-white" />
-                  <span>Courses</span>
-                </Link>
+                
+                {/* If on Services Experience */}
+                {isServices && (
+                  <>
+                    <button
+                      onClick={() => onRequestConsultation('Book a Cybersecurity Consultation')}
+                      className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102 text-white"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-white" />
+                      <span>Book a Cybersecurity Consultation</span>
+                    </button>
+                  </>
+                )}
 
-                {/* TARGET CTA BUTTON: "Book Your Cyber Consultation" */}
-                <button
-                  onClick={() => onRequestConsultation('Executive Cyber Consultation')}
-                  className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102 text-white"
-                >
-                  <ShieldCheck className="w-4 h-4 text-white" />
-                  <span>Book Your Cyber Consultation</span>
-                </button>
+                {/* If on Courses Experience */}
+                {isCourses && (
+                  <>
+                    <button
+                      onClick={() => onBookDemo ? onBookDemo('Explore Courses & Admissions') : onRequestConsultation('Course Enrolment')}
+                      className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102 text-white"
+                    >
+                      <GraduationCap className="w-4 h-4 text-white" />
+                      <span>Explore Courses</span>
+                    </button>
+                  </>
+                )}
+
+                {/* If on Corporate Homepage */}
+                {isCorporate && (
+                  <>
+                    <Link
+                      to="/courses"
+                      className="px-4 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 border border-rose-200 bg-rose-50/80 hover:bg-[#881337] text-[#881337] hover:text-white shadow-sm transition-all duration-200 cursor-pointer hover:scale-102"
+                    >
+                      <GraduationCap className="w-4 h-4" />
+                      <span>Courses</span>
+                    </Link>
+
+                    <button
+                      onClick={() => onRequestConsultation('Executive Cyber Consultation')}
+                      className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102 text-white"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-white" />
+                      <span>Book Your Cyber Consultation</span>
+                    </button>
+                  </>
+                )}
+
               </div>
 
               {/* Mobile Hamburger Menu Toggle */}
@@ -254,7 +441,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* MOBILE DRAWER */}
+        {/* MOBILE DRAWER (EXPERIENCE-SPECIFIC USER JOURNEYS) */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -264,94 +451,231 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="lg:hidden w-full bg-white border-b border-slate-200 shadow-xl overflow-hidden font-mono text-xs"
             >
               <div className="px-5 py-4 space-y-3 max-h-[80vh] overflow-y-auto">
-                <Link
-                  to="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-bold text-slate-900 border-b border-slate-100"
-                >
-                  Home
-                </Link>
+                
+                {/* 1. SERVICES MOBILE DRAWER */}
+                {isServices && (
+                  <>
+                    <Link
+                      to="/"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center space-x-2 py-2 font-bold text-[#881337] border-b border-slate-100"
+                    >
+                      <ArrowLeft className="w-4 h-4 text-[#881337]" />
+                      <span>Corporate Homepage</span>
+                    </Link>
 
-                {/* Services in Mobile */}
-                <Link
-                  to="/services"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100 hover:text-[#881337]"
-                >
-                  Services
-                </Link>
+                    <a
+                      href="/services#overview"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#overview')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Services Overview
+                    </a>
 
-                <Link
-                  to="/institutions-workshops"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
-                >
-                  Institutions &amp; Workshops (54+ Colleges)
-                </Link>
+                    <a
+                      href="/services#services-catalog"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#services-catalog')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      All 8 Enterprise Services
+                    </a>
 
-                <Link
-                  to="/portfolio"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
-                >
-                  Portfolio &amp; Case Studies
-                </Link>
+                    <a
+                      href="/services#why-hackup"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#why-hackup')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Why Hackup (Practitioner-Led)
+                    </a>
 
-                <Link
-                  to="/about-us"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
-                >
-                  About Us &amp; Leadership
-                </Link>
+                    <a
+                      href="/services#industries"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#industries')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Industries We Defend
+                    </a>
 
-                <Link
-                  to="/gallery"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
-                >
-                  Cyber Range Gallery
-                </Link>
+                    <a
+                      href="/services#process"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#process')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      5-Stage Safe-to-Host Process
+                    </a>
 
-                <Link
-                  to="/blog"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
-                >
-                  Blog &amp; Cyber Research
-                </Link>
+                    <a
+                      href="/services#faqs"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#faqs')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Engagement &amp; Scoping FAQs
+                    </a>
 
-                <Link
-                  to="/contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
-                >
-                  Contact Coimbatore HQ
-                </Link>
 
-                {/* Highlighted Courses Button in Mobile Drawer */}
-                <div className="pt-2 pb-1">
-                  <Link
-                    to="/courses"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="btn-navy-filled w-full py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white shadow-lg text-center"
-                  >
-                    <GraduationCap className="w-4 h-4 text-white" />
-                    <span>Courses &amp; Certifications</span>
-                  </Link>
-                </div>
+                    <div className="pt-1">
+                      <button
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          onRequestConsultation('Book a Cybersecurity Consultation');
+                        }}
+                        className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white"
+                      >
+                        Book a Cybersecurity Consultation
+                      </button>
+                    </div>
+                  </>
+                )}
 
-                <div className="pt-2">
-                  <button
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      onRequestConsultation();
-                    }}
-                    className="w-full btn-gold-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center"
-                  >
-                    Book Your Cyber Consultation
-                  </button>
-                </div>
+                {/* 2. COURSES MOBILE DRAWER */}
+                {isCourses && (
+                  <>
+                    <Link
+                      to="/"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center space-x-2 py-2 font-bold text-[#881337] border-b border-slate-100"
+                    >
+                      <ArrowLeft className="w-4 h-4 text-[#881337]" />
+                      <span>Corporate Homepage</span>
+                    </Link>
+
+                    <a
+                      href="/courses#courses-hero"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#courses-hero')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Courses Overview
+                    </a>
+
+                    <a
+                      href="/courses#trust-credibility"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#trust-credibility')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Why Trust Hackup for Training
+                    </a>
+
+
+                    <a
+                      href="/courses#featured-courses"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#featured-courses')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Featured Courses Catalogue
+                    </a>
+
+                    <a
+                      href="/courses#cyber-labs"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#cyber-labs')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Hands-On Cyber Labs
+                    </a>
+
+                    <a
+                      href="/courses#for-colleges"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#for-colleges')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Training for Colleges &amp; Institutions
+                    </a>
+
+                    <a
+                      href="/courses#faqs"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#faqs')}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Learner FAQs
+                    </a>
+
+
+                    <div className="pt-1">
+                      <button
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          if (onBookDemo) {
+                            onBookDemo('Courses Mobile Enrolment');
+                          } else {
+                            onRequestConsultation('Course Enrolment');
+                          }
+                        }}
+                        className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white"
+                      >
+                        Explore Courses / Talk to Trainer
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {/* 3. CORPORATE MOBILE DRAWER */}
+                {isCorporate && (
+                  <>
+                    <Link
+                      to="/"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2 font-bold text-slate-900 border-b border-slate-100"
+                    >
+                      Home
+                    </Link>
+
+
+                    <Link
+                      to="/about-us"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      About Us &amp; Leadership
+                    </Link>
+
+                    <Link
+                      to="/gallery"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Cyber Range Gallery
+                    </Link>
+
+                    <Link
+                      to="/blog"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Blog &amp; Cyber Research
+                    </Link>
+
+                    <Link
+                      to="/contact"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                    >
+                      Contact Coimbatore HQ
+                    </Link>
+
+                    <div className="pt-2 pb-1">
+                      <Link
+                        to="/courses"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white bg-[#881337] hover:bg-[#6e0f2c] shadow-lg text-center transition-all"
+                      >
+                        <GraduationCap className="w-4 h-4 text-white" />
+                        <span>Courses &amp; Certifications</span>
+                      </Link>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          onRequestConsultation('Corporate Consultation Request');
+                        }}
+                        className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white"
+                      >
+                        Book Your Cyber Consultation
+                      </button>
+                    </div>
+                  </>
+                )}
+
               </div>
             </motion.div>
           )}

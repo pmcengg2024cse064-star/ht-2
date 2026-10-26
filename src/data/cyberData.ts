@@ -1683,12 +1683,6 @@ export const SEO_METADATA_MAP: Record<string, { title: string; description: stri
     canonical: `${SITE_URL}/institutions-workshops`,
     primaryKeyword: 'ethical hacking workshop for colleges'
   },
-  '/portfolio': {
-    title: 'Cybersecurity Case Studies & Portfolio | Hackup Tech',
-    description: 'Explore Hackup Technology’s proven cybersecurity portfolio: BFSI core audits, police cybercrime triage, and hospital zero-trust defense.',
-    canonical: `${SITE_URL}/portfolio`,
-    primaryKeyword: 'cybersecurity company India'
-  },
   '/about-us': {
     title: 'About Us | Hackup Technology Coimbatore Leadership',
     description: 'Learn about Hackup Technology: CEO Dinesh Paranthagan, 10 years experience, TANCCAO Sec. Gen., 2 patents, 54 colleges & 7 MNC partners.',

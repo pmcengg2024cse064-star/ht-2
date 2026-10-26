@@ -16,7 +16,6 @@ import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { CoursesPage } from './pages/CoursesPage';
 import { CourseDetailPage } from './pages/CourseDetailPage';
 import { InstitutionsWorkshopsPage } from './pages/InstitutionsWorkshopsPage';
-import { PortfolioPage } from './pages/PortfolioPage';
 import { AboutUsPage } from './pages/AboutUsPage';
 import { GalleryPage } from './pages/GalleryPage';
 import { BlogPage } from './pages/BlogPage';
@@ -160,14 +159,10 @@ export function App() {
                 }
               />
 
-              {/* 5. Portfolio */}
+              {/* 5. Portfolio redirect */}
               <Route
                 path="/portfolio"
-                element={
-                  <PortfolioPage
-                    onRequestAudit={handleOpenAuditModal}
-                  />
-                }
+                element={<Navigate to="/" replace />}
               />
 
               {/* 6. About Us */}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { 
   Building2, 
   ArrowRight, 
@@ -28,11 +28,9 @@ import {
 } from 'lucide-react';
 import { TechMarquee } from '../components/common/TechMarquee';
 import { SEOHead } from '../components/common/SEOHead';
-import { CompanyStory } from '../components/landing-additions/CompanyStory';
 import { MissionVision } from '../components/landing-additions/MissionVision';
 import { FounderMessage } from '../components/landing-additions/FounderMessage';
 import { 
-  ENTERPRISE_SERVICES, 
   BLOG_POSTS, 
   GOOGLE_REVIEWS, 
   COMPANY_FACTS, 
@@ -102,6 +100,8 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({
   onRequestAudit,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
   // Google reviews carousel state
   const [activeReviewIdx, setActiveReviewIdx] = useState(0);
 
@@ -186,29 +186,50 @@ export const HomePage: React.FC<HomePageProps> = ({
       target: 10, 
       suffix: ' Years', 
       label: 'Cyber Defense Experience', 
-      sub: 'Foundational Industry Leadership',
+      sub: 'Foundational Industry Leadership Since 2013',
+      category: 'TRACK RECORD',
       icon: Award
+    },
+    { 
+      target: 4343, 
+      suffix: ' Reviews', 
+      label: 'Google Client Reviews', 
+      sub: '4.8★ Client & Student Satisfaction',
+      category: 'VERIFIED REPUTATION',
+      icon: Star,
+      isReview: true
     },
     { 
       target: 2100, 
       suffix: '+', 
-      label: 'Enterprise Security Audits', 
-      sub: 'Zero Breaches Post-Attestation',
-      icon: FileCheck2
+      label: 'Security Audits Delivered', 
+      sub: 'Zero Production Breaches Post-Attestation',
+      category: 'ENTERPRISE TRACK',
+      icon: ShieldCheck
+    },
+    { 
+      target: 2, 
+      suffix: ' Patents', 
+      label: 'Published Cyber Patents', 
+      sub: 'AI Firewall & Binary Reverse Engineering',
+      category: 'PROPRIETARY IP',
+      icon: Sparkles
     },
     { 
       target: 54, 
-      suffix: '', 
-      label: 'Institutional Alliances', 
-      sub: 'Active Higher-Ed & CoE Partners',
+      suffix: '+', 
+      label: 'College & University MoUs', 
+      sub: 'Campus CoE Labs & Sandbox Infrastructure',
+      category: 'ACADEMIC ALLIANCES',
       icon: GraduationCap
     },
     { 
       target: 7, 
-      suffix: '', 
-      label: 'MNC Corporate Alliances', 
-      sub: 'Enterprise Security Governance',
-      icon: Globe
+      suffix: ' MNCs', 
+      label: 'Corporate Enterprise Partners', 
+      sub: 'Enterprise Security Governance Corridors',
+      category: 'GLOBAL ALLIANCES',
+      icon: Building2
     }
   ];
 
@@ -421,144 +442,64 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       </section>
 
-      {/* 2. TRUST BAR: GOOGLE REVIEWS, CYBER AUDITS, PATENTS, ALLIANCES */}
+      {/* 2. SERVICES GATEWAY: REDIRECT TO DEDICATED SERVICES PAGE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xl backdrop-blur-xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
-            
-            {/* Trust 1: Google Reviews */}
-            <div className="pt-2 sm:pt-0 space-y-1">
-              <div className="flex items-center justify-center space-x-1 text-amber-500 mb-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                ))}
-              </div>
-              <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                4,343 Reviews
-              </div>
-              <div className="font-sans text-xs text-slate-600 font-medium">
-                4.8 rating
-              </div>
-            </div>
-
-            {/* Trust 2: Cyber Audits Attested */}
-            <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
-                <ShieldCheck className="w-4 h-4 text-[#881337]" />
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Enterprise Track</span>
-              </div>
-              <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                2,100+
-              </div>
-              <div className="font-sans text-xs text-slate-600 font-medium">
-                Security Audits Delivered
-              </div>
-            </div>
-
-            {/* Trust 3: 2 Issued Patents */}
-            <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
-                <Sparkles className="w-4 h-4 text-[#881337]" />
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Proprietary IP</span>
-              </div>
-              <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                2 Patents
-              </div>
-              <div className="font-sans text-xs text-slate-600 font-medium">
-                Published Cyber Patents
-              </div>
-            </div>
-
-            {/* Trust 4: 54 Colleges & 7 MNC Partners */}
-            <div className="pt-2 sm:pt-0 sm:pl-4 space-y-1">
-              <div className="flex items-center justify-center space-x-1.5 text-[#881337] mb-1">
-                <Building2 className="w-4 h-4 text-[#881337]" />
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-600">Alliances</span>
-              </div>
-              <div className="font-serif-header font-black text-2xl sm:text-3xl text-slate-900">
-                54+ Partners
-              </div>
-              <div className="font-sans text-xs text-slate-600 font-medium">
-                &amp; 7 Corporate MNCs
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 3. ENTERPRISE SERVICES CATALOG (ALL 8 SPECIALIZED DEFENSE SERVICES IN WHITE & BURGUNDY) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        
-        {/* Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
-            <Sparkles className="w-4 h-4 text-[#881337]" />
-            <span>SOLUTIONS DIRECTORY &bull; OFFENSIVE DEFENSE &bull; 24/7 SOC &bull; GRC</span>
-          </div>
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl relative overflow-hidden space-y-8">
           
-          <h2 className="font-serif-header font-bold text-3xl sm:text-4xl text-slate-900">
-            Specialized Enterprise Cybersecurity Services
-          </h2>
-
-          <p className="font-sans text-xs sm:text-sm text-slate-600 font-medium">
-            Explore our 8 high-assurance cybersecurity services engineered for banking, healthcare, government, and software enterprises.
-          </p>
-        </div>
-
-        {/* 8 Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {ENTERPRISE_SERVICES.map((srv) => (
-            <div
-              key={srv.id}
-              className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-6 flex flex-col justify-between shadow-lg hover:shadow-2xl transition-all duration-300 group"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-50 text-[#881337] border border-rose-200">
-                    {srv.badge}
-                  </span>
-                  <span className="text-[10px] font-mono text-slate-500">
-                    {srv.turnaroundDays}
-                  </span>
-                </div>
-
-                <div className="space-y-1.5">
-                  <h3 className="font-serif-header font-bold text-lg text-slate-900 group-hover:text-[#881337] transition-colors leading-snug">
-                    {srv.shortTitle}
-                  </h3>
-                  <p className="font-sans text-xs text-slate-600 line-clamp-3 leading-relaxed">
-                    {srv.description}
-                  </p>
-                </div>
-
-                <div className="space-y-1.5 pt-2 border-t border-rose-100">
-                  <span className="font-mono text-[10px] uppercase font-bold text-slate-500 block">
-                    Standards &bull; Compliance
-                  </span>
-                  <div className="flex flex-wrap gap-1">
-                    {srv.standards.slice(0, 2).map((std, idx) => (
-                      <span key={idx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">
-                        {std}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 space-y-2">
-                <Link
-                  to={`/services/${srv.id}`}
-                  className="btn-burgundy-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101 text-white"
-                >
-                  <span>Explore Service</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-white" />
-                </Link>
-              </div>
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200">
+              <Sparkles className="w-4 h-4 text-[#881337]" />
+              <span>SPECIALIZED ENTERPRISE DEFENSE</span>
             </div>
-          ))}
-        </div>
 
+            <h2 className="font-serif-header font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
+              Our Cybersecurity Services
+            </h2>
+
+            <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl mx-auto">
+              High-assurance offensive ethical hacking, 24/7 Managed SOC surveillance, TÜV SÜD-backed ISO audits, and emergency forensic incident response. All 8 practices are housed on our dedicated Services portal.
+            </p>
+          </div>
+
+          {/* 8 Core Service Quick Tags */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto">
+            {[
+              { title: 'VAPT & Ethical Hacking', badge: 'Manual Testing' },
+              { title: '24/7 Managed SOC', badge: '15-min SLA' },
+              { title: 'Security Audits & VMaaS', badge: 'Continuous' },
+              { title: 'GRC & ISO 27001', badge: 'TÜV SÜD' },
+              { title: 'Red & Blue Team', badge: 'Adversary Sim' },
+              { title: 'IoT & OT Security', badge: 'IEC 62443' },
+              { title: 'Digital Forensics (DFIR)', badge: 'Sec 65B' },
+              { title: 'AI & LLM Defense', badge: 'Patented IP' }
+            ].map((s, idx) => (
+              <div key={idx} className="p-3.5 rounded-2xl bg-rose-50/50 border border-rose-200 space-y-1 text-center">
+                <span className="text-[10px] font-mono font-bold text-[#881337] uppercase block">{s.badge}</span>
+                <div className="text-xs font-sans font-bold text-slate-900">{s.title}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Dedicated Explore Button */}
+          <div className="text-center pt-2 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/services"
+              className="btn-burgundy-gloss inline-flex items-center space-x-2.5 px-8 py-3.5 rounded-full bg-[#881337] hover:bg-[#6e0f2c] text-white hero-font-brand text-xs sm:text-sm font-semibold shadow-lg shadow-[#881337]/25 transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer"
+            >
+              <span>Explore Dedicated Services Page</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => onRequestAudit('Homepage Services Gateway Consultation')}
+              className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-white hover:bg-rose-50 border border-slate-300 text-slate-700 text-xs sm:text-sm font-semibold transition-all shadow-sm"
+            >
+              <span>Request Scoping Call</span>
+            </button>
+          </div>
+
+        </div>
       </section>
 
       {/* 4. WHY HACKUP DISTINCTION */}
@@ -600,74 +541,92 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 5. EXPERIENCE IN NUMBERS */}
+      {/* 4. EXPERIENCE IN NUMBERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 shadow-2xl relative overflow-hidden dark-surface border border-slate-800">
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl relative overflow-hidden space-y-10">
           
-          {/* Subtle Tech Cyber Grid & Ambient Glows */}
+          {/* Subtle Ambient Background Mesh & Soft Burgundy Highlights */}
           <div 
-            className="absolute inset-0 pointer-events-none opacity-20"
+            className="absolute inset-0 pointer-events-none opacity-40 -z-0"
             style={{
               backgroundImage: `
-                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+                linear-gradient(to right, rgba(136, 19, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(136, 19, 55, 0.03) 1px, transparent 1px)
               `,
               backgroundSize: '36px 36px'
             }}
           />
-          <div className="absolute -top-24 right-1/4 w-96 h-96 bg-[#881337]/30 blur-[130px] rounded-full pointer-events-none" />
-          <div className="absolute -bottom-24 -left-20 w-96 h-96 bg-rose-600/20 blur-[130px] rounded-full pointer-events-none" />
+          <div className="absolute top-0 right-10 w-80 h-80 bg-rose-100/40 blur-[100px] rounded-full pointer-events-none -z-0" />
+          <div className="absolute bottom-0 left-10 w-80 h-80 bg-rose-50/60 blur-[100px] rounded-full pointer-events-none -z-0" />
 
           <div className="relative z-10 space-y-10">
             {/* Header with verified track record badge */}
             <div className="text-center space-y-3 max-w-2xl mx-auto">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-[11px] font-mono font-bold text-rose-300 uppercase tracking-widest">
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping" />
-                <span>VERIFIABLE TRACK RECORD</span>
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest shadow-sm">
+                <Sparkles className="w-4 h-4 text-[#881337]" />
+                <span>VERIFIABLE IMPACT &amp; SCALE</span>
               </div>
-              <h2 className="font-serif-header font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
-                Experience in Numbers
+              <h2 className="font-serif-header font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
+                Experience in <span className="text-[#881337]">Numbers</span>
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
-                A sovereign footprint spanning executive cyber advisory, state police support, and critical enterprise defense.
+              <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl mx-auto">
+                A sovereign footprint spanning executive cyber advisory, state police forensics, and critical enterprise defense.
               </p>
             </div>
 
-            {/* 4 Animated Glass Stat Tiles with Icons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            {/* 6 Responsive Animated Stat Tiles with Icons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {experienceMetrics.map((item, idx) => {
                 const IconComponent = item.icon;
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="relative group p-6 sm:p-7 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-rose-500/50 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 shadow-xl hover:shadow-2xl hover:shadow-rose-950/30 flex flex-col items-center justify-between overflow-hidden"
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: shouldReduceMotion ? 0 : idx * 0.08
+                    }}
+                    className="group relative p-6 sm:p-7 rounded-2xl bg-white hover:bg-rose-50/30 border-2 border-rose-100 hover:border-[#881337] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
                   >
-                    {/* Ambient Hover Spotlight */}
-                    <div className="absolute -top-10 -right-10 w-28 h-28 bg-rose-500/10 group-hover:bg-rose-500/25 rounded-full blur-2xl transition-all pointer-events-none" />
-
-                    {/* Radiant Glowing Icon Badge */}
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-rose-500/20 via-rose-900/40 to-slate-900 border border-rose-500/30 group-hover:border-rose-400/70 flex items-center justify-center text-rose-400 group-hover:text-rose-300 group-hover:scale-110 transition-all duration-300 shadow-lg shadow-rose-950/50 mb-4">
-                      <IconComponent className="w-7 h-7 transition-transform duration-300 group-hover:rotate-6" />
-                    </div>
-
-                    {/* Animated Number Counter */}
-                    <div className="space-y-1 w-full">
-                      <div className="font-serif-header font-black text-3xl sm:text-4xl xl:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-rose-400 to-rose-200 group-hover:from-white group-hover:via-rose-300 group-hover:to-rose-400 transition-all duration-300 tracking-tight">
-                        <AnimatedCounter value={item.target} suffix={item.suffix} duration={1800} />
+                    <div>
+                      {/* Top Header: Icon & Category Tag */}
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-[#881337] group-hover:bg-[#881337] group-hover:text-white group-hover:scale-105 transition-all duration-300 shadow-sm">
+                          <IconComponent className="w-6 h-6 transition-colors" />
+                        </div>
+                        <span className="font-mono text-[10px] uppercase font-bold text-[#881337] tracking-wider px-2.5 py-1 rounded-full bg-rose-50/90 border border-rose-200/80">
+                          {item.category}
+                        </span>
                       </div>
 
-                      {/* Stat Label */}
-                      <div className="font-sans text-sm font-bold text-white tracking-wide pt-1">
-                        {item.label}
+                      {/* Main Metric Counter */}
+                      <div className="space-y-1">
+                        <div className="font-serif-header font-black text-3xl sm:text-4xl text-[#881337] tracking-tight">
+                          <AnimatedCounter value={item.target} suffix={item.suffix} duration={1400} />
+                        </div>
+
+                        {/* Star Rating for Google Reviews */}
+                        {item.isReview && (
+                          <div className="flex items-center space-x-1 text-amber-500 py-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            ))}
+                            <span className="text-xs font-mono font-bold text-slate-700 ml-1.5">4.8 rating</span>
+                          </div>
+                        )}
+
+                        {/* Metric Label */}
+                        <div className="font-sans text-sm font-bold text-slate-900 tracking-wide mt-1">
+                          {item.label}
+                        </div>
                       </div>
                     </div>
 
                     {/* Subtitle / Footnote */}
-                    <div className="font-sans text-xs text-slate-400 pt-3 border-t border-white/10 mt-4 w-full">
+                    <div className="font-sans text-xs text-slate-600 pt-3 border-t border-rose-100 mt-4 w-full leading-relaxed">
                       {item.sub}
                     </div>
                   </motion.div>
@@ -678,10 +637,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 5A. COMPANY STORY (ANIMATED GROWTH JOURNEY) */}
-      <CompanyStory />
-
-      {/* 5B. MISSION & VISION */}
+      {/* 5. MISSION & VISION */}
       <MissionVision />
 
       {/* 6. AUTHORITY: FOUNDER CARD, PATENTS, PARTNERS */}
@@ -706,8 +662,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                       <span className="font-serif-header font-bold text-lg text-white drop-shadow-md">
                         Dr. Dinesh Paranthagan
                       </span>
-                      <span className="font-mono text-[11px] text-rose-300 font-semibold tracking-wide mt-0.5">
-                        Founder &amp; CEO &bull; Secretary General TANCCAO
+                      <span className="font-sans text-xs text-white font-medium tracking-wide mt-0.5">
+                        Founder &amp; CEO
                       </span>
                     </div>
                   </div>

@@ -363,21 +363,6 @@ const ROUTES = [
     ]
   },
   {
-    path: '/portfolio',
-    title: 'Cybersecurity Case Studies & Portfolio | Hackup Tech',
-    description: 'Explore Hackup Technology’s proven cybersecurity portfolio: BFSI core audits, police cybercrime triage, and hospital zero-trust defense.',
-    priority: '0.8',
-    changefreq: 'monthly',
-    h1: 'Enterprise Cybersecurity Case Studies & Audit Portfolio',
-    intro: 'Real-world case studies detailing how Hackup Technology protected core banking APIs, neutralized state-wide ransomware outbreaks, hardened hospital systems, and modernized college cyber curricula.',
-    sections: [
-      {
-        title: 'Key Case Studies',
-        content: 'Core Banking Zero-Downtime VAPT, Emergency State Police Ransomware Triage & 65B Digital Evidence Extraction, 700-Bed Hospital Cloud Hardening, and 54+ College Cyber CoE Installations.'
-      }
-    ]
-  },
-  {
     path: '/about-us',
     title: 'About Us | Hackup Technology Coimbatore Leadership',
     description: 'Learn about Hackup Technology: CEO Dinesh Paranthagan, 10 years experience, TANCCAO Sec. Gen., 2 patents, 54 colleges & 7 MNC partners.',
@@ -650,7 +635,6 @@ function buildSemanticHtml(route) {
     <a href="/services">Services</a> |
     <a href="/courses">Courses</a> |
     <a href="/institutions-workshops">Institutions &amp; Workshops</a> |
-    <a href="/portfolio">Portfolio</a> |
     <a href="/about-us">About Us</a> |
     <a href="/gallery">Gallery</a> |
     <a href="/blog">Blog</a> |

@@ -31,6 +31,7 @@ import {
   SITE_URL 
 } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
+import { CompanyStory } from '../components/landing-additions/CompanyStory';
 
 interface AboutUsPageProps {
   onRequestConsultation: (topic?: string) => void;
@@ -158,7 +159,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         <span className="text-[#881337] font-bold">About Us</span>
       </nav>
 
-      {/* 3. HERO & COMPANY STORY */}
+      {/* 3. HERO & OVERVIEW */}
       <div className="space-y-6">
         <div className="text-center space-y-4 max-w-4xl mx-auto">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] shadow-sm">
@@ -201,7 +202,10 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
       </div>
 
-      {/* 4. FOUNDER PROFILE: DR. DINESH PARANTHAGAN */}
+      {/* 4. THE STORY OF HACKUP TECHNOLOGY */}
+      <CompanyStory className="py-4 sm:py-6" />
+
+      {/* 5. FOUNDER PROFILE: DR. DINESH PARANTHAGAN */}
       <div className="rounded-3xl bg-white border-2 border-rose-200 hover:border-[#881337] p-8 sm:p-12 shadow-xl space-y-8 transition-all">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
@@ -286,7 +290,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
       </div>
 
-      {/* 5. PROPRIETARY PATENTS (2 PATENTS - DETAILS REMOVED) */}
+      {/* 6. PROPRIETARY PATENTS (2 PATENTS - DETAILS REMOVED) */}
       <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-10 shadow-lg text-center space-y-4">
         <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200">
           <Sparkles className="w-4 h-4 text-[#881337]" />
@@ -300,7 +304,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </p>
       </div>
 
-      {/* 6. 5 EXPERIENCE AREAS */}
+      {/* 7. 5 EXPERIENCE AREAS */}
       <div className="space-y-8">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <div className="inline-flex items-center space-x-2 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest">
@@ -366,7 +370,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
       </div>
 
-      {/* 7. PARTNERS: 54 COLLEGES & 7 MNCS */}
+      {/* 8. PARTNERS: 54 COLLEGES & 7 MNCS */}
       <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 shadow-xl space-y-8 dark-surface">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="font-mono text-xs text-rose-300 font-bold uppercase tracking-widest">
@@ -404,7 +408,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
       </div>
 
-      {/* 8. EXECUTIVE TEAM */}
+      {/* 9. EXECUTIVE TEAM */}
       <div className="space-y-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="font-mono text-xs text-[#881337] font-bold uppercase tracking-widest">
@@ -437,7 +441,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
       </div>
 
-      {/* 9. BOTTOM CTA */}
+      {/* 10. BOTTOM CTA */}
       <div className="p-8 sm:p-10 rounded-3xl bg-rose-50/60 border-2 border-rose-200 text-center space-y-4">
         <h3 className="font-serif-header font-bold text-2xl text-slate-900">
           Partner with South India’s Most Trusted Cyber Security Firm
