@@ -53,7 +53,7 @@ export const FaqSection: React.FC = () => {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              🎓 Academy &amp; EC-Council Courses
+              🎓 Academy &amp; EC-Council Training
             </button>
           </div>
         </div>

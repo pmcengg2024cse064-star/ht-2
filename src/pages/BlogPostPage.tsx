@@ -159,7 +159,7 @@ export const BlogPostPage: React.FC = () => {
                 to={`/courses/${relatedCourse.id}`}
                 className="btn-burgundy-filled inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white mt-2"
               >
-                <span>Explore Course Track</span>
+                <span>Explore Training Track</span>
                 <ArrowRight className="w-3.5 h-3.5 text-white" />
               </Link>
             </div>

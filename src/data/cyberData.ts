@@ -1642,8 +1642,8 @@ export const SEO_METADATA_MAP: Record<string, { title: string; description: stri
     primaryKeyword: 'AI security consulting India'
   },
   '/courses': {
-    title: 'Best Cyber Security Course in Coimbatore | Hackup',
-    description: 'Best cyber security course in Coimbatore. Official EC-Council Accredited Training Center for CEH v13, CCSE, ECDE, ECES & industrial internships.',
+    title: 'Best Cyber Security Training in Coimbatore | Hackup',
+    description: 'Best cyber security training in Coimbatore. Official EC-Council Accredited Training Center for CEH v13, CCSE, ECDE, ECES & industrial internships.',
     canonical: `${SITE_URL}/courses`,
     primaryKeyword: 'best cyber security course in Coimbatore'
   },
@@ -1654,8 +1654,8 @@ export const SEO_METADATA_MAP: Record<string, { title: string; description: stri
     primaryKeyword: 'CEH training in Coimbatore'
   },
   '/courses/cloud-security-engineer-ccse': {
-    title: 'Cloud Security Course Coimbatore | EC-Council CCSE',
-    description: 'EC-Council certified cloud security course (CCSE). Multi-cloud defense across AWS, Azure, GCP, container security, and Kubernetes hardening.',
+    title: 'Cloud Security Training Coimbatore | EC-Council CCSE',
+    description: 'EC-Council certified cloud security training (CCSE). Multi-cloud defense across AWS, Azure, GCP, container security, and Kubernetes hardening.',
     canonical: `${SITE_URL}/courses/cloud-security-engineer-ccse`,
     primaryKeyword: 'cloud security course'
   },
@@ -1666,8 +1666,8 @@ export const SEO_METADATA_MAP: Record<string, { title: string; description: stri
     primaryKeyword: 'DevSecOps training'
   },
   '/courses/encryption-specialist-eces': {
-    title: 'Encryption Specialist Course | EC-Council ECES Program',
-    description: 'Certified encryption specialist course (ECES). Master applied cryptography, PKI, digital signatures, and DPDP Act data protection standards.',
+    title: 'Encryption Specialist Training | EC-Council ECES Program',
+    description: 'Certified encryption specialist training (ECES). Master applied cryptography, PKI, digital signatures, and DPDP Act data protection standards.',
     canonical: `${SITE_URL}/courses/encryption-specialist-eces`,
     primaryKeyword: 'encryption specialist course'
   },

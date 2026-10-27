@@ -232,18 +232,30 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
       />
 
 
-      {/* 3. HERO SECTION WITH ATTACHED CYBERSECURITY IMAGE */}
-      <section id="overview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 lg:p-14 shadow-xl relative overflow-hidden">
-          
-          {/* Ambient Burgundy Glow Background Layers */}
-          <div className="absolute -top-20 -right-20 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#881337]/10 rounded-full blur-3xl pointer-events-none" />
+      {/* 3. HERO SECTION: SEAMLESS FULL-BLEED HERO WITH AMBIENT GRADIENT & TECH GRID */}
+      <section id="overview" className="relative pt-8 pb-12 lg:pt-12 lg:pb-16 overflow-hidden bg-gradient-to-b from-[#FFFFFF] via-[#F8FAFC] to-[#F1F5F9] border-b border-rose-100/60">
+        
+        {/* Subtle Tech Diagonal Grid & Ambient Layer Scoped to Hero */}
+        <div 
+          className="absolute inset-0 pointer-events-none -z-10 opacity-60"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px)
+            `,
+            backgroundSize: '48px 48px'
+          }}
+        />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
+        {/* Ambient Radial Burgundy Glows */}
+        <div className="absolute right-0 lg:right-8 top-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-[#881337]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-500/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-14 items-center">
             
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6 text-left">
               
               {/* Category Pill Tag */}
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest shadow-sm">
@@ -267,27 +279,27 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
               </p>
 
               {/* Brief Introduction */}
-              <p className="font-sans text-sm sm:text-base text-slate-700 leading-relaxed">
+              <p className="font-sans text-sm sm:text-base text-slate-700 leading-relaxed max-w-2xl">
                 Empowering modern enterprises with high-assurance offensive security, 24/7 Managed SOC surveillance, and rigorous regulatory compliance. From zero-downtime penetration testing to TÜV SÜD-backed ISO audits, Hackup Technology engineers sovereign resilience against today's weaponized threat landscape.
               </p>
 
               {/* Feature Badges */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-slate-800">
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-slate-800 max-w-2xl">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>100% Manual Exploit Verification</span>
+                  <span className="font-medium text-slate-800">100% Manual Exploit Verification</span>
                 </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>Zero Production Downtime</span>
+                  <span className="font-medium text-slate-800">Zero Production Downtime</span>
                 </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>Free 30-Day Retesting Included</span>
+                  <span className="font-medium text-slate-800">Free 30-Day Retesting Included</span>
                 </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>Official Safe-to-Host Certification</span>
+                  <span className="font-medium text-slate-800">Official Safe-to-Host Certification</span>
                 </div>
               </div>
 
@@ -316,44 +328,169 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onRequestAudit }) =>
 
             {/* Right Visual Column (Attached Cybersecurity Services Visual) */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative group w-full max-w-[460px]">
+              <div className="relative group w-full max-w-[440px]">
                 
                 {/* 3D Burgundy Gradient Frame */}
-                <div className="w-full aspect-square rounded-3xl p-2 bg-gradient-to-b from-[#881337] via-[#9F1239] to-rose-300 shadow-2xl shadow-rose-950/25 group-hover:scale-101 transition-transform duration-500">
-                  <div className="w-full h-full rounded-[22px] overflow-hidden bg-slate-950 relative">
+                <div className="w-full aspect-[2/3] rounded-3xl p-2 bg-gradient-to-b from-[#881337] via-[#9F1239] to-rose-300 shadow-2xl shadow-rose-950/25 group-hover:scale-101 transition-transform duration-500">
+                  <div className="w-full h-full rounded-[22px] overflow-hidden bg-slate-950 relative shadow-inner">
                     <img
                       src="/images/cybersecurity_services_hero.jpg"
                       alt="Cybersecurity Services - VAPT, SOC, Audits & Forensics - Hackup Technology"
-                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
                       loading="eager"
                     />
-                    
-                    {/* Subtle Overlay Vignette */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                    
-                    {/* In-Image Caption Pill */}
-                    <div className="absolute bottom-4 left-4 right-4 bg-slate-950/80 backdrop-blur-md border border-rose-500/40 rounded-xl p-3 text-white flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="font-mono text-[11px] font-bold text-rose-200 uppercase tracking-wide">
-                          Enterprise Security Hub
-                        </span>
-                      </div>
-                      <span className="text-[10px] font-mono text-slate-300">
-                        8 Active Practices
-                      </span>
-                    </div>
                   </div>
                 </div>
 
                 {/* Floating Verified Badge */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white border-2 border-[#881337] px-5 py-2 rounded-full shadow-xl flex items-center space-x-2 whitespace-nowrap">
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white border-2 border-[#881337] px-5 py-2 rounded-full shadow-xl flex items-center space-x-2 whitespace-nowrap z-10">
                   <Award className="w-4 h-4 text-[#881337]" />
                   <span className="font-mono text-xs uppercase font-bold text-slate-900 tracking-wider">
                     TÜV SÜD Audit Partner &bull; CERT-In Aligned
                   </span>
                 </div>
 
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT HACKUP SERVICES SECTION */}
+      <section id="about-services" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 lg:p-14 shadow-xl relative overflow-hidden space-y-8">
+          
+          {/* Ambient Burgundy Glow Background Layers */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#881337]/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Section Header */}
+          <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-rose-100">
+            <div className="space-y-3 max-w-3xl">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold uppercase tracking-widest shadow-sm" style={{ color: '#881337' }}>
+                <Shield className="w-4 h-4" style={{ color: '#881337' }} />
+                <span>ABOUT HACKUP SERVICES &bull; COIMBATORE, TAMIL NADU</span>
+              </div>
+              <h2 className="font-serif-header font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight" style={{ color: '#0f172a' }}>
+                About Our <span style={{ color: '#881337' }}>Cybersecurity Services</span>
+              </h2>
+              <p className="font-sans text-xs sm:text-sm font-mono font-medium" style={{ color: '#475569' }}>
+                Protecting businesses from real-world cyber threats with measurable, practitioner-led defense.
+              </p>
+            </div>
+
+            {/* Art of Security Creed Pill */}
+            <div className="shrink-0">
+              <div className="inline-flex flex-col items-start sm:items-end p-4 rounded-2xl bg-gradient-to-br from-rose-50 via-white to-amber-50/50 border-2 border-[#881337]/20 shadow-md">
+                <span className="font-mono text-[10px] uppercase font-bold tracking-widest" style={{ color: '#881337' }}>
+                  Our Service Creed
+                </span>
+                <span className="font-serif-header font-black text-base sm:text-lg mt-0.5" style={{ color: '#0f172a' }}>
+                  Art of Security: <span style={{ color: '#881337' }}>practical protection you can measure.</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Core Story Statement & Practitioner Credentials */}
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Content (Exact User Text Structured Elegantly) */}
+            <div className="lg:col-span-8 space-y-6">
+              <div className="p-6 sm:p-7 rounded-2xl border border-rose-200 leading-relaxed space-y-4" style={{ backgroundColor: '#fff5f7' }}>
+                <p className="font-sans text-base sm:text-lg font-medium leading-relaxed" style={{ color: '#0f172a' }}>
+                  <strong className="font-bold" style={{ color: '#881337' }}>Hackup Technology</strong> is a Coimbatore-based cybersecurity company that protects businesses from real-world cyber threats. Our team of practitioners has 13+ years of hands-on experience in vulnerability assessment and penetration testing (VAPT), SOC implementation, security audits, GRC and ISO 27001 consulting, digital forensics and cybercrime investigation support.
+                </p>
+                <p className="font-sans text-sm sm:text-base leading-relaxed" style={{ color: '#334155' }}>
+                  We test the way attackers think, give honest advice, and scope every engagement to your risk, budget and compliance needs, with no long-term lock-in. We serve corporates, healthcare IT and growing businesses across Tamil Nadu and India.
+                </p>
+              </div>
+
+              {/* 3 Core Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-white border border-rose-200/90 shadow-xs space-y-1.5 hover:border-[#881337] transition-colors">
+                  <div className="flex items-center space-x-2">
+                    <Terminal className="w-4 h-4 shrink-0" style={{ color: '#881337' }} />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: '#881337' }}>Adversarial Mindset</span>
+                  </div>
+                  <p className="text-xs font-medium leading-snug" style={{ color: '#334155' }}>
+                    We test the way attackers think to identify critical vulnerabilities before criminals do.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-rose-200/90 shadow-xs space-y-1.5 hover:border-[#881337] transition-colors">
+                  <div className="flex items-center space-x-2">
+                    <ShieldCheck className="w-4 h-4 shrink-0" style={{ color: '#881337' }} />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: '#881337' }}>No Long-Term Lock-In</span>
+                  </div>
+                  <p className="text-xs font-medium leading-snug" style={{ color: '#334155' }}>
+                    Transparent, risk-based scoping customized to your risk, budget, and compliance mandates.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-rose-200/90 shadow-xs space-y-1.5 hover:border-[#881337] transition-colors">
+                  <div className="flex items-center space-x-2">
+                    <Building2 className="w-4 h-4 shrink-0" style={{ color: '#881337' }} />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: '#881337' }}>Tamil Nadu &amp; India</span>
+                  </div>
+                  <p className="text-xs font-medium leading-snug" style={{ color: '#334155' }}>
+                    Trusted by corporates, healthcare IT, and growing enterprises across the nation.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Fast Facts Card - Fully High Contrast Visible */}
+            <div className="lg:col-span-4 space-y-4">
+              <div 
+                className="p-6 rounded-2xl shadow-xl space-y-5 border border-rose-900/40"
+                style={{ background: 'linear-gradient(135deg, #881337 0%, #9F1239 50%, #881337 100%)', color: '#ffffff' }}
+              >
+                <div className="space-y-1.5">
+                  <div 
+                    className="font-mono text-xs font-bold uppercase tracking-wider"
+                    style={{ color: '#fed7aa' }}
+                  >
+                    Cybersecurity Company &bull; HQ
+                  </div>
+                  <div className="font-serif-header font-bold text-xl tracking-wide" style={{ color: '#ffffff' }}>
+                    Coimbatore, Tamil Nadu
+                  </div>
+                  <div 
+                    className="text-xs font-medium leading-relaxed"
+                    style={{ color: '#ffffff' }}
+                  >
+                    VAPT &bull; SOC &bull; GRC &bull; ISO 27001 &bull; Forensics
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 pt-3.5 border-t" style={{ borderColor: 'rgba(255, 255, 255, 0.25)' }}>
+                  <div>
+                    <div className="font-serif-header font-black text-2xl sm:text-3xl" style={{ color: '#ffffff' }}>13+</div>
+                    <div className="text-xs font-mono font-medium mt-0.5" style={{ color: '#fed7aa' }}>
+                      Years Experience
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-serif-header font-black text-2xl sm:text-3xl" style={{ color: '#ffffff' }}>Zero</div>
+                    <div className="text-xs font-mono font-medium mt-0.5" style={{ color: '#fed7aa' }}>
+                      Vendor Lock-In
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={() => onRequestAudit('About Section Engagement Scoping')}
+                    className="w-full py-3 px-4 rounded-xl bg-white hover:bg-rose-50 font-bold text-xs uppercase tracking-wider font-mono shadow-md transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    style={{ color: '#881337' }}
+                  >
+                    <span>Request Audit Scoping</span>
+                    <ArrowRight className="w-3.5 h-3.5" style={{ color: '#881337' }} />
+                  </button>
+                </div>
               </div>
             </div>
 

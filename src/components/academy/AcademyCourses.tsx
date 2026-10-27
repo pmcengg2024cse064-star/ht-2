@@ -48,7 +48,7 @@ export const AcademyCourses: React.FC<AcademyCoursesProps> = ({
           </div>
 
           <h2 className="font-serif-header font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 dark:text-white tracking-wider">
-            ACADEMY BY COURSE
+            ACADEMY TRAINING
           </h2>
 
           <div className="w-16 h-[2px] bg-rose-500 mx-auto mt-3 mb-4" />

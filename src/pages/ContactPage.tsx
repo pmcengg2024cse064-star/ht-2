@@ -267,7 +267,7 @@ export const ContactPage: React.FC = () => {
                       <option value="24/7 Managed SOC Deployment">24/7 Managed SOC Deployment</option>
                       <option value="ISO 27001 / DPDP Act Compliance">ISO 27001 / DPDP Act Compliance</option>
                       <option value="Digital Forensics & 65B Cyber Evidence">Digital Forensics &amp; 65B Cyber Evidence</option>
-                      <option value="EC-Council Course Enrollment">EC-Council Course Enrollment</option>
+                      <option value="EC-Council Training Enrollment">EC-Council Training Enrollment</option>
                       <option value="College MoU & Campus Cyber CoE">College MoU &amp; Campus Cyber CoE</option>
                       <option value="Emergency Breach / Active Incident">Emergency Breach / Active Incident</option>
                     </select>

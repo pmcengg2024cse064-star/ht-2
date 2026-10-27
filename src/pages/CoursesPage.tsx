@@ -198,7 +198,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
       a: 'No prior cybersecurity experience is required. Basic computer literacy and curiosity are all you need to start. We teach Linux commands, networking protocols, and scripting from the ground up.'
     },
     {
-      q: 'Are the courses delivered online, offline, or hybrid?',
+      q: 'Is the training delivered online, offline, or hybrid?',
       a: 'We offer flexible delivery modes: in-person physical lab sessions at our Ganapathy, Coimbatore Cyber Lab, as well as live instructor-led interactive online batches with access to cloud virtual labs.'
     },
     {
@@ -228,30 +228,42 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
       
       {/* 1. SEO HEAD */}
       <SEOHead
-        title="Cybersecurity Courses & Practical Cyber Labs in Coimbatore | Hackup Tech"
+        title="Cybersecurity Training & Practical Cyber Labs in Coimbatore | Hackup Tech"
         description="EC-Council Accredited Training Center in Coimbatore. Certified Ethical Hacker (CEH v13), Cloud Security (CCSE), DevSecOps, and Industrial Internships with live cyber range labs."
         canonical={`${SITE_URL}/courses`}
         primaryKeyword="cyber security course in Coimbatore"
         breadcrumbs={[
           { name: 'Home', url: '/' },
-          { name: 'Courses', url: '/courses' }
+          { name: 'Training', url: '/courses' }
         ]}
       />
 
 
 
-      {/* 3. HERO SECTION (Section 2 & Attached Visual) */}
-      <section id="courses-hero" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 lg:p-14 shadow-xl relative overflow-hidden">
-          
-          {/* Ambient Lighting Layers */}
-          <div className="absolute -top-20 -right-20 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[#881337]/10 rounded-full blur-3xl pointer-events-none" />
+      {/* 3. HERO SECTION: SEAMLESS FULL-BLEED HERO WITH AMBIENT GRADIENT & TECH GRID */}
+      <section id="courses-hero" className="relative pt-8 pb-12 lg:pt-12 lg:pb-16 overflow-hidden bg-gradient-to-b from-[#FFFFFF] via-[#F8FAFC] to-[#F1F5F9] border-b border-rose-100/60">
+        
+        {/* Subtle Tech Diagonal Grid & Ambient Layer Scoped to Hero */}
+        <div 
+          className="absolute inset-0 pointer-events-none -z-10 opacity-60"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px)
+            `,
+            backgroundSize: '48px 48px'
+          }}
+        />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
+        {/* Ambient Radial Burgundy Glows */}
+        <div className="absolute right-0 lg:right-8 top-1/3 -translate-y-1/2 w-[600px] h-[600px] bg-[#881337]/10 blur-[140px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rose-500/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-14 items-center">
             
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-6 text-left">
               
               <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold text-[#881337] uppercase tracking-widest shadow-sm">
                 <ShieldCheck className="w-4 h-4 text-[#881337]" />
@@ -272,22 +284,22 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
               </p>
 
               {/* Fast Highlights Badges */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-slate-800">
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs text-slate-800 max-w-2xl">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>100+ Hands-On Lab Scenarios</span>
+                  <span className="font-medium text-slate-800">100+ Hands-On Lab Scenarios</span>
                 </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>Taught by Active Red Team Practitioners</span>
+                  <span className="font-medium text-slate-800">Taught by Active Red Team Practitioners</span>
                 </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>EC-Council International Certification</span>
+                  <span className="font-medium text-slate-800">EC-Council International Certification</span>
                 </div>
-                <div className="flex items-center space-x-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                <div className="flex items-center space-x-2.5 p-3 rounded-xl bg-white border border-rose-200/80 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>Coimbatore Lab + Live Online Batches</span>
+                  <span className="font-medium text-slate-800">Coimbatore Lab + Live Online Batches</span>
                 </div>
               </div>
 
@@ -298,7 +310,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
                   className="btn-burgundy-gloss inline-flex items-center space-x-2.5 px-8 py-3.5 rounded-full bg-[#881337] hover:bg-[#6e0f2c] text-white text-sm font-semibold shadow-lg shadow-[#881337]/25 transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer"
                 >
                   <BookOpen className="w-4 h-4 text-white" />
-                  <span>Explore Courses</span>
+                  <span>Explore Training</span>
                   <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
                 </a>
 
@@ -316,14 +328,14 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
 
             {/* Right Visual Column (Attached Futuristic Courses Hero Visual) */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative group w-full max-w-[420px]">
+              <div className="relative group w-full max-w-[440px]">
                 
                 {/* 3D Burgundy Gradient Frame */}
                 <div className="w-full rounded-3xl p-1.5 bg-gradient-to-b from-[#881337] via-[#9F1239] to-rose-300 shadow-2xl shadow-rose-950/20 group-hover:scale-[1.02] transition-transform duration-500">
                   <div className="w-full rounded-[22px] overflow-hidden bg-white relative">
                     <img
-                      src="/images/cybersecurity_courses_hero.png"
-                      alt="Courses, Certifications & Cyber Labs - Hackup Technology"
+                      src="/images/cybersecurity_courses_hero.jpg"
+                      alt="Training, Certifications & Cyber Labs - Hackup Technology"
                       className="w-full h-auto object-contain block group-hover:scale-102 transition-transform duration-700"
                       loading="eager"
                     />
@@ -338,6 +350,147 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
                   </span>
                 </div>
 
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT HACKUP COURSES & CYBER LABS SECTION */}
+      <section id="about-courses" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 lg:p-14 shadow-xl relative overflow-hidden space-y-8">
+          
+          {/* Ambient Burgundy Glow Background Layers */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#881337]/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Section Header */}
+          <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-rose-100">
+            <div className="space-y-3 max-w-3xl">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono font-bold uppercase tracking-widest shadow-sm" style={{ color: '#881337' }}>
+                <GraduationCap className="w-4 h-4" style={{ color: '#881337' }} />
+                <span>ABOUT HACKUP TRAINING &bull; COIMBATORE INSTITUTE &bull; 13+ YEARS OF PEDAGOGY</span>
+              </div>
+              <h2 className="font-serif-header font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight" style={{ color: '#0f172a' }}>
+                About Our <span style={{ color: '#881337' }}>Cybersecurity Training</span>
+              </h2>
+              <p className="font-sans text-xs sm:text-sm font-mono font-medium" style={{ color: '#475569' }}>
+                Premier training institute in Coimbatore transforming aspiring students into skilled, ethical defenders.
+              </p>
+            </div>
+
+            {/* Art of Security Creed Pill */}
+            <div className="shrink-0">
+              <div className="inline-flex flex-col items-start sm:items-end p-4 rounded-2xl bg-gradient-to-br from-rose-50 via-white to-amber-50/50 border-2 border-[#881337]/20 shadow-md">
+                <span className="font-mono text-[10px] uppercase font-bold tracking-widest" style={{ color: '#881337' }}>
+                  Our Training Creed
+                </span>
+                <span className="font-serif-header font-black text-base sm:text-lg mt-0.5" style={{ color: '#0f172a' }}>
+                  Art of Security: <span style={{ color: '#881337' }}>learn it the way it's practised.</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Core Story Statement & Institutional Offerings */}
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Content (Exact User Text Structured Elegantly) */}
+            <div className="lg:col-span-8 space-y-6">
+              <div className="p-6 sm:p-7 rounded-2xl border border-rose-200 leading-relaxed space-y-4" style={{ backgroundColor: '#fff5f7' }}>
+                <p className="font-sans text-base sm:text-lg font-medium leading-relaxed" style={{ color: '#0f172a' }}>
+                  <strong className="font-bold" style={{ color: '#881337' }}>Hackup Technology</strong> is a cybersecurity training institute in Coimbatore that turns students into skilled, ethical security professionals. As an <strong style={{ color: '#0f172a' }}>EC-Council Accredited Training Partner</strong>, we offer certification training including CEH with hands-on labs.
+                </p>
+                <p className="font-sans text-sm sm:text-base leading-relaxed" style={{ color: '#334155' }}>
+                  Our trainers are practitioners who do real pentests and forensics work. For colleges, we set up cyber labs and run faculty development programmes (FDPs), workshops and cyber-safety awareness programmes. With 13+ years of industry experience behind every class, we help learners across Tamil Nadu build job-ready skills.
+                </p>
+              </div>
+
+              {/* 3 Training Anchor Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-white border border-rose-200/90 shadow-xs space-y-1.5 hover:border-[#881337] transition-colors">
+                  <div className="flex items-center space-x-2">
+                    <ShieldCheck className="w-4 h-4 shrink-0" style={{ color: '#881337' }} />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: '#881337' }}>Active Practitioners</span>
+                  </div>
+                  <p className="text-xs font-medium leading-snug" style={{ color: '#334155' }}>
+                    Mentorship directly from consultants conducting live offensive pentests and digital forensics.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-rose-200/90 shadow-xs space-y-1.5 hover:border-[#881337] transition-colors">
+                  <div className="flex items-center space-x-2">
+                    <Award className="w-4 h-4 shrink-0" style={{ color: '#881337' }} />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: '#881337' }}>EC-Council Partner</span>
+                  </div>
+                  <p className="text-xs font-medium leading-snug" style={{ color: '#334155' }}>
+                    Official CEH certification tracks, authorized exam vouchers, and hands-on cyber range labs.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white border border-rose-200/90 shadow-xs space-y-1.5 hover:border-[#881337] transition-colors">
+                  <div className="flex items-center space-x-2">
+                    <Building2 className="w-4 h-4 shrink-0" style={{ color: '#881337' }} />
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: '#881337' }}>College Cyber Labs</span>
+                  </div>
+                  <p className="text-xs font-medium leading-snug" style={{ color: '#334155' }}>
+                    Setting up institutional labs, FDPs, student workshops, and campus cyber-safety initiatives.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Fast Facts Card - Fully High Contrast Visible */}
+            <div className="lg:col-span-4 space-y-4">
+              <div 
+                className="p-6 rounded-2xl shadow-xl space-y-5 border border-rose-900/40"
+                style={{ background: 'linear-gradient(135deg, #881337 0%, #9F1239 50%, #881337 100%)', color: '#ffffff' }}
+              >
+                <div className="space-y-1.5">
+                  <div 
+                    className="font-mono text-xs font-bold uppercase tracking-wider"
+                    style={{ color: '#fed7aa' }}
+                  >
+                    Cybersecurity Training Institute
+                  </div>
+                  <div className="font-serif-header font-bold text-xl tracking-wide" style={{ color: '#ffffff' }}>
+                    Coimbatore Campus
+                  </div>
+                  <div 
+                    className="text-xs font-medium leading-relaxed"
+                    style={{ color: '#ffffff' }}
+                  >
+                    EC-Council ATC &bull; Live Cyber Range &bull; Tamil Nadu
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 pt-3.5 border-t" style={{ borderColor: 'rgba(255, 255, 255, 0.25)' }}>
+                  <div>
+                    <div className="font-serif-header font-black text-2xl sm:text-3xl" style={{ color: '#ffffff' }}>13+</div>
+                    <div className="text-xs font-mono font-medium mt-0.5" style={{ color: '#fed7aa' }}>
+                      Years Experience
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-serif-header font-black text-2xl sm:text-3xl" style={{ color: '#ffffff' }}>54+</div>
+                    <div className="text-xs font-mono font-medium mt-0.5" style={{ color: '#fed7aa' }}>
+                      College Labs &amp; FDPs
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={() => onBookDemo('About Section Course Consultation')}
+                    className="w-full py-3 px-4 rounded-xl bg-white hover:bg-rose-50 font-bold text-xs uppercase tracking-wider font-mono shadow-md transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    style={{ color: '#881337' }}
+                  >
+                    <span>Talk to Training Advisor</span>
+                    <ArrowRight className="w-3.5 h-3.5" style={{ color: '#881337' }} />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -465,7 +618,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
           </div>
 
           <h2 className="font-serif-header font-bold text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
-            Featured Cybersecurity Courses
+            Featured Cybersecurity Training
           </h2>
 
           <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -483,7 +636,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search courses by keyword, tool (e.g. CEH, Burp, Cloud, Linux)..."
+              placeholder="Search training by keyword, tool (e.g. CEH, Burp, Cloud, Linux)..."
               className="w-full pl-11 pr-4 py-3 rounded-full border-2 border-rose-200 focus:border-[#881337] focus:ring-2 focus:ring-[#881337]/20 outline-none text-xs font-mono bg-white shadow-sm transition-all"
             />
             {searchQuery && (
@@ -619,7 +772,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
                     to={`/courses/${course.id}`}
                     className="btn-burgundy-filled w-full py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-1.5 shadow-md hover:scale-101 text-white"
                   >
-                    <span>View Course Details</span>
+                    <span>View Training Details</span>
                     <ArrowRight className="w-3.5 h-3.5 text-white" />
                   </Link>
 
@@ -642,13 +795,13 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
           <div className="text-center py-12 rounded-3xl bg-rose-50/50 border border-rose-200 space-y-3">
             <HelpCircle className="w-8 h-8 text-[#881337] mx-auto" />
             <div className="font-serif-header font-bold text-lg text-slate-800">
-              No courses matched your query "{searchQuery}"
+              No training matched your query "{searchQuery}"
             </div>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
               className="text-xs font-mono font-bold text-[#881337] underline"
             >
-              Reset Search &amp; View All Courses
+              Reset Search &amp; View All Training
             </button>
           </div>
         )}
@@ -704,7 +857,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
             {/* Lab Access Distinction Note */}
             <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 text-center max-w-2xl mx-auto font-mono text-xs text-slate-300">
               <span className="text-rose-300 font-bold block mb-1">Integrated Cyber Lab Access:</span>
-              Labs are directly integrated into our professional courses with dedicated web-accessible sandbox terminals and instructor guidance.
+              Labs are directly integrated into our professional training programs with dedicated web-accessible sandbox terminals and instructor guidance.
             </div>
 
             <div className="text-center pt-2">
@@ -712,7 +865,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
                 href="#featured-courses"
                 className="btn-burgundy-filled px-8 py-3 rounded-full font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center space-x-2 text-white shadow-lg"
               >
-                <span>Explore Courses with Cyber Labs</span>
+                <span>Explore Training with Cyber Labs</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </a>
             </div>
@@ -733,7 +886,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
             </div>
 
             <h2 className="font-serif-header font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
-              More Than Courses. A Practical Path into Cybersecurity.
+              More Than Training. A Practical Path into Cybersecurity.
             </h2>
 
             <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -934,7 +1087,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
           </h2>
 
           <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Genuine capstone projects and practical lab achievements built by learners during our professional courses and industrial internships.
+            Genuine capstone projects and practical lab achievements built by learners during our professional training programs and industrial internships.
           </p>
         </div>
 
@@ -1077,7 +1230,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
                 className="btn-burgundy-filled w-full py-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white shadow-xl hover:scale-102 transition-transform cursor-pointer text-center"
               >
                 <BookOpen className="w-4 h-4 text-white" />
-                <span>Explore All Courses</span>
+                <span>Explore All Training</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </a>
 

@@ -80,7 +80,7 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
         primaryKeyword={seoData.primaryKeyword}
         breadcrumbs={[
           { name: 'Home', url: '/' },
-          { name: 'Courses', url: '/courses' },
+          { name: 'Training', url: '/courses' },
           { name: course.title, url: `/courses/${course.id}` }
         ]}
         type="course"
@@ -95,7 +95,7 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
       <nav aria-label="Breadcrumb" className="flex items-center space-x-2 font-mono text-xs text-slate-500">
         <Link to="/" className="hover:text-[#881337] transition-colors">Home</Link>
         <span>/</span>
-        <Link to="/courses" className="hover:text-[#881337] transition-colors">Courses</Link>
+        <Link to="/courses" className="hover:text-[#881337] transition-colors">Training</Link>
         <span>/</span>
         <span className="text-[#881337] font-bold">{course.title}</span>
       </nav>
@@ -189,7 +189,7 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
             STEP-BY-STEP SYLLABUS
           </span>
           <h2 className="font-serif-header font-bold text-2xl sm:text-3xl text-slate-900">
-            Course Modules &amp; Domains
+            Training Modules &amp; Domains
           </h2>
         </div>
 
@@ -417,7 +417,7 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
               className="btn-burgundy-filled w-full py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white cursor-pointer hover:scale-101 transition-all"
             >
               <Send className="w-3.5 h-3.5 text-white" />
-              <span>Submit Course Enquiry &amp; Get Syllabus</span>
+              <span>Submit Training Enquiry &amp; Get Syllabus</span>
             </button>
           </form>
         )}

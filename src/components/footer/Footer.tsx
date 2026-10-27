@@ -225,7 +225,7 @@ export const Footer: React.FC<FooterProps> = ({
                     to="/courses"
                     className="text-[#881337] hover:underline font-mono text-[11px] font-bold block"
                   >
-                    &rarr; Looking for Cyber Courses? Visit Academy
+                    &rarr; Looking for Cyber Training? Visit Academy
                   </Link>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export const Footer: React.FC<FooterProps> = ({
               <span>Production-Safe &bull; NDA Guaranteed</span>
               <span className="hidden sm:inline">&bull;</span>
               <Link to="/courses" className="text-[#881337] hover:underline font-bold">
-                Switch to Cybersecurity Courses &amp; Labs Portal &rarr;
+                Switch to Cybersecurity Training &amp; Labs Portal &rarr;
               </Link>
             </div>
 
@@ -334,7 +334,7 @@ export const Footer: React.FC<FooterProps> = ({
               <ul className="space-y-2 text-xs font-sans font-medium">
                 <li>
                   <a href="#featured-courses" className="hover:text-slate-950 transition-colors">
-                    Courses Catalogue
+                    Training Catalogue
                   </a>
                 </li>
                 <li>
@@ -531,7 +531,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="space-y-4">
             <div className="flex items-center space-x-2 text-[#881337] font-mono text-xs font-bold uppercase tracking-wider">
               <GraduationCap className="w-4 h-4 text-[#881337]" />
-              <span>Certified Courses</span>
+              <span>Certified Training</span>
             </div>
             
             <ul className="space-y-2 text-xs font-sans font-medium">
@@ -557,7 +557,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <Link to="/courses" className="text-[#881337] hover:underline font-mono font-bold mt-1 block">
-                  &rarr; View All EC-Council Courses
+                  &rarr; View All EC-Council Training
                 </Link>
               </li>
             </ul>

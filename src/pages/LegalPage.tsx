@@ -98,7 +98,7 @@ export const LegalPage: React.FC = () => {
             <section className="space-y-2">
               <h2 className="font-serif-header font-bold text-lg text-slate-900">1. Acceptance of Terms &amp; Scope of Services</h2>
               <p>
-                By engaging Hackup Technology Pvt Ltd for cybersecurity consulting, penetration testing (VAPT), SOC deployment, or EC-Council certification courses, you agree to comply with and be bound by these Terms of Service.
+                By engaging Hackup Technology Pvt Ltd for cybersecurity consulting, penetration testing (VAPT), SOC deployment, or EC-Council certification training, you agree to comply with and be bound by these Terms of Service.
               </p>
             </section>
 

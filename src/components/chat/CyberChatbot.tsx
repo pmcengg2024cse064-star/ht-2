@@ -36,7 +36,7 @@ interface CyberChatbotProps {
 
 const INITIAL_PROMPTS = [
   { label: '🛡️ Enterprise VAPT Audit', query: 'Tell me about Enterprise VAPT and security audit services.' },
-  { label: '🎓 CEH v13 & Academy', query: 'What courses and EC-Council certifications do you offer?' },
+  { label: '🎓 CEH v13 & Academy', query: 'What training and EC-Council certifications do you offer?' },
   { label: '🚨 Emergency Breach (24/7)', query: 'How do I report a security incident or breach to your DFIR team?' },
   { label: '💼 Cybersecurity Internship', query: 'How can I apply for the Cybersecurity Internship program?' },
   { label: '📍 Coimbatore Center & Contact', query: 'Where is your Coimbatore center located and what are your contact numbers?' },
@@ -106,7 +106,7 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
     // Academy / Courses / CEH
     if (q.includes('course') || q.includes('academy') || q.includes('ceh') || q.includes('ec-council') || q.includes('training') || q.includes('certif')) {
       return {
-        text: '🎓 **Official EC-Council Accredited Training Center (ATC)**\n\nAll courses include genuine Aspen courseware, exam vouchers, and 100% practical lab hours on our Coimbatore Cyber Range:\n\n• **CEH v13 (AI-Powered):** Flagship ethical hacking curriculum\n• **CPENT:** Certified Penetration Testing Professional\n• **SOC Analyst:** Wazuh, Splunk SIEM & Threat Intel\n• **Modes:** Coimbatore Offline Lab + Live Interactive Online Batches.',
+        text: '🎓 **Official EC-Council Accredited Training Center (ATC)**\n\nAll training programs include genuine Aspen courseware, exam vouchers, and 100% practical lab hours on our Coimbatore Cyber Range:\n\n• **CEH v13 (AI-Powered):** Flagship ethical hacking curriculum\n• **CPENT:** Certified Penetration Testing Professional\n• **SOC Analyst:** Wazuh, Splunk SIEM & Threat Intel\n• **Modes:** Coimbatore Offline Lab + Live Interactive Online Batches.',
         actions: [
           { label: 'Download CEH Syllabus', actionType: 'demo', payload: 'CEH v13 AI-Powered' },
           { label: 'Book Academy Counseling', actionType: 'demo', payload: 'Academy Advisory' }
@@ -120,7 +120,7 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
         text: '💼 **Hackup Cybersecurity Internship Program**\n\nDesigned for students and fresh graduates seeking hands-on industry exposure:\n\n• **Duration:** 1 Month to 6 Months (Online / Offline)\n• **Hands-on Focus:** Bug bounty methodologies, active lab exercises, vulnerability reporting\n• **Outcome:** Verified Certificate, LinkedIn recommendations, stipend eligibility for top performers, and placement referrals to 40+ hiring partners.',
         actions: [
           { label: 'Apply for Internship', actionType: 'internship' },
-          { label: 'Explore Academy Courses', actionType: 'demo', payload: 'Internship Track' }
+          { label: 'Explore Academy Training', actionType: 'demo', payload: 'Internship Track' }
         ]
       };
     }
@@ -216,7 +216,7 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
   return (
     <>
       {/* 1. FLOATING CHAT TRIGGER BUTTON */}
-      <div className="fixed bottom-6 right-20 sm:right-24 z-50">
+      <div className="fixed bottom-6 right-4 sm:right-6 z-50">
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

@@ -6,13 +6,21 @@ export function ScrollToTop() {
 
   useEffect(() => {
     if (hash) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         const element = document.querySelector(hash);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          const headerElement = document.querySelector('header');
+          const headerHeight = headerElement ? headerElement.getBoundingClientRect().height : 120;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = Math.max(0, elementPosition - headerHeight - 14);
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
         }
-      }, 50);
-      return;
+      }, 160);
+      return () => clearTimeout(timer);
     }
     window.scrollTo({
       top: 0,

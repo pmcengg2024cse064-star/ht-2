@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Menu, 
   X, 
   ShieldCheck, 
   Phone, 
-  Mail, 
-  MapPin, 
   GraduationCap,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  ChevronRight
 } from 'lucide-react';
-import { COMPANY_FACTS } from '../../data/cyberData';
 
 export type TabType = 'overview' | 'enterprise' | 'academy' | 'cyber-range' | 'internship' | 'community' | 'about';
 
@@ -29,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isServices = location.pathname.startsWith('/services');
   const isCourses = location.pathname.startsWith('/courses');
@@ -47,106 +46,44 @@ export const Navbar: React.FC<NavbarProps> = ({
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
-  const handleNavAnchor = (e: React.MouseEvent<HTMLAnchorElement>, targetPath: string, hash: string) => {
-    if (location.pathname === targetPath) {
-      e.preventDefault();
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+  const scrollToAnchor = (hash: string) => {
+    const element = document.querySelector(hash);
+    if (!element) return;
+
+    const headerElement = document.querySelector('header');
+    const headerHeight = headerElement ? headerElement.getBoundingClientRect().height : 120;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = Math.max(0, elementPosition - headerHeight - 14);
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleNavAnchor = (
+    e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    targetPath: string,
+    hash: string
+  ) => {
+    e.preventDefault();
     setMobileMenuOpen(false);
+
+    const isCurrentPage = location.pathname.replace(/\/$/, '') === targetPath.replace(/\/$/, '');
+
+    if (isCurrentPage) {
+      setTimeout(() => {
+        scrollToAnchor(hash);
+      }, 160);
+    } else {
+      navigate(`${targetPath}${hash}`);
+    }
   };
 
   return (
     <>
       {/* 2. STICKY HEADER */}
       <header className="sticky top-0 z-50 w-full font-sans shadow-md">
-        
-        {/* FIXED CONTACT / TRUST BAR ON SCROLL & AT TOP */}
-        <div className="w-full bg-white/95 border-b border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] font-mono text-slate-700 shadow-xs backdrop-blur-md">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-1 gap-x-4">
-            
-            {/* Left Context-Sensitive Trust Badge */}
-            <div className="flex items-center space-x-3 text-slate-700">
-              {isServices ? (
-                <>
-                  <span className="hidden sm:inline-flex items-center space-x-1.5 text-slate-900 font-semibold">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#881337]" />
-                    <span>TÜV SÜD Assured Security Audit Partner</span>
-                  </span>
-                  <span className="text-slate-300 hidden sm:inline">|</span>
-                  <span className="inline-flex items-center space-x-1.5 text-[#881337] font-bold text-[10px] uppercase tracking-wider">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-                    </span>
-                    <span>24/7 Managed SOC Hotline</span>
-                  </span>
-                </>
-              ) : isCourses ? (
-                <>
-                  <span className="hidden sm:inline-flex items-center space-x-1.5 text-slate-900 font-semibold">
-                    <GraduationCap className="w-3.5 h-3.5 text-[#881337]" />
-                    <span>Official EC-Council ATC &bull; 65%+ Hands-On Labs</span>
-                  </span>
-                  <span className="text-slate-300 hidden sm:inline">|</span>
-                  <span className="inline-flex items-center space-x-1.5 text-emerald-700 font-bold text-[10px] uppercase tracking-wider">
-                    <span>Admissions Open: CEH v13 AI Cohort</span>
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="hidden sm:inline-flex items-center space-x-1">
-                    <MapPin className="w-3 h-3 text-[#881337]" />
-                    <span className="font-sans font-semibold text-slate-800">Ganapathy, Coimbatore HQ</span>
-                  </span>
-                  <span className="text-slate-300 hidden sm:inline">|</span>
-                  <span className="inline-flex items-center space-x-1.5 text-red-700 font-bold text-[10px] uppercase tracking-wider">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-                    </span>
-                    <span>Active 24/7 Incident Hotline</span>
-                  </span>
-                </>
-              )}
-            </div>
-
-            {/* Right Contact Direct Dial */}
-            <div className="flex items-center space-x-3 sm:space-x-4 shrink-0 font-semibold">
-              <a 
-                href={`tel:${COMPANY_FACTS.phones[0].replace(/\s+/g, '')}`} 
-                className="transition-colors flex items-center space-x-1 text-[#881337] hover:text-[#5B0E1B] font-bold"
-              >
-                <Phone className="w-3 h-3 text-[#881337]" />
-                <span>{COMPANY_FACTS.phones[0]}</span>
-              </a>
-
-              <span className="text-slate-300 hidden md:inline">|</span>
-
-              <a 
-                href={`tel:${COMPANY_FACTS.phones[1].replace(/\s+/g, '')}`} 
-                className="transition-colors hidden md:flex items-center space-x-1 text-[#881337] hover:text-[#5B0E1B] font-semibold"
-              >
-                <Phone className="w-3 h-3 text-[#881337]" />
-                <span>{COMPANY_FACTS.phones[1]}</span>
-              </a>
-
-              <span className="text-slate-300 hidden lg:inline">|</span>
-
-              <a 
-                href={`mailto:${COMPANY_FACTS.emails[0]}`} 
-                className="transition-colors hidden lg:flex items-center space-x-1 text-slate-700 hover:text-[#881337] font-medium"
-              >
-                <Mail className="w-3 h-3 text-[#881337]" />
-                <span>{COMPANY_FACTS.emails[0]}</span>
-              </a>
-            </div>
-
-          </div>
-        </div>
-
         {/* MAIN NAVIGATION BAR */}
         <div
           className={`w-full transition-all duration-300 ${
@@ -217,6 +154,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </a>
 
                     <a
+                      href="/services#about-services"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#about-services')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      About Hackup
+                    </a>
+
+                    <a
                       href="/services#services-catalog"
                       onClick={(e) => handleNavAnchor(e, '/services', '#services-catalog')}
                       className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
@@ -279,6 +224,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </a>
 
                     <a
+                      href="/courses#about-courses"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#about-courses')}
+                      className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
+                    >
+                      About Academy
+                    </a>
+
+                    <a
                       href="/courses#trust-credibility"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#trust-credibility')}
                       className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
@@ -286,13 +239,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                       Why Trust Us
                     </a>
 
-
                     <a
                       href="/courses#featured-courses"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#featured-courses')}
                       className="px-2.5 py-2 rounded-lg hover:text-[#881337] hover:bg-rose-50 transition-colors"
                     >
-                      Courses
+                      Training
                     </a>
 
                     <a
@@ -394,11 +346,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {isCourses && (
                   <>
                     <button
-                      onClick={() => onBookDemo ? onBookDemo('Explore Courses & Admissions') : onRequestConsultation('Course Enrolment')}
+                      onClick={() => onBookDemo ? onBookDemo('Explore Training & Admissions') : onRequestConsultation('Training Enrolment')}
                       className="btn-burgundy-filled px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 shadow-xl cursor-pointer hover:scale-102 text-white"
                     >
                       <GraduationCap className="w-4 h-4 text-white" />
-                      <span>Explore Courses</span>
+                      <span>Explore Training</span>
                     </button>
                   </>
                 )}
@@ -411,7 +363,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="px-4 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center space-x-2 border border-rose-200 bg-rose-50/80 hover:bg-[#881337] text-[#881337] hover:text-white shadow-sm transition-all duration-200 cursor-pointer hover:scale-102"
                     >
                       <GraduationCap className="w-4 h-4" />
-                      <span>Courses</span>
+                      <span>Training</span>
                     </Link>
 
                     <button
@@ -426,11 +378,41 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               </div>
 
-              {/* Mobile Hamburger Menu Toggle */}
+              {/* Mobile Right Actions & Hamburger Menu Toggle */}
               <div className="flex lg:hidden items-center space-x-2">
+                {isServices && (
+                  <button
+                    onClick={() => onRequestConsultation('Book a Cybersecurity Consultation')}
+                    className="btn-burgundy-filled px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-sm cursor-pointer text-white"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-white" />
+                    <span>Consult</span>
+                  </button>
+                )}
+
+                {isCourses && (
+                  <button
+                    onClick={() => onBookDemo ? onBookDemo('Explore Training & Admissions') : onRequestConsultation('Training Enrolment')}
+                    className="btn-burgundy-filled px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-sm cursor-pointer text-white"
+                  >
+                    <GraduationCap className="w-3.5 h-3.5 text-white" />
+                    <span>Explore</span>
+                  </button>
+                )}
+
+                {isCorporate && (
+                  <button
+                    onClick={() => onRequestConsultation('Corporate Consultation Request')}
+                    className="btn-burgundy-filled px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-sm cursor-pointer text-white"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-white" />
+                    <span>Consult</span>
+                  </button>
+                )}
+
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-950 cursor-pointer shadow-sm"
+                  className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-950 cursor-pointer shadow-sm active:bg-slate-200"
                   aria-label="Toggle navigation menu"
                 >
                   {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -448,9 +430,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden w-full bg-white border-b border-slate-200 shadow-xl overflow-hidden font-mono text-xs"
+              className="lg:hidden w-full bg-white border-b border-slate-200 shadow-2xl overflow-hidden font-mono text-xs"
             >
-              <div className="px-5 py-4 space-y-3 max-h-[80vh] overflow-y-auto">
+              <div className="px-4 py-4 space-y-2 max-h-[80vh] overflow-y-auto">
                 
                 {/* 1. SERVICES MOBILE DRAWER */}
                 {isServices && (
@@ -458,70 +440,89 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Link
                       to="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-2 py-2 font-bold text-[#881337] border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-bold text-[#881337] bg-rose-50/60 border border-rose-100 transition-colors"
                     >
-                      <ArrowLeft className="w-4 h-4 text-[#881337]" />
-                      <span>Corporate Homepage</span>
+                      <span className="flex items-center space-x-2">
+                        <ArrowLeft className="w-4 h-4 text-[#881337]" />
+                        <span>Corporate Homepage</span>
+                      </span>
+                      <ChevronRight className="w-4 h-4 text-[#881337]/60" />
                     </Link>
 
-                    <a
-                      href="/services#overview"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/services', '#overview')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Services Overview
-                    </a>
+                      <span>Services Overview</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/services#services-catalog"
+                    <button
+                      type="button"
+                      onClick={(e) => handleNavAnchor(e, '/services', '#about-services')}
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
+                    >
+                      <span>About Hackup (13+ Years Experience)</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/services', '#services-catalog')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      All 8 Enterprise Services
-                    </a>
+                      <span>All 8 Enterprise Services</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/services#why-hackup"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/services', '#why-hackup')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Why Hackup (Practitioner-Led)
-                    </a>
+                      <span>Why Hackup (Practitioner-Led)</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/services#industries"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/services', '#industries')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Industries We Defend
-                    </a>
+                      <span>Industries We Defend</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/services#process"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/services', '#process')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      5-Stage Safe-to-Host Process
-                    </a>
+                      <span>5-Stage Safe-to-Host Process</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/services#faqs"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/services', '#faqs')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Engagement &amp; Scoping FAQs
-                    </a>
+                      <span>Engagement &amp; Scoping FAQs</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-
-                    <div className="pt-1">
+                    <div className="pt-2">
                       <button
+                        type="button"
                         onClick={() => {
                           setMobileMenuOpen(false);
                           onRequestConsultation('Book a Cybersecurity Consultation');
                         }}
-                        className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white"
+                        className="w-full min-h-[48px] btn-burgundy-filled py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white flex items-center justify-center space-x-2 shadow-lg"
                       >
-                        Book a Cybersecurity Consultation
+                        <ShieldCheck className="w-4 h-4 text-white" />
+                        <span>Book a Cybersecurity Consultation</span>
                       </button>
                     </div>
                   </>
@@ -533,75 +534,93 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Link
                       to="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center space-x-2 py-2 font-bold text-[#881337] border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-bold text-[#881337] bg-rose-50/60 border border-rose-100 transition-colors"
                     >
-                      <ArrowLeft className="w-4 h-4 text-[#881337]" />
-                      <span>Corporate Homepage</span>
+                      <span className="flex items-center space-x-2">
+                        <ArrowLeft className="w-4 h-4 text-[#881337]" />
+                        <span>Corporate Homepage</span>
+                      </span>
+                      <ChevronRight className="w-4 h-4 text-[#881337]/60" />
                     </Link>
 
-                    <a
-                      href="/courses#courses-hero"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#courses-hero')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Courses Overview
-                    </a>
+                      <span>Training Overview</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/courses#trust-credibility"
+                    <button
+                      type="button"
+                      onClick={(e) => handleNavAnchor(e, '/courses', '#about-courses')}
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
+                    >
+                      <span>About Hackup Academy</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#trust-credibility')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Why Trust Hackup for Training
-                    </a>
+                      <span>Why Trust Hackup for Training</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-
-                    <a
-                      href="/courses#featured-courses"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#featured-courses')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Featured Courses Catalogue
-                    </a>
+                      <span>Featured Training Catalogue</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/courses#cyber-labs"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#cyber-labs')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Hands-On Cyber Labs
-                    </a>
+                      <span>Hands-On Cyber Labs</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/courses#for-colleges"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#for-colleges')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Training for Colleges &amp; Institutions
-                    </a>
+                      <span>Training for Colleges &amp; Institutions</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-                    <a
-                      href="/courses#faqs"
+                    <button
+                      type="button"
                       onClick={(e) => handleNavAnchor(e, '/courses', '#faqs')}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 active:bg-rose-100/90 border border-slate-100 transition-colors cursor-pointer"
                     >
-                      Learner FAQs
-                    </a>
+                      <span>Learner FAQs</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
+                    </button>
 
-
-                    <div className="pt-1">
+                    <div className="pt-2">
                       <button
+                        type="button"
                         onClick={() => {
                           setMobileMenuOpen(false);
                           if (onBookDemo) {
-                            onBookDemo('Courses Mobile Enrolment');
+                            onBookDemo('Training Mobile Enrolment');
                           } else {
-                            onRequestConsultation('Course Enrolment');
+                            onRequestConsultation('Training Enrolment');
                           }
                         }}
-                        className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white"
+                        className="w-full min-h-[48px] btn-burgundy-filled py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white flex items-center justify-center space-x-2 shadow-lg"
                       >
-                        Explore Courses / Talk to Trainer
+                        <GraduationCap className="w-4 h-4 text-white" />
+                        <span>Explore Training / Talk to Trainer</span>
                       </button>
                     </div>
                   </>
@@ -613,64 +632,70 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Link
                       to="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 font-bold text-slate-900 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-bold text-slate-900 hover:text-[#881337] hover:bg-rose-50/80 border border-slate-100 transition-colors"
                     >
-                      Home
+                      <span>Home</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
                     </Link>
-
 
                     <Link
                       to="/about-us"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 border border-slate-100 transition-colors"
                     >
-                      About Us &amp; Leadership
+                      <span>About Us &amp; Leadership</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
                     </Link>
 
                     <Link
                       to="/gallery"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 border border-slate-100 transition-colors"
                     >
-                      Cyber Range Gallery
+                      <span>Cyber Range Gallery</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
                     </Link>
 
                     <Link
                       to="/blog"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 border border-slate-100 transition-colors"
                     >
-                      Blog &amp; Cyber Research
+                      <span>Blog &amp; Cyber Research</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
                     </Link>
 
                     <Link
                       to="/contact"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 font-semibold text-slate-700 border-b border-slate-100"
+                      className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left font-semibold text-slate-800 hover:text-[#881337] hover:bg-rose-50/80 border border-slate-100 transition-colors"
                     >
-                      Contact Coimbatore HQ
+                      <span>Contact Coimbatore HQ</span>
+                      <ChevronRight className="w-4 h-4 text-slate-400" />
                     </Link>
 
                     <div className="pt-2 pb-1">
                       <Link
                         to="/courses"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="w-full py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white bg-[#881337] hover:bg-[#6e0f2c] shadow-lg text-center transition-all"
+                        className="w-full min-h-[44px] py-3 px-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white bg-[#881337] hover:bg-[#6e0f2c] shadow-lg text-center transition-all"
                       >
                         <GraduationCap className="w-4 h-4 text-white" />
-                        <span>Courses &amp; Certifications</span>
+                        <span>Training &amp; Certifications</span>
                       </Link>
                     </div>
 
                     <div className="pt-2">
                       <button
+                        type="button"
                         onClick={() => {
                           setMobileMenuOpen(false);
                           onRequestConsultation('Corporate Consultation Request');
                         }}
-                        className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white"
+                        className="w-full min-h-[48px] btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-center text-white flex items-center justify-center space-x-2 shadow-lg"
                       >
-                        Book Your Cyber Consultation
+                        <ShieldCheck className="w-4 h-4 text-white" />
+                        <span>Book Your Cyber Consultation</span>
                       </button>
                     </div>
                   </>
