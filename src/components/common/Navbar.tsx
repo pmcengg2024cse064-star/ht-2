@@ -92,14 +92,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               : 'bg-white/90 border-b border-slate-200 backdrop-blur-lg'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               
               {/* Brand Logo & Experience Identity */}
-              <div className="flex items-center space-x-3 shrink-0">
+              <div className="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
                 <Link
                   to="/"
-                  className="flex items-center space-x-3 group text-left cursor-pointer"
+                  className="flex items-center space-x-2.5 sm:space-x-3 group text-left cursor-pointer"
                   title="Return to Corporate Homepage"
                 >
                   <div className="relative flex items-center justify-center w-11 h-11 rounded-xl overflow-hidden shadow-md border border-slate-200 group-hover:border-[#881337] transition-all bg-white p-1">
@@ -379,7 +379,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               {/* Mobile Right Actions & Hamburger Menu Toggle */}
-              <div className="flex lg:hidden items-center space-x-2">
+              <div className="flex lg:hidden items-center space-x-1.5 sm:space-x-2 shrink-0">
                 {isServices && (
                   <button
                     onClick={() => onRequestConsultation('Book a Cybersecurity Consultation')}
@@ -403,9 +403,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {isCorporate && (
                   <button
                     onClick={() => onRequestConsultation('Corporate Consultation Request')}
-                    className="btn-burgundy-filled px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg font-mono text-[11px] font-bold uppercase tracking-wider flex items-center space-x-1.5 shadow-sm cursor-pointer text-white"
+                    className="btn-burgundy-filled px-1.5 py-1 sm:px-3 sm:py-2 rounded-md sm:rounded-lg font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-tight sm:tracking-wider flex items-center space-x-1 sm:space-x-1.5 shadow-sm cursor-pointer text-white shrink-0"
                   >
-                    <ShieldCheck className="w-3.5 h-3.5 text-white" />
+                    <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white shrink-0" />
                     <span>Consult</span>
                   </button>
                 )}
