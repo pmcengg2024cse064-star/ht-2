@@ -30,11 +30,11 @@ import { TechMarquee } from '../components/common/TechMarquee';
 import { SEOHead } from '../components/common/SEOHead';
 import { MissionVision } from '../components/landing-additions/MissionVision';
 import { FounderMessage } from '../components/landing-additions/FounderMessage';
+import { TurnstileWidget } from '../components/common/TurnstileWidget';
 import { 
   BLOG_POSTS, 
   GOOGLE_REVIEWS, 
   COMPANY_FACTS, 
-  CYBER_PATENTS,
   SITE_URL
 } from '../data/cyberData';
 
@@ -115,6 +115,10 @@ export const HomePage: React.FC<HomePageProps> = ({
     message: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [trackingCode, setTrackingCode] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
   const videoRefA = useRef<HTMLVideoElement>(null);
   const videoRefB = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
@@ -176,9 +180,41 @@ export const HomePage: React.FC<HomePageProps> = ({
     setActiveReviewIdx((prev) => (prev - 1 + GOOGLE_REVIEWS.length) % GOOGLE_REVIEWS.length);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/enquiries/service', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contactName: formData.name,
+          workEmail: formData.email,
+          phoneNumber: formData.phone,
+          companyName: formData.organization,
+          serviceInterest: formData.serviceInterest,
+          message: formData.message,
+          sourcePage: 'homepage_bottom_cta',
+          turnstileToken,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to submit consultation request.');
+      }
+
+      setTrackingCode(data.trackingCode);
+      setFormSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err?.message || 'Network error submitting request.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const experienceMetrics = [
@@ -208,12 +244,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       icon: ShieldCheck
     },
     { 
-      target: 2, 
-      suffix: ' Patents', 
-      label: 'Published Cyber Patents', 
-      sub: 'AI Firewall & Binary Reverse Engineering',
-      category: 'PROPRIETARY IP',
-      icon: Sparkles
+      target: 100, 
+      suffix: '%', 
+      label: 'Manual Exploit Verification', 
+      sub: 'Zero Automated Scanner Noise & Chained PoCs',
+      category: 'HIGH ASSURANCE',
+      icon: ShieldCheck
     },
     { 
       target: 54, 
@@ -240,9 +276,9 @@ export const HomePage: React.FC<HomePageProps> = ({
       icon: Award
     },
     {
-      title: '2 Issued Cyber Patents',
-      desc: 'Proprietary IP in AI-based Firewall Security (2024) and Automated Pentesting & Binary Reverse Engineering (2023).',
-      icon: Sparkles
+      title: 'State-of-the-Art Cyber Range',
+      desc: 'Dedicated red vs blue live attack-defense labs, automated malware analysis, and realistic enterprise breach sandboxes.',
+      icon: Cpu
     },
     {
       title: 'Police Cyber Cell Technical Advisor',
@@ -323,7 +359,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* SEO HEAD FOR HOMEPAGE */}
       <SEOHead
         title="Cyber Security Company in Coimbatore | Hackup Technology"
-        description="Premier enterprise cyber security company in Coimbatore. Patented AI firewall, VAPT audits, 24/7 SOC, digital forensics & high-assurance cyber advisory."
+        description="Premier enterprise cyber security company in Coimbatore. High-assurance VAPT audits, 24/7 SOC, digital forensics & offensive cyber advisory."
         canonical={`${SITE_URL}/`}
         primaryKeyword="cyber security company in Coimbatore"
         breadcrumbs={[{ name: 'Home', url: '/' }]}
@@ -471,7 +507,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               { title: 'Red & Blue Team', badge: 'Adversary Sim' },
               { title: 'IoT & OT Security', badge: 'IEC 62443' },
               { title: 'Digital Forensics (DFIR)', badge: 'Sec 65B' },
-              { title: 'AI & LLM Defense', badge: 'Patented IP' }
+              { title: 'AI & LLM Defense', badge: 'Next-Gen Sec' }
             ].map((s, idx) => (
               <div key={idx} className="p-3.5 rounded-2xl bg-rose-50/50 border border-rose-200 space-y-1 text-center">
                 <span className="text-[10px] font-mono font-bold text-[#881337] uppercase block">{s.badge}</span>
@@ -640,7 +676,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 5. MISSION & VISION */}
       <MissionVision />
 
-      {/* 6. AUTHORITY: FOUNDER CARD, PATENTS, PARTNERS */}
+      {/* 6. AUTHORITY: FOUNDER CARD, PARTNERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="rounded-3xl bg-white border-2 border-rose-200 p-8 sm:p-12 shadow-xl space-y-10">
           
@@ -673,7 +709,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-rose-50 border border-rose-300 px-4 py-1.5 rounded-full shadow-md flex items-center space-x-1.5 whitespace-nowrap">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#881337]" />
                   <span className="font-mono text-[9px] uppercase font-bold text-[#881337] tracking-wider">
-                    TN Police Advisor &bull; Patent Holder
+                    TN Police Cyber Advisor &bull; Red Team Lead
                   </span>
                 </div>
               </div>
@@ -694,11 +730,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Dinesh Paranthagan is the Founder &amp; CEO of Hackup Technology and a cybersecurity practitioner with over 13 years of experience as an ethical hacker and penetration tester. His work spans VAPT, SOC implementation, digital forensics, cybercrime investigation, GRC consulting, red and blue team engagements, IoT security and AI-integrated cybersecurity. He has supported cyber crime investigations. A regular voice on Tamil media and a sought-after resource person for colleges, Dinesh is passionate about turning students into skilled, ethical defenders.
               </p>
 
-              {/* Mention Two Patents without specific details */}
+              {/* Founder Leadership Highlights */}
               <div className="pt-1 flex flex-wrap items-center gap-3">
                 <div className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-950 font-mono text-xs font-semibold">
                   <Sparkles className="w-4 h-4 text-[#881337] shrink-0" />
-                  <span>Holder of 2 Published Cyber Defense Patents</span>
+                  <span>State Police Cyber Crime Advisor</span>
                 </div>
                 <div className="inline-flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-mono text-xs font-semibold">
                   <ShieldCheck className="w-4 h-4 text-[#881337] shrink-0" />
@@ -1032,6 +1068,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <h3 className="font-serif-header font-bold text-xl text-slate-900">
                     Consultation Request Received
                   </h3>
+                  {trackingCode && (
+                    <div className="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold">
+                      Tracking Reference: {trackingCode}
+                    </div>
+                  )}
                   <p className="font-sans text-xs text-slate-600 max-w-sm mx-auto">
                     Our technical team in Coimbatore will review your scope and contact you within 2 hours under strict mutual NDA.
                   </p>
@@ -1126,12 +1167,21 @@ export const HomePage: React.FC<HomePageProps> = ({
                     />
                   </div>
 
+                  {submitError && (
+                    <div className="p-3 rounded-xl bg-rose-50 text-rose-900 border border-rose-300 font-mono text-xs">
+                      {submitError}
+                    </div>
+                  )}
+
+                  <TurnstileWidget action="service_enquiry" onVerify={(t) => setTurnstileToken(t)} />
+
                   <button
                     type="submit"
-                    className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white"
+                    disabled={isSubmitting}
+                    className="w-full btn-burgundy-filled py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white disabled:opacity-50"
                   >
                     <Send className="w-3.5 h-3.5 text-white" />
-                    <span>Submit Confidential Request</span>
+                    <span>{isSubmitting ? 'Securing Scoping Call...' : 'Submit Confidential Request'}</span>
                   </button>
                 </form>
               )}

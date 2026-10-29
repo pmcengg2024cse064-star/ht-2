@@ -84,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </span>
                 <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-[10px] font-mono font-bold text-slate-700">
                   <Award className="w-3.5 h-3.5 text-[#881337]" />
-                  <span>Dual Indian Patent Holder &bull; 13+ Yrs</span>
+                  <span>Offensive Cyber Defense &bull; 13+ Yrs</span>
                 </span>
               </div>
             </div>
@@ -557,7 +557,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <Link to="/courses" className="text-[#881337] hover:underline font-mono font-bold mt-1 block">
-                  &rarr; View All EC-Council Training
+                  &rarr; View All Certified Courses
                 </Link>
               </li>
             </ul>
@@ -645,12 +645,14 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex wrap items-center gap-2 sm:gap-4 text-center md:text-left font-medium">
             <span>&copy; {new Date().getFullYear()} Hackup Technology Pvt Ltd. All Rights Reserved.</span>
             <span className="hidden sm:inline">&bull;</span>
-            <span>EC-Council Accredited Training Center</span>
-            <span className="hidden sm:inline">&bull;</span>
-            <span>TANCCAO Secretariat</span>
+            <span>Ganapathy, Coimbatore HQ &bull; Enterprise Cyber Defense</span>
           </div>
 
           <div className="flex items-center space-x-4 font-semibold">
+            <Link to="/verify" className="hover:text-slate-900 transition-colors">
+              Verify Certificate
+            </Link>
+            <span>&bull;</span>
             <Link to="/privacy-policy" className="hover:text-slate-900 transition-colors">
               Privacy Policy
             </Link>

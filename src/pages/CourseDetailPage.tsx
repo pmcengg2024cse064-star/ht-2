@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { ACADEMY_COURSES, SEO_METADATA_MAP, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
+import { TurnstileWidget } from '../components/common/TurnstileWidget';
 
 interface CourseDetailPageProps {
   onBookDemo: (courseTitle?: string) => void;
@@ -56,10 +57,45 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
     modePreference: 'Hybrid (Coimbatore Lab + Live Online)'
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [trackingCode, setTrackingCode] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
 
-  const handleEnquirySubmit = (e: React.FormEvent) => {
+  const handleEnquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/registrations/training', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          candidateName: formData.name,
+          email: formData.email,
+          whatsappNumber: formData.phone,
+          collegeOrCompany: formData.collegeOrCompany,
+          programTitle: course.title,
+          preferredMode: formData.modePreference,
+          turnstileToken,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to submit training enquiry.');
+      }
+
+      setTrackingCode(data.trackingCode);
+      setSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err?.message || 'Network error submitting enquiry.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const seoData = SEO_METADATA_MAP[`/courses/${course.id}`] || {
@@ -343,6 +379,11 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
           <div className="p-6 rounded-2xl bg-white border border-emerald-300 text-center space-y-2">
             <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
             <h4 className="font-serif-header font-bold text-lg text-slate-900">Enquiry Submitted Successfully</h4>
+            {trackingCode && (
+              <div className="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold">
+                Registration Code: {trackingCode}
+              </div>
+            )}
             <p className="font-sans text-xs text-slate-600">
               Our academic counselors in Coimbatore will send the syllabus PDF and contact you shortly.
             </p>
@@ -412,12 +453,21 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
               </select>
             </div>
 
+            {submitError && (
+              <div className="p-3 rounded-xl bg-rose-50 text-rose-900 border border-rose-300 font-mono text-xs">
+                {submitError}
+              </div>
+            )}
+
+            <TurnstileWidget action="training_registration" onVerify={(t) => setTurnstileToken(t)} />
+
             <button
               type="submit"
-              className="btn-burgundy-filled w-full py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white cursor-pointer hover:scale-101 transition-all"
+              disabled={isSubmitting}
+              className="btn-burgundy-filled w-full py-3 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg text-white cursor-pointer hover:scale-101 transition-all disabled:opacity-50"
             >
               <Send className="w-3.5 h-3.5 text-white" />
-              <span>Submit Training Enquiry &amp; Get Syllabus</span>
+              <span>{isSubmitting ? 'Registering...' : 'Submit Training Enquiry & Get Syllabus'}</span>
             </button>
           </form>
         )}

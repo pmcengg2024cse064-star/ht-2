@@ -553,7 +553,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
                 Guided Lab Exercises
               </h3>
               <p className="font-sans text-xs text-slate-600 leading-relaxed">
-                Direct mentorship from active red teamers, patent inventors, and SOC analysts.
+                Direct mentorship from active red teamers, security architects, and SOC analysts.
               </p>
             </div>
 
@@ -598,8 +598,8 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({
               <div className="text-xs font-mono text-slate-600">Higher-Ed MoUs &amp; CoEs</div>
             </div>
             <div>
-              <div className="font-serif-header font-black text-2xl sm:text-3xl text-[#881337]">2 Patents</div>
-              <div className="text-xs font-mono text-slate-600">Published Cyber Defense Patents</div>
+              <div className="font-serif-header font-black text-2xl sm:text-3xl text-[#881337]">1,00,000+</div>
+              <div className="text-xs font-mono text-slate-600">Students Trained Pan-India</div>
             </div>
           </div>
 

@@ -11,6 +11,7 @@ import {
   Award
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { TurnstileWidget } from '../common/TurnstileWidget';
 
 interface B2CDemoModalProps {
   isOpen: boolean;
@@ -29,6 +30,10 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
   const [collegeOrWork, setCollegeOrWork] = useState('');
   const [batchMode, setBatchMode] = useState('Coimbatore Lab (Ganapathy)');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [trackingCode, setTrackingCode] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
 
   useEffect(() => {
     if (prefilledCourseTitle) {
@@ -38,15 +43,45 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    confetti({
-      particleCount: 75,
-      spread: 60,
-      origin: { y: 0.6 },
-      colors: ['#FF6B00', '#00F0FF', '#10B981'],
-    });
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/registrations/training', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          candidateName: name,
+          whatsappNumber: whatsapp,
+          collegeOrCompany: collegeOrWork,
+          programTitle: course,
+          preferredMode: batchMode,
+          turnstileToken,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to submit registration. Please verify your details.');
+      }
+
+      setTrackingCode(data.trackingCode);
+      setIsSubmitted(true);
+      confetti({
+        particleCount: 75,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#FF6B00', '#00F0FF', '#10B981'],
+      });
+    } catch (err: any) {
+      setSubmitError(err?.message || 'Network error registering for demo. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -171,13 +206,22 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
                 </div>
               </div>
 
+              {submitError && (
+                <div className="p-3 rounded-xl bg-rose-50 text-rose-900 border border-rose-300 font-mono text-xs">
+                  {submitError}
+                </div>
+              )}
+
+              <TurnstileWidget action="training_registration" onVerify={(t) => setTurnstileToken(t)} />
+
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl font-mono font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#881337] to-[#7A1426] hover:from-[#5B0E1B] hover:to-[#881337] shadow-xl shadow-rose-950/30 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 rounded-xl font-mono font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#881337] to-[#7A1426] hover:from-[#5B0E1B] hover:to-[#881337] shadow-xl shadow-rose-950/30 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
                 >
                   <Download className="w-4 h-4 text-white" />
-                  <span>Download Syllabus &amp; Reserve Free Demo</span>
+                  <span>{isSubmitting ? 'Securing Seat...' : 'Download Syllabus & Reserve Free Demo'}</span>
                 </button>
               </div>
             </form>
@@ -191,6 +235,12 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
             <h4 className="font-display font-bold text-2xl text-slate-900 dark:text-white">
               Syllabus PDF &amp; Demo Pass Confirmed!
             </h4>
+
+            {trackingCode && (
+              <div className="inline-block px-3 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950 border border-emerald-400 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold">
+                Registration Code: {trackingCode}
+              </div>
+            )}
 
             <p className="font-sans text-sm text-slate-700 dark:text-slate-300 leading-relaxed max-w-sm mx-auto">
               Welcome, <strong className="text-slate-900 dark:text-white">{name}</strong>! Your official EC-Council syllabus pack for <strong className="text-[#881337] dark:text-rose-400">{course}</strong> has been sent to <span className="font-mono text-[#881337] dark:text-white font-bold">{whatsapp}</span>.

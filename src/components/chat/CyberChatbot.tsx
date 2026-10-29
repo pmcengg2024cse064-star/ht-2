@@ -42,7 +42,7 @@ interface CyberChatbotProps {
 
 const CORPORATE_PROMPTS = [
   { label: '🏢 About Hackup & Track Record', query: 'Tell me about Hackup Technology and its credentials.' },
-  { label: '👨‍💼 Founder Dinesh Paranthagan & Patents', query: 'Tell me about Founder & CEO Dinesh Paranthagan and his patents.' },
+  { label: '👨‍💼 Founder Dinesh Paranthagan & Leadership', query: 'Tell me about Founder & CEO Dinesh Paranthagan and his leadership.' },
   { label: '🛡️ Enterprise Security Solutions', query: 'What enterprise cybersecurity and VAPT services do you offer?' },
   { label: '👮 Police & Government Advisory', query: 'What is Hackup’s involvement with Police and Government cyber advisory?' },
   { label: '📍 Coimbatore HQ & Contact', query: 'Where is your Coimbatore center located and what are your contact numbers?' },
@@ -54,7 +54,7 @@ const SERVICES_PROMPTS = [
   { label: '🚨 24/7 Managed SOC & Incident Hotline', query: 'Tell me about your 24/7 Managed SOC and incident response hotline.' },
   { label: '📋 ISO 27001 & DPDP Act Compliance', query: 'How do you help organizations achieve ISO 27001 and DPDP Act compliance?' },
   { label: '🎯 Red Team Simulation', query: 'What is Hackup’s Red Team and adversary simulation service?' },
-  { label: '🤖 AI Security & Patented Firewall', query: 'Tell me about your patented AI firewall and AI security consulting.' },
+  { label: '🤖 AI Security Architecture', query: 'Tell me about your AI security solutions and AI security consulting.' },
   { label: '📞 Request Scoped Proposal', query: 'How do I request a scoped audit proposal for my organization?' }
 ];
 
@@ -179,11 +179,11 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
         };
       }
       return {
-        text: 'Hello! I am Aegis, Hackup Technology\'s AI Cyber Assistant. I can assist you with our enterprise security solutions, accredited training programs, patent-backed IP, or connect you directly with our leadership team. What can I help you with today?',
+        text: 'Hello! I am Aegis, Hackup Technology\'s AI Cyber Assistant. I can assist you with our enterprise security solutions, professional training programs, or connect you directly with our leadership team. What can I help you with today?',
         actions: [
           { label: 'Enterprise Cybersecurity', actionType: 'audit', payload: 'Enterprise VAPT' },
           { label: 'Training & Academy', actionType: 'demo', payload: 'CEH v13' },
-          { label: 'Founder & Leadership', actionType: 'link', payload: '/founder-patents' }
+          { label: 'Founder & Leadership', actionType: 'link', payload: '/about-us' }
         ]
       };
     }
@@ -203,11 +203,10 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
               'Role & Designation: Founder and Chief Executive Officer of Hackup Technology Pvt Ltd.\n\n' +
               'Industry Experience: Over 13 years of offensive cybersecurity, VAPT, and digital forensics expertise as an active ethical hacker.\n\n' +
               'State & National Positions:\n' +
-              '• Secretary General – TANCCAO (Tamil Nadu Cyber Crime Action Organization).\n' +
               '• Technical Consultant – Tamil Nadu Police Cyber Crime Department, assisting in high-profile cryptocurrency tracing, ransomware triage, and Section 65B judicial cyber evidence preservation.\n' +
               '• National Mentor – Smart India Hackathon (SIH) under the Ministry of Education & AICTE.\n' +
               '• Board of Studies (BOS) Member across 8 universities, modernizing cyber defense curricula.\n' +
-              '• Dual Patent Holder for sovereign Indian AI defense and offensive reverse engineering architectures.\n\n' +
+              '• Pioneer of advanced sovereign cyber defense and offensive reverse engineering architectures.\n\n' +
               'Track Record: Personally trained over 1,00,000 students and delivered 2,100+ commercial enterprise audits.\n\n' +
               'Direct Email: dinesh@hackuptechnology.com\n' +
               'Office: Ganapathy, Coimbatore HQ.',
@@ -258,15 +257,13 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
         text: 'About Hackup Technology Pvt Ltd:\n\n' +
               'Headquarters: Ganapathy, Coimbatore, Tamil Nadu, India.\n' +
               'Founded: 2013 (13+ years of continuous cybersecurity leadership).\n' +
-              'Accreditation: Official EC-Council Accredited Training Center (ATC).\n\n' +
               'Verified Enterprise Track Record:\n' +
               '• 1,00,000+ Students & Professionals Trained.\n' +
               '• 2,100+ Enterprise Security Audits Delivered.\n' +
               '• 54+ Academic Partner Institutions (VIT, PSG Tech, SRM, MCC, Bannari Amman, etc.).\n' +
               '• 7 MNC Corporate Partner Collaborations.\n' +
               '• 4.9 Star Rating across 3,398+ verified Google reviews.\n' +
-              '• Host of DEFCON Coimbatore Chapter (#DC91422).\n' +
-              '• 2 Published Indian Cybersecurity Patents.',
+              '• Host of DEFCON Coimbatore Chapter (#DC91422).',
         actions: [
           { label: 'Explore Enterprise Services', actionType: 'audit', payload: 'Enterprise Security' },
           { label: 'Explore Training Programs', actionType: 'demo', payload: 'CEH v13' },
@@ -897,7 +894,7 @@ export const CyberChatbot: React.FC<CyberChatbotProps> = ({
                         ? "Ask about VAPT audits, 24/7 SOC, ISO 27001, DPDP Act..." 
                         : isCourses 
                         ? "Ask about CEH v13, cloud security, cyber labs, fees..." 
-                        : "Ask about Hackup, Dr. Dinesh Paranthagan, patents, services..."
+                        : "Ask about Hackup, Dr. Dinesh Paranthagan, cybersecurity services..."
                     }
                     className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-xs font-sans text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#881337] transition-all"
                   />

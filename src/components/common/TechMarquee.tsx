@@ -3,7 +3,7 @@ import { Shield, Terminal, Cloud, Cpu, Lock, Network, Award, Server, Code, FileC
 
 export const TechMarquee: React.FC = () => {
   const techItems = [
-    { name: 'EC-Council ATC', label: 'Accredited Partner', icon: Award, color: 'text-amber-500 dark:text-amber-400', border: 'border-amber-500/30' },
+    { name: 'TÜV SÜD Assured', label: 'Audit Partner', icon: Award, color: 'text-amber-500 dark:text-amber-400', border: 'border-amber-500/30' },
     { name: 'DEFCON Coimbatore', label: 'Official Chapter Hub', icon: Shield, color: 'text-cyan-500 dark:text-cyan-400', border: 'border-cyan-500/30' },
     { name: 'Kali Linux', label: 'Offensive Kernel', icon: Terminal, color: 'text-blue-500 dark:text-blue-400', border: 'border-blue-500/30' },
     { name: 'Burp Suite Pro', label: 'Web/API VAPT', icon: Lock, color: 'text-orange-500 dark:text-orange-400', border: 'border-orange-500/30' },

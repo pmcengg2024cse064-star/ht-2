@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
+import { TurnstileWidget } from '../components/common/TurnstileWidget';
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -24,10 +25,45 @@ export const ContactPage: React.FC = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [trackingCode, setTrackingCode] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/enquiries/service', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contactName: formData.name,
+          workEmail: formData.email,
+          phoneNumber: formData.phone,
+          serviceInterest: formData.subject,
+          message: formData.message,
+          sourcePage: 'contact_page',
+          turnstileToken,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to submit message.');
+      }
+
+      setTrackingCode(data.trackingCode);
+      setSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err?.message || 'Network error transmitting message.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -207,6 +243,11 @@ export const ContactPage: React.FC = () => {
               <div className="p-8 rounded-2xl bg-rose-50 border border-emerald-300 text-center space-y-3">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
                 <h3 className="font-serif-header font-bold text-xl text-slate-900">Message Delivered</h3>
+                {trackingCode && (
+                  <div className="inline-block px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold">
+                    Tracking Reference: {trackingCode}
+                  </div>
+                )}
                 <p className="font-sans text-xs sm:text-sm text-slate-600 max-w-sm mx-auto">
                   Thank you for reaching out. A security architect from our Coimbatore office will respond within 2 hours.
                 </p>
@@ -286,12 +327,21 @@ export const ContactPage: React.FC = () => {
                   />
                 </div>
 
+                {submitError && (
+                  <div className="p-3 rounded-xl bg-rose-50 text-rose-900 border border-rose-300 font-mono text-xs">
+                    {submitError}
+                  </div>
+                )}
+
+                <TurnstileWidget action="service_enquiry" onVerify={(t) => setTurnstileToken(t)} />
+
                 <button
                   type="submit"
-                  className="btn-burgundy-filled w-full py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-xl text-white"
+                  disabled={isSubmitting}
+                  className="btn-burgundy-filled w-full py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-xl text-white disabled:opacity-50"
                 >
                   <Send className="w-4 h-4 text-white" />
-                  <span>Transmit Secure Message</span>
+                  <span>{isSubmitting ? 'Transmitting...' : 'Transmit Secure Message'}</span>
                 </button>
               </form>
             )}

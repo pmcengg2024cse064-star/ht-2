@@ -28,6 +28,9 @@ import { FounderPatentsPage } from './pages/FounderPatentsPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { CyberRangePage } from './pages/CyberRangePage';
 import { EstimatorPage } from './pages/EstimatorPage';
+import { VerifyCertificatePage } from './pages/VerifyCertificatePage';
+import { AdminLoginPage } from './pages/admin/AdminLoginPage';
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
 
 // Modals & Drawers
 import { B2BAuditModal } from './components/modals/B2BAuditModal';
@@ -243,6 +246,14 @@ export function App() {
                   />
                 }
               />
+
+              {/* Certificate Verification */}
+              <Route path="/verify" element={<VerifyCertificatePage />} />
+              <Route path="/verify/:certificateId" element={<VerifyCertificatePage />} />
+
+              {/* Administrative Portal */}
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin" element={<AdminDashboardPage />} />
 
               {/* ---------------------------------------------------- */}
               {/* 301 CLIENT REDIRECT MAP FROM OLD ROUTES TO NEW ROUTES */}

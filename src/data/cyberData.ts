@@ -1436,10 +1436,10 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: 'rev-2',
     name: 'Priyanka Venkatesh',
-    role: 'Cyber Security Analyst (CEH Alumna)',
+    role: 'Cyber Security Analyst',
     rating: 5,
     date: '1 month ago',
-    text: 'The best cyber security training institute in Tamil Nadu hands down! The EC-Council CEH v13 training with Dinesh Sir gave me 100% practical lab experience. I cleared my CEH exam on the first attempt and got placed with a top MNC in Bengaluru within 30 days.',
+    text: 'The best cyber security training institute in Tamil Nadu hands down! The ethical hacking and cyber defense training with Dinesh Sir gave me 100% practical lab experience. I cleared my global certification on the first attempt and got placed with a top MNC in Bengaluru within 30 days.',
     avatarLetter: 'P',
     verified: true
   },

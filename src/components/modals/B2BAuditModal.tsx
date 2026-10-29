@@ -14,6 +14,7 @@ import {
   UploadCloud
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { TurnstileWidget } from '../common/TurnstileWidget';
 
 interface B2BAuditModalProps {
   isOpen: boolean;
@@ -28,6 +29,9 @@ export const B2BAuditModal: React.FC<B2BAuditModalProps> = ({
 }) => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [trackingCode, setTrackingCode] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
 
   // Form State
   const [formData, setFormData] = useState({
@@ -54,12 +58,40 @@ export const B2BAuditModal: React.FC<B2BAuditModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch('/api/enquiries/service', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          companyName: formData.companyName,
+          contactName: formData.contactName,
+          workEmail: formData.workEmail,
+          phoneNumber: formData.phoneNumber,
+          targetScope: formData.targetScope,
+          complianceGoal: formData.complianceGoal,
+          testingWindow: formData.testingWindow,
+          requiresNDA: formData.requiresNDA,
+          message: formData.notes,
+          serviceInterest: 'B2B Enterprise Security Assessment',
+          sourcePage: 'b2b_audit_modal',
+          turnstileToken,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to submit enquiry. Please check your information.');
+      }
+
+      setTrackingCode(data.trackingCode);
       setStep(4);
       confetti({
         particleCount: 80,
@@ -67,7 +99,11 @@ export const B2BAuditModal: React.FC<B2BAuditModalProps> = ({
         origin: { y: 0.6 },
         colors: ['#00F0FF', '#3B82F6', '#10B981'],
       });
-    }, 1000);
+    } catch (err: any) {
+      setSubmitError(err?.message || 'Network error submitting request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -311,6 +347,14 @@ export const B2BAuditModal: React.FC<B2BAuditModalProps> = ({
               <div>Lead Attestation: <span className="text-emerald-700 dark:text-emerald-400 font-bold">Safe-to-Host + 30-Day Re-test</span></div>
             </div>
 
+            {submitError && (
+              <div className="p-3 rounded-xl bg-rose-50 text-rose-900 border border-rose-300 font-mono text-xs">
+                {submitError}
+              </div>
+            )}
+
+            <TurnstileWidget action="service_enquiry" onVerify={(t) => setTurnstileToken(t)} />
+
             <div className="flex justify-between pt-2">
               <button
                 type="button"
@@ -342,6 +386,12 @@ export const B2BAuditModal: React.FC<B2BAuditModalProps> = ({
             <h4 className="font-display font-bold text-2xl text-slate-900 dark:text-white">
               Assessment Scope Request Received!
             </h4>
+
+            {trackingCode && (
+              <div className="inline-block px-3 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950 border border-emerald-400 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold">
+                Tracking Reference: {trackingCode}
+              </div>
+            )}
 
             <p className="font-sans text-sm text-slate-700 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
               Thank you, <strong className="text-slate-900 dark:text-white">{formData.contactName || 'Client'}</strong>. Our Principal Red Team Lead in Coimbatore has received your scope details for <strong className="text-[#881337] dark:text-rose-300">{formData.companyName}</strong>.

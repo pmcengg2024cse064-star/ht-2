@@ -70,7 +70,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
 
     // 3. Primary Keywords & Secondary
     if (primaryKeyword) {
-      setMetaTag('keywords', `${primaryKeyword}, penetration testing Coimbatore, SOC as a service, DPDP Act compliance, ethical hacking course Coimbatore, cybersecurity training institute in Tamil Nadu, EC-Council training center, cybersecurity company India`);
+      setMetaTag('keywords', `${primaryKeyword}, penetration testing Coimbatore, SOC as a service, DPDP Act compliance, ethical hacking course Coimbatore, cybersecurity training institute in Tamil Nadu, cyber defense center, cybersecurity company India`);
     }
 
     // 4. Canonical Tag
@@ -114,7 +114,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
             '@type': 'Person',
             name: COMPANY_FACTS.founderName,
             jobTitle: COMPANY_FACTS.founderTitle,
-            description: `${COMPANY_FACTS.founderTitle}, Secretary General of TANCCAO with 10 years experience.`
+            description: `${COMPANY_FACTS.founderTitle} with 10+ years experience in sovereign cyber defense.`
           },
           contactPoint: [
             {
@@ -131,7 +131,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           '@id': `${SITE_URL}/#website`,
           url: SITE_URL,
           name: 'Hackup Technology',
-          description: 'Premier Cybersecurity Firm & EC-Council Accredited Training Center',
+          description: 'Premier Cybersecurity Firm & Cyber Defense Center',
           publisher: {
             '@id': `${SITE_URL}/#organization`
           },
