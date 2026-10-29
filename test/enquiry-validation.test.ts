@@ -2,9 +2,9 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import serviceEnquiryHandler from '../api/enquiries/service';
 import trainingRegistrationHandler from '../api/registrations/training';
 import verifyCertificateHandler from '../api/certificates/verify';
-import catchallHandler from '../api/[...catchall]';
-import adminEnquiriesHandler from '../api/admin/enquiries';
-import adminExportHandler from '../api/admin/export';
+import adminEnquiriesHandler from '../api/_admin/enquiries';
+import adminExportHandler from '../api/_admin/export';
+import adminSlugHandler from '../api/admin/[...slug]';
 import { checkMethod, parseBody, getClientIp } from '../api/_lib/response';
 import * as turnstileModule from '../api/_lib/turnstile';
 import * as rateLimiterModule from '../api/_lib/rateLimiter';
@@ -123,12 +123,12 @@ describe('Trusted Client IP Extraction (`getClientIp`)', () => {
   });
 });
 
-describe('Catch-All 404 Route Handler', () => {
-  it('returns clean JSON 404 for nonexistent API routes', async () => {
-    const req = createMockRequest({ method: 'GET', url: '/api/nonexistent-route' });
+describe('Admin Serverless Catch-All Router (`/api/admin/[...slug]`)', () => {
+  it('returns clean JSON 404 for nonexistent admin routes', async () => {
+    const req = createMockRequest({ method: 'GET', url: '/api/admin/nonexistent-route' });
     const res = createMockResponse();
 
-    await catchallHandler(req, res);
+    await adminSlugHandler(req, res);
 
     expect(res.statusCode).toBe(404);
     const data = JSON.parse(res.body);
