@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { checkMethod, handlePreflight, sendError, sendJson, getClientIp } from '../_lib/response';
-import { checkRateLimit } from '../_lib/rateLimiter';
-import { getSupabaseServerClient } from '../_lib/supabaseServer';
+import { checkMethod, handlePreflight, sendError, sendJson, getClientIp } from '../_lib/response.js';
+import { checkRateLimit } from '../_lib/rateLimiter.js';
+import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;

@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { checkMethod, handlePreflight, sendError, sendJson } from '../_lib/response';
-import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth';
-import { getSupabaseServerClient } from '../_lib/supabaseServer';
+import { checkMethod, handlePreflight, sendError, sendJson } from '../_lib/response.js';
+import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth.js';
+import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;

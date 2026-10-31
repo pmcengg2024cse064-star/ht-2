@@ -1,5 +1,5 @@
-import type { AdminRole } from '../../src/types/database.types';
-import { getSupabaseServerClient } from './supabaseServer';
+import type { AdminRole } from '../../src/types/database.types.js';
+import { getSupabaseServerClient } from './supabaseServer.js';
 
 export interface VerifiedStaffProfile {
   id: string;

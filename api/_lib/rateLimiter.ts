@@ -1,5 +1,5 @@
-import { getSupabaseServerClient } from './supabaseServer';
-import { getServerEnv } from './env';
+import { getSupabaseServerClient } from './supabaseServer.js';
+import { getServerEnv } from './env.js';
 
 export interface RateLimitResult {
   success: boolean;

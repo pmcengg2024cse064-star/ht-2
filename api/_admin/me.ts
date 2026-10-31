@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { checkMethod, handlePreflight, sendError, sendJson } from '../_lib/response';
-import { authenticateStaffRequest } from '../_lib/auth';
+import { checkMethod, handlePreflight, sendError, sendJson } from '../_lib/response.js';
+import { authenticateStaffRequest } from '../_lib/auth.js';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;

@@ -1,9 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { checkMethod, handlePreflight, sendError, setCorsHeaders, getClientIp } from '../_lib/response';
-import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth';
-import { getSupabaseServerClient } from '../_lib/supabaseServer';
-import { generateExcelWorkbook, ColumnDefinition } from '../_lib/excel';
-import { logAuditEvent } from '../_lib/audit';
+import { checkMethod, handlePreflight, sendError, setCorsHeaders, getClientIp } from '../_lib/response.js';
+import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth.js';
+import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
+import { generateExcelWorkbook, ColumnDefinition } from '../_lib/excel.js';
+import { logAuditEvent } from '../_lib/audit.js';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;

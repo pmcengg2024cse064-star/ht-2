@@ -1,5 +1,5 @@
-import { getSupabaseServerClient } from './supabaseServer';
-import type { Json } from '../../src/types/database.types';
+import { getSupabaseServerClient } from './supabaseServer.js';
+import type { Json } from '../../src/types/database.types.js';
 
 export interface AuditLogEntry {
   adminId?: string | null;

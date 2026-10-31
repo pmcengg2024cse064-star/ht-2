@@ -1,10 +1,10 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { createHash } from 'node:crypto';
-import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClientIp } from '../_lib/response';
-import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth';
-import { getSupabaseServerClient } from '../_lib/supabaseServer';
-import { logAuditEvent } from '../_lib/audit';
-import type { CertificateCategory } from '../../src/types/database.types';
+import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClientIp } from '../_lib/response.js';
+import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth.js';
+import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
+import { logAuditEvent } from '../_lib/audit.js';
+import type { CertificateCategory } from '../../src/types/database.types.js';
 
 const ALLOWED_CATEGORIES: CertificateCategory[] = [
   'STUDENT_TRAINING',

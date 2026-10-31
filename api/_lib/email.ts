@@ -1,4 +1,4 @@
-import { getServerEnv } from './env';
+import { getServerEnv } from './env.js';
 
 /**
  * Escapes HTML characters to prevent HTML injection in notification emails.

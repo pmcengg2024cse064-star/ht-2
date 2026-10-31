@@ -1,14 +1,14 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { handlePreflight, sendError } from '../_lib/response';
-import auditLogsHandler from '../_admin/audit-logs';
-import batchesHandler from '../_admin/batches';
-import certificatesImportHandler from '../_admin/certificates-import';
-import certificatesHandler from '../_admin/certificates';
-import enquiriesHandler from '../_admin/enquiries';
-import exportHandler from '../_admin/export';
-import meHandler from '../_admin/me';
-import programsHandler from '../_admin/programs';
-import registrationsHandler from '../_admin/registrations';
+import { handlePreflight, sendError } from '../_lib/response.js';
+import auditLogsHandler from '../_admin/audit-logs.js';
+import batchesHandler from '../_admin/batches.js';
+import certificatesImportHandler from '../_admin/certificates-import.js';
+import certificatesHandler from '../_admin/certificates.js';
+import enquiriesHandler from '../_admin/enquiries.js';
+import exportHandler from '../_admin/export.js';
+import meHandler from '../_admin/me.js';
+import programsHandler from '../_admin/programs.js';
+import registrationsHandler from '../_admin/registrations.js';
 
 /**
  * Consolidated Administrative Serverless Function for Vercel Hobby Plan.

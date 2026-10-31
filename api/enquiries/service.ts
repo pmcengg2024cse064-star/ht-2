@@ -1,9 +1,9 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClientIp } from '../_lib/response';
-import { checkRateLimit } from '../_lib/rateLimiter';
-import { verifyTurnstileToken } from '../_lib/turnstile';
-import { getSupabaseServerClient } from '../_lib/supabaseServer';
-import { notifyNewServiceEnquiry } from '../_lib/email';
+import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClientIp } from '../_lib/response.js';
+import { checkRateLimit } from '../_lib/rateLimiter.js';
+import { verifyTurnstileToken } from '../_lib/turnstile.js';
+import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
+import { notifyNewServiceEnquiry } from '../_lib/email.js';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 const PHONE_REGEX = /^[+]?[\d\s\-().]{7,25}$/;
