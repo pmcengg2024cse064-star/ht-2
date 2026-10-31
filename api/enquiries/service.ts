@@ -1,7 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClientIp } from '../_lib/response.js';
 import { checkRateLimit } from '../_lib/rateLimiter.js';
-import { verifyTurnstileToken } from '../_lib/turnstile.js';
 import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
 import { notifyNewServiceEnquiry } from '../_lib/email.js';
 
@@ -42,18 +41,20 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     return sendError(res, err.statusCode || 400, err.message, 'INVALID_PAYLOAD');
   }
 
-  // 3. Cloudflare Turnstile Verification
-  const turnstileResult = await verifyTurnstileToken(body.turnstileToken, {
-    remoteIp: clientIp,
-    expectedAction: 'service_enquiry',
-  });
-  if (!turnstileResult.success) {
-    return sendError(
-      res,
-      403,
-      'Anti-bot security verification failed. Please refresh and try again.',
-      'TURNSTILE_FAILED'
-    );
+  // 3. Multi-Layer Anti-Spam Protection (Non-CAPTCHA)
+  // A. Honeypot Field: Bots automatically populate all inputs
+  if (typeof body.website_url === 'string' && body.website_url.trim().length > 0) {
+    console.warn(`[Spam Defense] Honeypot triggered from IP ${clientIp}. Rejecting.`);
+    return sendError(res, 400, 'Invalid request submission.', 'SPAM_DETECTED');
+  }
+
+  // B. Minimum Human Submission Threshold: Rejects sub-400ms scripted submissions
+  if (typeof body._form_rendered_at === 'number') {
+    const elapsedMs = Date.now() - body._form_rendered_at;
+    if (elapsedMs < 400 && elapsedMs >= 0) {
+      console.warn(`[Spam Defense] Superhuman submission speed (${elapsedMs}ms) from IP ${clientIp}. Rejecting.`);
+      return sendError(res, 400, 'Invalid request submission speed.', 'SPAM_DETECTED');
+    }
   }
 
   // 4. Strict Field Validation

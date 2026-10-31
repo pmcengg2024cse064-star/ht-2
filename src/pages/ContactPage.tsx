@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   MapPin, 
@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
-import { TurnstileWidget } from '../components/common/TurnstileWidget';
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +27,8 @@ export const ContactPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [trackingCode, setTrackingCode] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
+  const [honeypot, setHoneypot] = useState<string>('');
+  const formRenderedAt = useRef<number>(Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +48,8 @@ export const ContactPage: React.FC = () => {
           serviceInterest: formData.subject,
           message: formData.message,
           sourcePage: 'contact_page',
-          turnstileToken,
+          website_url: honeypot,
+          _form_rendered_at: formRenderedAt.current,
         }),
       });
 
@@ -333,7 +334,19 @@ export const ContactPage: React.FC = () => {
                   </div>
                 )}
 
-                <TurnstileWidget action="service_enquiry" onVerify={(t) => setTurnstileToken(t)} />
+                {/* Honeypot field for bot protection (hidden from humans) */}
+                <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+                  <label htmlFor="hp_contact_url">Leave this field blank</label>
+                  <input
+                    id="hp_contact_url"
+                    type="text"
+                    name="website_url"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
 
                 <button
                   type="submit"

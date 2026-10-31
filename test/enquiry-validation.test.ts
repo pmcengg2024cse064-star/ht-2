@@ -6,7 +6,6 @@ import adminEnquiriesHandler from '../api/_admin/enquiries';
 import adminExportHandler from '../api/_admin/export';
 import adminSlugHandler from '../api/admin/[...slug]';
 import { checkMethod, parseBody, getClientIp } from '../api/_lib/response';
-import * as turnstileModule from '../api/_lib/turnstile';
 import * as rateLimiterModule from '../api/_lib/rateLimiter';
 import * as supabaseServer from '../api/_lib/supabaseServer';
 import * as authModule from '../api/_lib/auth';
@@ -140,7 +139,6 @@ describe('Admin Serverless Catch-All Router (`/api/admin/[...slug]`)', () => {
 describe('Service Enquiry API (`/api/enquiries/service`)', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    vi.spyOn(turnstileModule, 'verifyTurnstileToken').mockResolvedValue({ success: true });
     vi.spyOn(rateLimiterModule, 'checkRateLimit').mockResolvedValue({ success: true, remaining: 5, resetAt: Date.now() + 60 });
   });
 
@@ -277,7 +275,6 @@ describe('Service Enquiry API (`/api/enquiries/service`)', () => {
 describe('Training Demo Registration API (`/api/registrations/training`)', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    vi.spyOn(turnstileModule, 'verifyTurnstileToken').mockResolvedValue({ success: true });
     vi.spyOn(rateLimiterModule, 'checkRateLimit').mockResolvedValue({ success: true, remaining: 5, resetAt: Date.now() + 60 });
   });
 

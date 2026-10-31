@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { setCorsHeaders } from '../api/_lib/response';
 
-describe('Content Security Policy (CSP) Configuration', () => {
+describe('Content Security Policy (CSP) Configuration (Turnstile-Free)', () => {
   const rootDir = path.resolve(__dirname, '..');
   const vercelJsonPath = path.join(rootDir, 'vercel.json');
   const indexHtmlPath = path.join(rootDir, 'index.html');
@@ -20,19 +20,17 @@ describe('Content Security Policy (CSP) Configuration', () => {
       expect(typeof csp).toBe('string');
     });
 
-    it('allows Cloudflare Turnstile scripts, frames, and connect-src', () => {
+    it('does NOT contain Cloudflare Turnstile origins (challenges.cloudflare.com)', () => {
       const csp = getHeader('Content-Security-Policy')!;
-      expect(csp).toMatch(/script-src[^;]*https:\/\/challenges\.cloudflare\.com/);
-      expect(csp).toMatch(/frame-src[^;]*https:\/\/challenges\.cloudflare\.com/);
-      expect(csp).toMatch(/connect-src[^;]*https:\/\/challenges\.cloudflare\.com/);
+      expect(csp).not.toContain('challenges.cloudflare.com');
     });
 
-    it('strictly includes "data:" in connect-src to resolve Turnstile infinite loading ("Connecting to data:,")', () => {
+    it('does NOT permit "data:" in connect-src now that Turnstile is removed', () => {
       const csp = getHeader('Content-Security-Policy')!;
       const connectMatch = csp.match(/connect-src\s+([^;]+)/);
       expect(connectMatch).not.toBeNull();
       const connectSources = connectMatch![1].split(/\s+/);
-      expect(connectSources).toContain('data:');
+      expect(connectSources).not.toContain('data:');
     });
 
     it('does NOT permit "data:" or "unsafe-eval" in script-src to prevent script injection', () => {
@@ -44,7 +42,7 @@ describe('Content Security Policy (CSP) Configuration', () => {
       expect(scriptSources).not.toContain("'unsafe-eval'");
     });
 
-    it('allows Supabase API, Google Fonts, and Google Maps required by application features', () => {
+    it('preserves Supabase API, Google Fonts, and Google Maps required by application features', () => {
       const csp = getHeader('Content-Security-Policy')!;
       expect(csp).toMatch(/connect-src[^;]*https:\/\/\*\.supabase\.co/);
       expect(csp).toMatch(/connect-src[^;]*wss:\/\/\*\.supabase\.co/);
@@ -64,10 +62,9 @@ describe('Content Security Policy (CSP) Configuration', () => {
   describe('index.html Meta CSP Fallback', () => {
     const indexHtml = fs.readFileSync(indexHtmlPath, 'utf-8');
 
-    it('includes a meta http-equiv="Content-Security-Policy" tag matching Turnstile requirements', () => {
+    it('includes a meta http-equiv="Content-Security-Policy" tag with no Turnstile references', () => {
       expect(indexHtml).toContain('<meta http-equiv="Content-Security-Policy"');
-      expect(indexHtml).toContain("https://challenges.cloudflare.com");
-      expect(indexHtml).toContain("data: https://challenges.cloudflare.com");
+      expect(indexHtml).not.toContain('challenges.cloudflare.com');
     });
   });
 

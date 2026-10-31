@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { ACADEMY_COURSES, SEO_METADATA_MAP, COMPANY_FACTS, SITE_URL } from '../data/cyberData';
 import { SEOHead } from '../components/common/SEOHead';
-import { TurnstileWidget } from '../components/common/TurnstileWidget';
 
 interface CourseDetailPageProps {
   onBookDemo: (courseTitle?: string) => void;
@@ -60,7 +59,8 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [trackingCode, setTrackingCode] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
+  const [honeypot, setHoneypot] = useState<string>('');
+  const formRenderedAt = useRef<number>(Date.now());
 
   const handleEnquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +80,8 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
           collegeOrCompany: formData.collegeOrCompany,
           programTitle: course.title,
           preferredMode: formData.modePreference,
-          turnstileToken,
+          website_url: honeypot,
+          _form_rendered_at: formRenderedAt.current,
         }),
       });
 
@@ -459,7 +460,19 @@ export const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ onBookDemo }
               </div>
             )}
 
-            <TurnstileWidget action="training_registration" onVerify={(t) => setTurnstileToken(t)} />
+            {/* Honeypot field for bot protection (hidden from humans) */}
+            <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+              <label htmlFor="hp_course_url">Leave this field blank</label>
+              <input
+                id="hp_course_url"
+                type="text"
+                name="website_url"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
 
             <button
               type="submit"

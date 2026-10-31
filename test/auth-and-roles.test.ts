@@ -198,7 +198,7 @@ describe('Audit Log Metadata Sanitization (`sanitizeAuditDetails`)', () => {
       actionType: 'UPDATE_STATUS',
       password: 'SuperSecretPassword!',
       token: 'jwt.token.here',
-      secret: 'turnstile_secret_key',
+      secret: 'mock_secret_key',
       apiKey: 're_123456789',
       authorization: 'Bearer privileged_token',
       nested: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   GraduationCap, 
@@ -11,7 +11,6 @@ import {
   Award
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { TurnstileWidget } from '../common/TurnstileWidget';
 
 interface B2CDemoModalProps {
   isOpen: boolean;
@@ -33,7 +32,8 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [trackingCode, setTrackingCode] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
+  const [honeypot, setHoneypot] = useState<string>('');
+  const formRenderedAt = useRef<number>(Date.now());
 
   useEffect(() => {
     if (prefilledCourseTitle) {
@@ -60,7 +60,8 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
           collegeOrCompany: collegeOrWork,
           programTitle: course,
           preferredMode: batchMode,
-          turnstileToken,
+          website_url: honeypot,
+          _form_rendered_at: formRenderedAt.current,
         }),
       });
 
@@ -212,7 +213,19 @@ export const B2CDemoModal: React.FC<B2CDemoModalProps> = ({
                 </div>
               )}
 
-              <TurnstileWidget action="training_registration" onVerify={(t) => setTurnstileToken(t)} />
+              {/* Honeypot field for bot protection (hidden from humans) */}
+              <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+                <label htmlFor="hp_demo_url">Leave this field blank</label>
+                <input
+                  id="hp_demo_url"
+                  type="text"
+                  name="website_url"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
 
               <div className="pt-2">
                 <button

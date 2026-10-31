@@ -30,7 +30,6 @@ import { TechMarquee } from '../components/common/TechMarquee';
 import { SEOHead } from '../components/common/SEOHead';
 import { MissionVision } from '../components/landing-additions/MissionVision';
 import { FounderMessage } from '../components/landing-additions/FounderMessage';
-import { TurnstileWidget } from '../components/common/TurnstileWidget';
 import { 
   BLOG_POSTS, 
   GOOGLE_REVIEWS, 
@@ -118,7 +117,8 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [trackingCode, setTrackingCode] = useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string>('TEST_PASS_TOKEN');
+  const [honeypot, setHoneypot] = useState<string>('');
+  const formRenderedAt = useRef<number>(Date.now());
   const videoRefA = useRef<HTMLVideoElement>(null);
   const videoRefB = useRef<HTMLVideoElement>(null);
   const [activeVideo, setActiveVideo] = useState<'A' | 'B'>('A');
@@ -199,7 +199,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           serviceInterest: formData.serviceInterest,
           message: formData.message,
           sourcePage: 'homepage_bottom_cta',
-          turnstileToken,
+          website_url: honeypot,
+          _form_rendered_at: formRenderedAt.current,
         }),
       });
 
@@ -1173,7 +1174,19 @@ export const HomePage: React.FC<HomePageProps> = ({
                     </div>
                   )}
 
-                  <TurnstileWidget action="service_enquiry" onVerify={(t) => setTurnstileToken(t)} />
+                  {/* Honeypot field for bot protection (hidden from humans) */}
+                  <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+                    <label htmlFor="hp_home_url">Leave this field blank</label>
+                    <input
+                      id="hp_home_url"
+                      type="text"
+                      name="website_url"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
 
                   <button
                     type="submit"
