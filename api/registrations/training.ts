@@ -92,10 +92,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   // Optional fields
   let email: string | null = null;
   if (typeof body.email === 'string' && body.email.trim() !== '') {
-    email = body.email.trim().toLowerCase();
-    if (!EMAIL_REGEX.test(email) || email.length > 150) {
+    const trimmedEmail = body.email.trim().toLowerCase();
+    if (!EMAIL_REGEX.test(trimmedEmail) || trimmedEmail.length > 150) {
       return sendError(res, 400, 'Please provide a valid email address.', 'VALIDATION_ERROR');
     }
+    email = trimmedEmail;
   }
 
   const collegeOrCompany = typeof body.collegeOrCompany === 'string'
@@ -122,10 +123,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     if (body.batchId) {
       const { data: batch } = await supabase
         .from('training_batches')
-        .select('is_active, status')
+        .select('*')
         .eq('id', body.batchId)
         .single();
-      if (batch && (!batch.is_active || batch.status === 'CLOSED')) {
+      if (batch && (!batch.is_active || (batch as any).status === 'CLOSED')) {
         return sendError(res, 400, 'Selected training batch is closed or no longer active.', 'BATCH_CLOSED');
       }
     }

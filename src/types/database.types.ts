@@ -65,6 +65,7 @@ export interface Database {
           created_at?: string;
         };
         Update: Partial<Database['public']['Tables']['api_rate_limits']['Insert']>;
+        Relationships: [];
       };
       admin_profiles: {
         Row: {
@@ -86,6 +87,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['admin_profiles']['Insert']>;
+        Relationships: [];
       };
       service_enquiries: {
         Row: {
@@ -131,6 +133,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['service_enquiries']['Insert']>;
+        Relationships: [];
       };
       training_programs: {
         Row: {
@@ -158,6 +161,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['training_programs']['Insert']>;
+        Relationships: [];
       };
       training_batches: {
         Row: {
@@ -185,6 +189,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['training_batches']['Insert']>;
+        Relationships: [];
       };
       training_registrations: {
         Row: {
@@ -220,6 +225,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['training_registrations']['Insert']>;
+        Relationships: [];
       };
       certificates: {
         Row: {
@@ -257,6 +263,7 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['certificates']['Insert']>;
+        Relationships: [];
       };
       audit_logs: {
         Row: {
@@ -280,6 +287,7 @@ export interface Database {
           created_at?: string;
         };
         Update: never; // Audit logs are immutable
+        Relationships: [];
       };
     };
     Views: {
@@ -300,6 +308,18 @@ export interface Database {
           expiry_date: string | null;
           status: CertificateStatus;
           verification_hash: string;
+        }[];
+      };
+      check_and_increment_rate_limit: {
+        Args: {
+          p_key: string;
+          p_limit: number;
+          p_window_seconds: number;
+        };
+        Returns: {
+          allowed: boolean;
+          remaining: number;
+          reset_at: string;
         }[];
       };
     };

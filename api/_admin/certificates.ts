@@ -4,7 +4,7 @@ import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClient
 import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth';
 import { getSupabaseServerClient } from '../_lib/supabaseServer';
 import { logAuditEvent } from '../_lib/audit';
-import type { CertificateCategory, CertificateStatus } from '../../src/types/database.types';
+import type { CertificateCategory, CertificateStatus, Database } from '../../src/types/database.types';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;
@@ -155,7 +155,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return sendError(res, 400, 'Certificate ID is required.', 'MISSING_ID');
     }
 
-    const updates: Record<string, any> = {
+    const updates: Database['public']['Tables']['certificates']['Update'] = {
       updated_at: new Date().toISOString(),
     };
     if (status) {

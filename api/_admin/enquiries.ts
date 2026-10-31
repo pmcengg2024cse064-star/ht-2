@@ -3,6 +3,7 @@ import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClient
 import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth';
 import { getSupabaseServerClient } from '../_lib/supabaseServer';
 import { logAuditEvent } from '../_lib/audit';
+import type { Database, EnquiryStatus } from '../../src/types/database.types';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;
@@ -79,7 +80,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return sendError(res, 400, 'Enquiry ID is required for updates.', 'MISSING_ID');
     }
 
-    const updatePayload: Record<string, any> = {
+    const updatePayload: Database['public']['Tables']['service_enquiries']['Update'] = {
       updated_at: new Date().toISOString(),
     };
 
@@ -88,7 +89,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       if (!allowedStatuses.includes(status)) {
         return sendError(res, 400, `Invalid status. Must be one of: ${allowedStatuses.join(', ')}`, 'INVALID_STATUS');
       }
-      updatePayload.status = status;
+      updatePayload.status = status as EnquiryStatus;
     }
 
     if (assignedTo !== undefined) {

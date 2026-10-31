@@ -3,7 +3,7 @@ import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClient
 import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth';
 import { getSupabaseServerClient } from '../_lib/supabaseServer';
 import { logAuditEvent } from '../_lib/audit';
-import type { TrainingMode } from '../../src/types/database.types';
+import type { TrainingMode, Database } from '../../src/types/database.types';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (handlePreflight(req, res)) return;
@@ -89,7 +89,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       return sendError(res, 400, 'Batch ID is required.', 'MISSING_ID');
     }
 
-    const updates: Record<string, any> = {
+    const updates: Database['public']['Tables']['training_batches']['Update'] = {
       updated_at: new Date().toISOString(),
     };
     if (batchName) updates.batch_name = batchName.trim();
