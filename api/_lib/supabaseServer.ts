@@ -14,10 +14,11 @@ export function getSupabaseServerClient(): SupabaseClient<Database> {
     return cachedServerClient;
   }
 
-  const { isValid, missing } = validateRequiredEnv();
-  if (!isValid) {
+  const validation = validateRequiredEnv();
+  if (!validation.isValid) {
+    const errorDetails = validation.errors.length > 0 ? validation.errors.join('; ') : validation.missing.join(', ');
     throw new Error(
-      `[Serverless Backend] Missing required environment variables: ${missing.join(', ')}`
+      `[Serverless Backend] Missing or invalid required environment variables: ${errorDetails}`
     );
   }
 
