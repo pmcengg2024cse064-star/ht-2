@@ -8,6 +8,7 @@
 export interface ServerEnv {
   SUPABASE_URL: string;
   SUPABASE_SERVICE_ROLE_KEY: string;
+  SUPABASE_ANON_KEY?: string;
   RESEND_API_KEY?: string;
   EMAIL_FROM?: string;
   NOTIFICATION_RECIPIENT_EMAILS?: string[];
@@ -16,12 +17,14 @@ export interface ServerEnv {
 
 export function getServerEnv(): ServerEnv {
   // Support either server-only SUPABASE_URL or fallback to VITE_SUPABASE_URL if set on server
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 
+  const supabaseUrl = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '').trim().replace(/\/+$/, '');
+  const anonKey = (process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '').trim();
+  const serviceRoleKey = (
+    process.env.SUPABASE_SERVICE_ROLE_KEY || 
     process.env.SUPABASE_SERVICE_KEY || 
     process.env.SUPABASE_SECRET || 
-    process.env.SUPABASE_ANON_KEY || 
-    process.env.VITE_SUPABASE_ANON_KEY || '';
+    anonKey || ''
+  ).trim();
   const resendApiKey = process.env.RESEND_API_KEY;
   const emailFrom = process.env.EMAIL_FROM || 'Hackup Technology <notifications@hackuptechnology.com>';
   
@@ -35,6 +38,7 @@ export function getServerEnv(): ServerEnv {
   return {
     SUPABASE_URL: supabaseUrl,
     SUPABASE_SERVICE_ROLE_KEY: serviceRoleKey,
+    SUPABASE_ANON_KEY: anonKey,
     RESEND_API_KEY: resendApiKey,
     EMAIL_FROM: emailFrom,
     NOTIFICATION_RECIPIENT_EMAILS: notificationRecipients,
