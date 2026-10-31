@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { createHash } from 'node:crypto';
 import { checkMethod, handlePreflight, parseBody, sendError, sendJson, getClientIp } from '../_lib/response.js';
-import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth.js';
+import { authenticateStaffRequest, hasRequiredRole, type AuthContext } from '../_lib/auth.js';
 import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
 import { logAuditEvent } from '../_lib/audit.js';
 import type { CertificateCategory, CertificateStatus, Database } from '../../src/types/database.types.js';
@@ -12,10 +12,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
   const authResult = await authenticateStaffRequest(req.headers.authorization);
   if (!authResult.success) {
-    return sendError(res, authResult.status, authResult.error, 'UNAUTHORIZED');
+    const failure = authResult as { success: false; status: number; error: string };
+    return sendError(res, failure.status, failure.error, 'UNAUTHORIZED');
   }
 
-  const staff = authResult.auth.profile;
+  const staff = (authResult as { success: true; auth: AuthContext }).auth.profile;
   const clientIp = getClientIp(req);
   const supabase = getSupabaseServerClient();
 

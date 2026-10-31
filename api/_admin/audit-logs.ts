@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { checkMethod, handlePreflight, sendError, sendJson } from '../_lib/response.js';
-import { authenticateStaffRequest, hasRequiredRole } from '../_lib/auth.js';
+import { authenticateStaffRequest, hasRequiredRole, type AuthContext } from '../_lib/auth.js';
 import { getSupabaseServerClient } from '../_lib/supabaseServer.js';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
@@ -9,10 +9,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
   const authResult = await authenticateStaffRequest(req.headers.authorization);
   if (!authResult.success) {
-    return sendError(res, authResult.status, authResult.error, 'UNAUTHORIZED');
+    const failure = authResult as { success: false; status: number; error: string };
+    return sendError(res, failure.status, failure.error, 'UNAUTHORIZED');
   }
 
-  const staff = authResult.auth.profile;
+  const staff = (authResult as { success: true; auth: AuthContext }).auth.profile;
   if (!hasRequiredRole(staff.role, ['SUPER_ADMIN', 'ADMIN', 'AUDITOR'])) {
     return sendError(res, 403, 'Access denied: Instructors cannot view audit logs.', 'FORBIDDEN');
   }
