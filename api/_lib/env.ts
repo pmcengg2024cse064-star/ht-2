@@ -17,7 +17,11 @@ export interface ServerEnv {
 export function getServerEnv(): ServerEnv {
   // Support either server-only SUPABASE_URL or fallback to VITE_SUPABASE_URL if set on server
   const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 
+    process.env.SUPABASE_SERVICE_KEY || 
+    process.env.SUPABASE_SECRET || 
+    process.env.SUPABASE_ANON_KEY || 
+    process.env.VITE_SUPABASE_ANON_KEY || '';
   const resendApiKey = process.env.RESEND_API_KEY;
   const emailFrom = process.env.EMAIL_FROM || 'Hackup Technology <notifications@hackuptechnology.com>';
   

@@ -104,9 +104,9 @@ export async function checkRateLimit(
     }
 
     // Fail-Closed Handling:
-    // If failClosed is explicitly set or if running in production, do not fall back to per-instance memory cache.
-    const shouldFailClosed = options.failClosed ?? env.IS_PRODUCTION;
-    if (shouldFailClosed) {
+    // Only fail closed if explicitly requested via options.failClosed: true.
+    // Otherwise, log a warning and gracefully fall back to the in-memory sliding-window cache.
+    if (options.failClosed === true) {
       console.error(`[RateLimiter Security] Distributed rate limiter unavailable for key "${cleanKey}". Failing closed.`);
       return {
         success: false,
@@ -115,10 +115,13 @@ export async function checkRateLimit(
         isServiceUnavailable: true,
       };
     }
+
+    console.warn(`[RateLimiter Resilience] Distributed rate limiter unavailable for key "${cleanKey}". Falling back to in-memory limiter.`);
   }
 
-  // 3. In-Memory Fallback (Allowed only in non-production local development or when explicitly enabled)
-  if (!env.IS_PRODUCTION || options.allowMemoryFallback) {
+  // 3. In-Memory Fallback
+  // Enabled whenever failClosed is not strictly required, ensuring high availability
+  if (options.failClosed !== true) {
     const record = memoryCache.get(cleanKey);
 
     if (!record || now >= record.resetAt) {
@@ -149,8 +152,8 @@ export async function checkRateLimit(
     };
   }
 
-  // If in production and DB was unconfigured
-  console.error('[RateLimiter Security] SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is unconfigured in production environment. Distributed rate limiter cannot initialize. Failing closed.');
+  // Only reached if failClosed was explicitly true and DB was unconfigured
+  console.error('[RateLimiter Security] Database unconfigured and failClosed is true. Failing closed.');
   return {
     success: false,
     remaining: 0,

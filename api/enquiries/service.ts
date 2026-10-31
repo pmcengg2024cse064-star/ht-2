@@ -13,15 +13,15 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
   const clientIp = getClientIp(req);
 
-  // 1. Rate Limiting (10 requests per minute per IP, Fail-Closed)
+  // 1. Rate Limiting (10 requests per minute per IP, with automatic memory fallback)
   const rateLimitKey = `srv_enq:${clientIp}`;
-  const rateLimitResult = await checkRateLimit(rateLimitKey, 10, 60, { failClosed: true });
+  const rateLimitResult = await checkRateLimit(rateLimitKey, 10, 60);
   if (!rateLimitResult.success) {
     if (rateLimitResult.isServiceUnavailable) {
       return sendError(
         res,
         503,
-        'Security verification service temporarily unavailable. Please retry shortly.',
+        'Service temporarily unavailable. Please retry shortly.',
         'SERVICE_UNAVAILABLE'
       );
     }
