@@ -104,6 +104,20 @@ describe('Sliding-Window Rate Limiting Engine', () => {
       expect(result.remaining).toBe(0);
       expect(result.isServiceUnavailable).toBe(true);
     });
+
+    it('enforces Fail-Closed behavior with isServiceUnavailable when DB is unconfigured in production', async () => {
+      vi.spyOn(envModule, 'getServerEnv').mockReturnValue({
+        SUPABASE_URL: '',
+        SUPABASE_SERVICE_ROLE_KEY: '',
+        IS_PRODUCTION: true,
+      } as any);
+
+      const result = await checkRateLimit('srv:ip_unconfigured_prod', 10, 60, { failClosed: true });
+
+      expect(result.success).toBe(false);
+      expect(result.remaining).toBe(0);
+      expect(result.isServiceUnavailable).toBe(true);
+    });
   });
 
   describe('In-Memory Counter for Offline Dev and Unit Tests', () => {

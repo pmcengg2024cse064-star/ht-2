@@ -32,7 +32,7 @@ export function getServerEnv(): ServerEnv {
   const allowedHostnamesRaw = process.env.TURNSTILE_ALLOWED_HOSTNAMES || '';
   const allowedHostnames = allowedHostnamesRaw
     ? allowedHostnamesRaw.split(',').map((h) => h.trim().toLowerCase()).filter(Boolean)
-    : ['hackuptechnology.com', 'www.hackuptechnology.com', 'localhost', '127.0.0.1'];
+    : ['hackuptechnology.com', 'www.hackuptechnology.com', 'vercel.app', 'localhost', '127.0.0.1'];
 
   const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production';
 

@@ -84,6 +84,26 @@ describe('Cloudflare Turnstile Anti-Bot Verification', () => {
     expect(result.success).toBe(true);
   });
 
+  it('accepts tokens from vercel.app preview domains when vercel.app is in allowed hostnames', async () => {
+    vi.spyOn(envModule, 'getServerEnv').mockReturnValue({
+      TURNSTILE_SECRET_KEY: '0x4AAAAAAtestkey',
+      TURNSTILE_ALLOWED_HOSTNAMES: ['hackuptechnology.com', 'vercel.app', 'localhost'],
+      IS_PRODUCTION: true,
+    } as any);
+
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        success: true,
+        challenge_ts: new Date().toISOString(),
+        hostname: 'ht-2-five.vercel.app',
+      }),
+    } as any);
+
+    const result = await verifyTurnstileToken('valid-vercel-token');
+    expect(result.success).toBe(true);
+  });
+
   it('rejects when token is solved on an unapproved foreign hostname (hostname-mismatch)', async () => {
     vi.spyOn(envModule, 'getServerEnv').mockReturnValue({
       TURNSTILE_SECRET_KEY: '0x4AAAAAAtestkey',

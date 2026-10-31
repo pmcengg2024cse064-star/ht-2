@@ -97,7 +97,7 @@ export async function checkRateLimit(
       }
 
       if (error) {
-        console.error('[RateLimiter] Database RPC error:', error.message);
+        console.error(`[RateLimiter] Database RPC error: ${error.message} (code: ${error.code || 'UNKNOWN'}). Verify that migration 20261029000003_api_lockdown_and_rate_limiting.sql has been applied.`);
       }
     } catch (err: any) {
       console.error('[RateLimiter] Database connection exception:', err?.message || err);
@@ -150,6 +150,7 @@ export async function checkRateLimit(
   }
 
   // If in production and DB was unconfigured
+  console.error('[RateLimiter Security] SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is unconfigured in production environment. Distributed rate limiter cannot initialize. Failing closed.');
   return {
     success: false,
     remaining: 0,
